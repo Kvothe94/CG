@@ -67,8 +67,11 @@
     <ClCompile Include="Model.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Asteroide.h" />
     <ClInclude Include="audiere.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Navicella.h" />
+    <ClInclude Include="Proiettile.h" />
     <ClInclude Include="SOIL.h" />
   </ItemGroup>
   <ItemGroup>

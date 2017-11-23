@@ -32,6 +32,15 @@
     <ClInclude Include="audiere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Asteroide.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Navicella.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Proiettile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SOIL.lib" />

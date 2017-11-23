@@ -17,9 +17,14 @@
 #include <vector>
 #include <time.h>
 #include <math.h>
+#include "Asteroide.h"
+#include "Navicella.h"
+#include "Proiettile.h"
 
-#define PI 3.141592654
 
+
+#define Xmax=100;
+#define Ymax=100;
 // A class for storing vetices
 //  Vertex
 class Vertex {
@@ -27,15 +32,20 @@ class Vertex {
 	public:
 
 		float x, y, z;			// 3d coordinate of the vertex
-		float Nx, Ny, Nz;		// Normal to the surface (if present)
-		float u, v;				// texture coordinates
-		float r, g, b;			// Color (0.0 -  1.0)
-
+		
+		
 		Vertex() {}
 		Vertex(float x, float y, float z): x(x), y(y), z(z) { }
-		Vertex(float x, float y, float z, float u, float v): x(x), y(y), z(z), u(u), v(v) { }
+		
+		float getX(){
+			return x;
+		}
+		float getY(){
+			return y;
+		}
 
 		inline void SetP(float x,float y,float z) { this->x = x; this->y = y; this->z = z; }
+		inline void modifieP(float x1, float y1) { this->x = x+x1; this->y = y+y1; this->z = z; }
 		inline void SetN(float Nx,float Ny,float Nz) { this->Nx = Nx; this->Ny = Ny; this->Nz = Nz;}
 
 };
@@ -56,6 +66,13 @@ class MyModel {
 		bool captured;        // true if the mouse is captured
 		int cx, cy;           // client position of the cursor
 		bool	fullscreen;	    // Fullscreen Flag 
+		////////////////////////////
+	
+		std::vector<Vertex> Background;   // background
+		GLuint	base;				// Base Display List For The Font Set
+		std::vector<Asteroide> Asteroidi;
+		std::vector<Proiettile> Proiettili;
+		Navicella navicella;
 
 	private:
 	//  projection limits in X and Y: x in [-plx, plx], y in [-ply, ply]
@@ -67,35 +84,28 @@ class MyModel {
 		double fps;
 
 		//  model data
-		std::vector<Vertex> Background;   // background
+		
 		std::vector<Vertex> fire;         // floating fire
 		std::vector<Vertex> curs;         // floating cursor
 		clock_t Tstamp, Tstart;
 		double Full_elapsed;  // elapsed time in seconds from the beginning of the program
 
 		GLuint	texture[28];			// Storage For 28 Textures!
-		GLuint	base;				// Base Display List For The Font Set
+		
 	public:
 	//  methods
+		//costruttore
 		MyModel(): hDC(NULL), hRC (NULL), hWnd (NULL), active (true),
 			fullscreen(true), frames(0), fps(0), cursor(true), captured(false) {
-			
+			//TO DO
+			//queste sono le stesse del prof non le ho toccate poi andranno gestite meglio per questione resize
 			Background.clear();
 			Background.push_back(Vertex(-1,-1,-5,0,0));
 			Background.push_back(Vertex( 1,-1,-5,1,0));
 			Background.push_back(Vertex( 1, 1,-5,1,1));
 			Background.push_back(Vertex(-1, 1,-5,0,1));
-			fire.clear();
-			fire.push_back(Vertex(-1,-1,-5,0,0));
-			fire.push_back(Vertex( 1,-1,-5,1,0));
-			fire.push_back(Vertex( 1, 1,-5,1,1));
-			fire.push_back(Vertex(-1, 1,-5,0,1));
-
-			curs.clear();
-			curs.push_back(Vertex(-1,-1,-4,0,0));
-			curs.push_back(Vertex( 1,-1,-4,1,0));
-			curs.push_back(Vertex( 1, 1,-4,1,1));
-			curs.push_back(Vertex(-1, 1,-4,0,1));
+			//creo una navicella
+			navicella = Navicella();
 
 			this->Tstart = this->Tstamp = clock();
 			this->Full_elapsed = 0;
