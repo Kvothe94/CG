@@ -11,12 +11,12 @@ class Navicella {
 
 public:
 	
-	float vely;
+	float velx;
 	float r = 5;
 	Vertex center;
 	std::vector<Vertex> shape;   //vertici
 
-	//TO SEE non so come mai non riconosca questo elemento		
+	
 	GLuint	texture;				// Base Display List For The Font Set
 public:
 	Navicella()  {
@@ -42,11 +42,11 @@ public:
 
 	}
 	//muove la navicella lungo x
-	void Move(float x){
-		if (limitOk(center,x)){
+	void Move(){
+		if (limitOk(center,velx)){
 			for (int i = 0; i < shape.size; i++){
 				Vertex v = shape.front;
-				v.modifieP(x, 0);
+				v.modifieP(velx, 0);
 				shape.push_back(v);
 				
 			}

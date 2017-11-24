@@ -36,7 +36,7 @@ public:
 		shape.push_back(Vertex(x - r, y - r, z));
 		shape.push_back(Vertex(x - r, y + r, z));
 		velx = 1 + rand()*level;
-		//TO SEE vely dovrebbe essere randomizzato tra -1 e 1, non tra 0 e 1.
+		
 		vely = rand()*level;
 
 	}

@@ -17,7 +17,7 @@ public:
 	Vertex center;
 	std::vector<Vertex> shape;   //vertici
 
-	//TO SEE non so come mai non riconosca questo elemento		
+		
 	GLuint	texture;				// Base Display List For The Font Set
 public:
 	Proiettile(float x, float y, float z, float u, float v, float l)  {
