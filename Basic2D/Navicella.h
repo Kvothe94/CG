@@ -31,6 +31,9 @@ public:
 
 	}
 	//controlla se non siamo fuori dalla griglia
+	//TO SEE Stessa cosa di prima: se facciamo come abbiamo detto
+	//a grattarola la nave si muove lungo le y, non le x
+	//come per altro mi sembra faccia dato la vely
 	bool limitOk(Vertex v,float x){
 		if (v.getX()+x > 100 || v.getX+x < 0){
 			return false;

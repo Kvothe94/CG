@@ -10,6 +10,8 @@ class Proiettile {
 
 public:
 
+	// TO SEE sempre secondo il piano cartesiano disegnato in asteroide.h
+	// il proiettile si muove lungo le x => velx
 	float vely;
 	float r = 2;
 	Vertex center;
@@ -32,6 +34,8 @@ public:
 
 	}
 	//controllo se sono arrivato in cima
+	//TO SEE anche qui bisogna prima farlo uscire dalla zona visibile e poi
+	//distruggerlo.
 
 	bool limitOk(Vertex v){
 		

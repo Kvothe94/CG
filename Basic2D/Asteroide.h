@@ -13,6 +13,8 @@
 class Asteroide {
 
 public:
+	
+	//TO SEE terrei 2 livelli di difficoltà differenti.
 	float level;//livello di difficoltà esso va a moltiplicare sia la velocita che la dimensione
 	float velx;
 	float vely;
@@ -34,6 +36,7 @@ public:
 		shape.push_back(Vertex(x - r, y - r, z));
 		shape.push_back(Vertex(x - r, y + r, z));
 		velx = 1 + rand()*level;
+		//TO SEE vely dovrebbe essere randomizzato tra -1 e 1, non tra 0 e 1.
 		vely = rand()*level;
 
 	}
@@ -44,6 +47,21 @@ public:
 		r = rand();
 		//considero griglia di 100 posizione rand lungo x e y che invece è max cioè 100
 		//TO SEE come mai mi trova ma mi da errore sulle costanti definite in model.h?
+
+		//Secondo me è perché in asteroide.h includi model.h e viceversa, non mi sembra
+		//una buona idea.
+
+		//TO SEE Dobbiamo definire un'attimo bene la terna ortonormale:
+		//	y
+		//	|
+		//	|				z uscente.
+		//	|
+		//	|
+		//	------------x
+		//se lo mettiamo che gli asteroidi arrivano da il fondo della x e vengono verso
+		//l'origine allora dobbiamo randomizzare sulle y e non sulle x
+		//inoltre la creazione dell'asteroide deve avvenire fuori dall'area visibile e poi
+		//deve procedere verso l'asse y.
 		float x = rand() * Xmax;
 		float y = Ymax-r;
 		float z = 0;
@@ -60,6 +78,10 @@ public:
 
 	}
 	//muovo lasteroide torno true se colpisco il fondo
+	
+	// TO SEE io personalmente chiamerei in modo diverso da hit la funzione:
+	// conviene usare hit per quando l'asteroide viene colpito da un proiettile
+	// e un altro nome per quando va perso: tipo passed o altro.
 	bool move(){
 		if (hit()){
 			return true;
