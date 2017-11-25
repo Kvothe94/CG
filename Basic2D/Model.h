@@ -20,35 +20,9 @@
 #include "Asteroide.h"
 #include "Navicella.h"
 #include "Proiettile.h"
+#include "Vertex.h"
+#include "Constant.h"
 
-
-
-#define Xmax=100;
-#define Ymax=100;
-// A class for storing vetices
-//  Vertex
-class Vertex {
-
-	public:
-
-		float x, y, z;			// 3d coordinate of the vertex
-		
-		
-		Vertex() {}
-		Vertex(float x, float y, float z): x(x), y(y), z(z) { }
-		
-		float getX(){
-			return x;
-		}
-		float getY(){
-			return y;
-		}
-
-		inline void SetP(float x,float y,float z) { this->x = x; this->y = y; this->z = z; }
-		inline void modifieP(float x1, float y1) { this->x = x+x1; this->y = y+y1; this->z = z; }
-		inline void SetN(float Nx,float Ny,float Nz) { this->Nx = Nx; this->Ny = Ny; this->Nz = Nz;}
-
-};
 
 
 class MyModel {

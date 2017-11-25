@@ -32,13 +32,19 @@
     <ClInclude Include="audiere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Asteroide.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Navicella.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Proiettile.h">
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Asteroid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

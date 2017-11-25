@@ -1,9 +1,4 @@
-﻿Build started 17/11/2014 23:14:55.
-     1>Project "C:\Users\aldo\Desktop\DIDA\PPT x CG\OGL_eng\Basic2D_3\Basic2D\Basic2D.vcxproj" on node 2 (clean target(s)).
-     1>_PrepareForClean:
-         Deleting file "Release\Basic2D.lastbuildstate".
-     1>Done Building Project "C:\Users\aldo\Desktop\DIDA\PPT x CG\OGL_eng\Basic2D_3\Basic2D\Basic2D.vcxproj" (clean target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:00:00.02
+﻿  main.cpp
+d:\documenti\code\github\cg\basic2d\Asteroide.h(6): fatal error C1014: too many include files: depth = 1024
+  Model.cpp
+d:\documenti\code\github\cg\basic2d\Asteroide.h(6): fatal error C1014: too many include files: depth = 1024

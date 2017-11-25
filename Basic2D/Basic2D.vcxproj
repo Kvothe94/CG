@@ -67,12 +67,14 @@
     <ClCompile Include="Model.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Asteroide.h" />
+    <ClInclude Include="Asteroid.h" />
     <ClInclude Include="audiere.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Constant.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Navicella.h" />
-    <ClInclude Include="Proiettile.h" />
     <ClInclude Include="SOIL.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\audiere.lib" />
