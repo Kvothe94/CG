@@ -3,6 +3,10 @@
 #ifndef CONSTANT_H
 #define CONSTANT_H
 
+///TO SEE I valori delle costanti al momento sono sensati
+///       ma non definitivi: io direi di fare tuning una
+///       volta che abbiamo generato qualcosa di visibile.
+
 //Space Limit Constant Definition
 
 #define MAX_VIS_X 320		//Massima punto visibile lungo le x
@@ -26,8 +30,20 @@
 
 #define AST_BASE_SPEED_X 5
 #define AST_SPAN_SPEED_X 5
-#define AST_BASE_SPEED_Y 1
+#define AST_BASE_SPEED_Y 0
 #define AST_SPAN_SPEED_Y 2
+#define AST_MAX_LENGTH 10
+#define AST_MAX_WIDTH 10
+#define AST_MIN_LENGTH 5
+#define AST_MIN_WIDTH 5
+#define AST_HEIGHT 2
+
+//Spaceship Constant Definition
+
+#define SS_BASE_SPEED 10
+#define SS_LENGTH 5
+#define SS_WIDTH 5
+#define SS_HEIGHT 2
 
 
 #endif

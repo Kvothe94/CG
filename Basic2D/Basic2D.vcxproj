@@ -72,8 +72,8 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="Navicella.h" />
     <ClInclude Include="SOIL.h" />
+    <ClInclude Include="Spaceship.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>

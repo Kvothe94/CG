@@ -1,14 +1,15 @@
-
 #ifndef BULLET_H
 #define BULLET_H
 
 #include <vector>
 #include <time.h>
-#include <GL/gl.h>
+#include <windows.h>
+#include <gl\gl.h>
+#include <gl\glu.h>	
 #include <math.h>
 #include <stdlib.h>
-#include "Constant.h"
 #include "Model.h"
+#include "Constant.h"
 
 class Bullet {
 
@@ -44,7 +45,11 @@ class Bullet {
 		///       di una texture in modo da ciclare
 		///       e rendere il proiettile un po' più
 		///       bello.
-		GLuint texture;					
+		///TO SEE a quanto ho visto le vere e proprie
+		///		  texture vengono memorizzate in model.h
+		///       nella classe dell'oggetto memorizzi i
+		///       riferimenti alle texture di model.h.
+		int texture;					
 
 	public:
 
@@ -71,17 +76,23 @@ class Bullet {
 			shape.push_back(Vertex(x - length / 2, y - width / 2, z));
 			shape.push_back(Vertex(x - length / 2, y + width / 2, z));
 
+			///TO DO dobbiamo decidere a che indice dell'array delle
+			///      texture in model.h corrispondono le varie texture
+			///      e quindi scegliere i giusti riferimenti per le
+			///      texture della classe.
+
 		}
 
-		void setSpeedX(speedX) {
+		//SET METHODS
+		void setSpeedX(float speedX) {
 			this->speedX = speedX;
 		}
 
-		void setLength(length) {
+		void setLength(float length) {
 			this->length = length;
 		}
 
-		void setWidth(width) {
+		void setWidth(float width) {
 			this->width = width;
 		}
 
@@ -90,10 +101,10 @@ class Bullet {
 			this->center = center;
 
 			shape.clear();
-			shape.push_back(Vertex(x + length / 2, y + width / 2, z));
-			shape.push_back(Vertex(x + length / 2, y - width / 2, z));
-			shape.push_back(Vertex(x - length / 2, y - width / 2, z));
-			shape.push_back(Vertex(x - length / 2, y + width / 2, z));
+			shape.push_back(Vertex(center.getX() + length / 2, center.getY() + width / 2, center.getZ()));
+			shape.push_back(Vertex(center.getX() + length / 2, center.getY() - width / 2, center.getZ()));
+			shape.push_back(Vertex(center.getX() - length / 2, center.getY() - width / 2, center.getZ()));
+			shape.push_back(Vertex(center.getX() - length / 2, center.getY() + width / 2, center.getZ()));
 
 		}
 
@@ -101,10 +112,11 @@ class Bullet {
 			this->toDestroy = toDestroy;
 		}
 
-		void setTexture(GLuint texture) {
+		void setTexture(int texture) {
 			this->texture = texture;
 		}
 
+		//GET METHODS
 		float getSpeedX() {
 			return speedX;
 		}
@@ -129,7 +141,7 @@ class Bullet {
 			return toDestroy;
 		}
 
-		GLuint getTexture() {
+		int getTexture() {
 			return texture;
 		}
 
@@ -146,9 +158,9 @@ class Bullet {
 		///       chiaro come possiamo fare.
 		bool outOfBoundaries() {
 
-			//Bisogna aspettare che l'ultimo pezzo visibile di asteroide
+			//Bisogna aspettare che l'ultimo pezzo visibile di proiettile
 			//sia uscito dalla zona di visibilità
-			if (this->center.x - l / 2 > MAX_VIS_X)
+			if (this->center.getX() - length / 2 > MAX_VIS_X)
 				return true;
 			else
 				return false;

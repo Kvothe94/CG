@@ -4,10 +4,12 @@
 
 class Vertex {
 
-	public:
+	private:
 
 		float x, y, z;
 		float nX, nY, nZ;
+
+	public:
 
 		Vertex() {
 

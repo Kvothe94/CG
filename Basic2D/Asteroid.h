@@ -3,10 +3,14 @@
 
 #include <vector>
 #include <time.h>
-#include <GL/gl.h>
+#include <windows.h>
+#include <gl\gl.h>
+#include <gl\glu.h>	
 #include <math.h>
-#include "Model.h"
 #include <stdlib.h>
+#include "Model.h"
+#include "Constant.h"
+
 
 class Asteroid {
 
@@ -36,7 +40,7 @@ class Asteroid {
 		Vertex center;
 
 		//Lista di vertici che costituiscono la nostra
-		//forma geometrica sottostante il proiettile.
+		//forma geometrica sottostante l'asteroide.
 		std::vector<Vertex> shape;   
 
 		//Variabile che, qualora settata a true, indica
@@ -51,9 +55,14 @@ class Asteroid {
 		//Variabile che contiene le nostre texture.
 		///TO SEE In teoria potrebbe servirci più
 		///       di una texture in modo da ciclare
-		///       e rendere il proiettile un po' più
-		///       bello.
-		GLuint texture;
+		///       e rendere l'asteroide un po' più
+		///       bello, idem per l'esplosione.
+		///TO SEE a quanto ho visto le vere e proprie
+		///		  texture vengono memorizzate in model.h
+		///       nella classe dell'oggetto memorizzi i
+		///       riferimenti alle texture di model.h.
+		int texture;
+		int explosionTexture;
 
 	public:
 
@@ -72,7 +81,7 @@ class Asteroid {
 			//difficulty.
 			//Considerando come abbiamo definito il nostro spazio la velocità
 			//lungo le x deve avere un valore negativo.
-			speedX = difficulty * (sX + (rand() % (AST_SPAN_SPEED_X * difficulty))) ;
+			speedX = difficulty * (sX + (rand() % int(AST_SPAN_SPEED_X * difficulty))) ;
 			speedX = -speedX;
 
 			//La velocità lungo y può essere sia negativa che positiva:
@@ -84,7 +93,7 @@ class Asteroid {
 			else
 				sign = -1;
 			
-			speedY = sign * difficulty * (sY + (rand() % (AST_SPAN_SPEED_Y * difficulty)));
+			speedY = sign * difficulty * (sY + (rand() % int(AST_SPAN_SPEED_Y * difficulty)));
 			
 			///TO SEE Invece che il raggio ho messo length e width
 			///       in modo da poter mettere asteroidi non quadrati.
@@ -99,91 +108,199 @@ class Asteroid {
 			shape.push_back(Vertex(x - length / 2, y - width / 2, z));
 			shape.push_back(Vertex(x - length / 2, y + width / 2, z));
 
+			///TO DO dobbiamo decidere a che indice dell'array delle
+			///      texture in model.h corrispondono le varie texture
+			///      e quindi scegliere i giusti riferimenti per le
+			///      texture della classe.
+
 		}
 
-		///TO SEE Da qui in poi non ho ancora toccato, domani vado avanti
+		//Costruttore che genera un asteroide con dimensioni, posizione e velocità
+		//randomiche.
+		Asteroid(float diff) {
+			
+			difficulty = diff;
+			length = AST_MIN_LENGTH + (rand() % (AST_MAX_LENGTH - AST_MIN_LENGTH));
+			width = AST_MIN_WIDTH + (rand() % (AST_MAX_WIDTH - AST_MIN_WIDTH));
 
-		//Creo asteroide completamente random
-		Asteroide(float l) {
-			level = l;
-			//dimensione cioè raggio dell'asteroide
-			r = rand();
-			//considero griglia di 100 posizione rand lungo x e y che invece è max cioè 100
-			//TO SEE come mai mi trova ma mi da errore sulle costanti definite in model.h?
+			float x, y, z;
+			
+			//Non randomizzo la posizione della coordinata x del centro in quanto
+			//vogliamo che l'asteroide venga generato in fondo alla mappa fuori
+			//dalla zona di visibilità.
+			x = MAX_VIS_X + length / 2;
+			
+			//Il calcolo della coordinata y è randomizzato in modo tale che l'asteroide
+			//venga generato completamente all'interno della zona di visibilità della Y.
+			y = (MIN_VIS_Y + width / 2) + (rand() % int(MAX_VIS_Y - MIN_VIS_Y - width));
+			z = AST_HEIGHT;
 
-			//Secondo me è perché in asteroide.h includi model.h e viceversa, non mi sembra
-			//una buona idea.
-
-			//TO SEE Dobbiamo definire un'attimo bene la terna ortonormale:
-			//	y
-			//	|
-			//	|				z uscente.
-			//	|
-			//	|
-			//	------------x
-			//se lo mettiamo che gli asteroidi arrivano da il fondo della x e vengono verso
-			//l'origine allora dobbiamo randomizzare sulle y e non sulle x
-			//inoltre la creazione dell'asteroide deve avvenire fuori dall'area visibile e poi
-			//deve procedere verso l'asse y.
-			float x = rand() * Xmax;
-			float y = Ymax - r;
-			float z = 0;
 			center = Vertex(x, y, z);
 
-			//qui ho definito i vertici del asteroide come un punto centrale con poi spiazzamento
-			shape.clear;
-			shape.push_back(Vertex(x + r, y + r, z));
-			shape.push_back(Vertex(x + r, y - r, z));
-			shape.push_back(Vertex(x - r, y - r, z));
-			shape.push_back(Vertex(x - r, y + r, z));
-			vely = -(1 + rand()*level);
-			velx = rand()*level;
+			//Computazione della velocità lungo le x:
+			//In questo caso non abbiamo una velocità di base fornita dall'esterno. =>
+			//=> Usiamo la velocità di base fornita come costante del modello.
+			//Ad essa si aggiunge una quantità randomica in uno span di valori
+			//che varia al variare della difficulty.
+			//La velocità così ottenuta viene ulteriormente moltiplicata per la
+			//difficulty.
+			//Considerando come abbiamo definito il nostro spazio la velocità
+			//lungo le x deve avere un valore negativo.
+			speedX = difficulty * (AST_BASE_SPEED_X + (rand() % int(AST_SPAN_SPEED_X * difficulty)));
+			speedX = -speedX;
+
+			//La velocità lungo y può essere sia negativa che positiva:
+			//dobbiamo randomizzare anche la scelta del segno.
+			//Anche in questo caso usiamo la velocità base fornita come
+			//costante al modello.
+			int sign;
+			int auxRand = rand() % 2;
+			if (auxRand)
+				sign = 1;
+			else
+				sign = -1;
+
+			speedY = sign * difficulty * (AST_BASE_SPEED_Y + (rand() % int(AST_SPAN_SPEED_Y * difficulty)));
+
+			toDestroy = false;
+
+			//Definiamo i vertici dell'asteroide utilizzando
+			//larghezza e lunghezza
+			shape.push_back(Vertex(x + length / 2, y + width / 2, z));
+			shape.push_back(Vertex(x + length / 2, y - width / 2, z));
+			shape.push_back(Vertex(x - length / 2, y - width / 2, z));
+			shape.push_back(Vertex(x - length / 2, y + width / 2, z));
+
+			///TO DO dobbiamo decidere a che indice dell'array delle
+			///      texture in model.h corrispondono le varie texture
+			///      e quindi scegliere i giusti riferimenti per le
+			///      texture della classe.
+			
+		}
+
+		//SET METHODS
+		void setDifficulty(float difficulty) {
+			this->difficulty = difficulty;
+		}
+
+		void setSpeedX(float speedX) {
+			this->speedX = speedX;
+		}
+
+		void setSpeedY(float speedY) {
+			this->speedY = speedY;
+		}
+
+		void setLength(float length) {
+			this->length = length;
+		}
+
+		void setWidth(float width) {
+			this->width = width;
+		}
+
+		void setCenter(Vertex center) {
+
+			this->center = center;
+
+			shape.clear();
+			shape.push_back(Vertex(center.getX() + length / 2, center.getY() + width / 2, center.getZ()));
+			shape.push_back(Vertex(center.getX() + length / 2, center.getY() - width / 2, center.getZ()));
+			shape.push_back(Vertex(center.getX() - length / 2, center.getY() - width / 2, center.getZ()));
+			shape.push_back(Vertex(center.getX() - length / 2, center.getY() + width / 2, center.getZ()));
 
 		}
-		//muovo lasteroide torno true se colpisco il fondo
 
-		// TO SEE io personalmente chiamerei in modo diverso da hit la funzione:
-		// conviene usare hit per quando l'asteroide viene colpito da un proiettile
-		// e un altro nome per quando va perso: tipo passed o altro.
-		bool move() {
-			if (hit()) {
+		void setToDestroy(bool toDestroy) {
+			this->toDestroy = toDestroy;
+		}
+
+		void setTexture(int texture) {
+			this->texture = texture;
+		}
+		
+		//GET METHODS
+		float getDifficulty() {
+			return difficulty;
+		}
+
+		float getSpeedX() {
+			return speedX;
+		}
+
+		float getSpeedY() {
+			return speedY;
+		}
+
+		float getLength() {
+			return length;
+		}
+
+		float getWidth() {
+			return width;
+		}
+
+		Vertex getCenter() {
+			return center;
+		}
+
+		std::vector<Vertex> getShape() {
+			return shape;
+		}
+
+		bool getToDestroy() {
+			return toDestroy;
+		}
+
+		int getTexture() {
+			return texture;
+		}
+
+		//Funzione per verificare se l'oggetto è fuori dalla zona
+		//di visibilità.
+		///TO SEE io personalmente non la userei per impedire all'oggetto
+		///		  di muoversi, più che altro la userei per far scattare la
+		///		  "distruzione" dell'oggetto all'interno del modello. =>
+		///		  => non consideriamo il movimento ma semplicemente la
+		///	      posizione (una volta che è uscito possiamo anche bloccare
+		///       il movimento.
+		///		  Secondo te la distruzione dell'oggetto va fatta a livello
+		///       del modello o qui interna alla classe? Che non mi è molto
+		///       chiaro come possiamo fare.
+		bool outOfBoundaries() {
+
+			//Bisogna aspettare che l'ultimo pezzo visibile di asteroide
+			//sia uscito dalla zona di visibilità
+			if (this->center.getX() - length / 2 > MAX_VIS_X)
 				return true;
-			}
-			else {
-				center.modifieP(velx, vely);
-				for (int i = 0; i < shape.size; i++) {
-					Vertex v = shape.front;
-					v.modifieP(velx, vely);
-					shape.push_back(v);
-
-				}
+			else if (speedY < 0 && this->center.getY() + width / 2 < MIN_VIS_Y)
+				return true;
+			else if (speedY > 0 && this->center.getY() - width / 2 > MAX_VIS_Y)
+				return true;
+			else
 				return false;
+
+		}
+
+		//Funzione che muove l'asteroide nello spazio bidimensionale.
+		///TO SEE Non sono sicuro che con il modo che utilizzi
+		///       per modificare i vertici sia corretto:
+		///       da quello che ho visto con quelle funizioni
+		///	      andresti a duplicare ogni volta i membri di shape.
+		///		  Io direi di spostare anche il centro, se non è un
+		///		  problema concettuale.
+		void move() {
+
+			if (!this->outOfBoundaries()) {
+
+				center.modifyP(speedX, speedY);
+				for (int i = 0; i < shape.size; i++)
+					shape[i].modifyP(speedX, speedY);
+
 			}
 
 		}
-		//cotrollo se colpisco il fondo 
-		bool hit() {
-			if (center.getY + vely <= 0) {
-				return true;
-			}
-			return false;
-		}
 
-
-
-
-	};
-
-	extern class MyModel Data;
-
-
-
-
-
-
-
-
-
-
+};
 
 #endif
