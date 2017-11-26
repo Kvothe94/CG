@@ -9,22 +9,28 @@
 
 //Space Limit Constant Definition
 
-#define MAX_VIS_X 320		//Massima punto visibile lungo le x
-#define MAX_X 340			//Massimo punto spaziale lungo le x
-#define MAX_VIS_Y 220		//Massimo punto visibile lungo le y
-#define MAX_Y 240			//Massimo punto spaziale lungo le y
+#define MAX_VIS_X 1980				//Massima punto visibile lungo le x
+#define MAX_X 2040					//Massimo punto spaziale lungo le x
+#define MAX_VIS_Y 1140				//Massimo punto visibile lungo le y
+#define MAX_Y 1200					//Massimo punto spaziale lungo le y
 
-#define MIN_VIS_X 20		//Minimo punto visibile lungo le x
-#define MIN_X 0				//Minimo punto spaziale lungo le x
-#define MIN_VIS_Y 20		//Minimo punto visibile lungo le y
-#define MIN_Y 0				//Minimo punto spaziale lungo le y
+#define MIN_VIS_X 60				//Minimo punto visibile lungo le x
+#define MIN_X 0						//Minimo punto spaziale lungo le x
+#define MIN_VIS_Y 60				//Minimo punto visibile lungo le y
+#define MIN_Y 0						//Minimo punto spaziale lungo le y
+
+///TO SEE & TO DO I valori scelti per lo spazio secondo me possono
+///               essere considerati definitivi: si basano sul formato
+///               16/9 degli schermi fullhd.
+///               Ovviamente vanno modificati di conseguenza tutti i
+///               valori da qui a seguire.
 
 //Bullet Constant Definition
 
-#define BULLET_SPEED 10		//Velocità del proiettile lungo le x
-#define BULLET_LENGTH 2		//Lunghezza del proiettile (x)
-#define BULLET_WIDTH 1		//Larghezza del proiettile (y)
-#define BULLET_HEIGHT 2		//Altezza del proiettile (z)
+#define BULLET_SPEED 10				//Velocità del proiettile lungo le x
+#define BULLET_LENGTH 2				//Lunghezza del proiettile (x)
+#define BULLET_WIDTH 1				//Larghezza del proiettile (y)
+#define BULLET_HEIGHT 2				//Altezza del proiettile (z)
 
 //Asteroid Constant Definition
 
