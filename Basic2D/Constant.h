@@ -19,14 +19,6 @@
 #define MIN_VIS_Y 60				//Minimo punto visibile lungo le y
 #define MIN_Y 0						//Minimo punto spaziale lungo le y
 
-///TO SEE & TO DO I valori scelti per lo spazio secondo me possono
-///               essere considerati definitivi: si basano sul formato
-///               16/9 degli schermi fullhd.
-///               Ovviamente vanno modificati di conseguenza tutti i
-///               valori da qui a seguire.
-//ANSWER qui chiederei a gratta se può essere corretta una scalatura di questo tipo e se invece è meglio
-//fare delle misure fittate per lo schermo 
-
 //Bullet Constant Definition
 
 #define BULLET_SPEED 10				//Velocità del proiettile lungo le x
@@ -34,6 +26,8 @@
 #define BULLET_WIDTH 1				//Larghezza del proiettile (y)
 
 //TOO SEE perche altezza del proiettile?
+///ANSWER così manteniamo tutto parametrizzabile,
+///       anche l'altezza lungo la z.
 #define BULLET_HEIGHT 2				//Altezza del proiettile (z)
 
 //Asteroid Constant Definition

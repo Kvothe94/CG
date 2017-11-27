@@ -186,21 +186,7 @@ class Bullet {
 			}
 
 		}
-
-		/*
-		//muove il proiettile lungo y
-		void Move() {
-			if (limitOk(center)) {
-				for (int i = 0; i < shape.size; i++) {
-					Vertex v = shape.front;
-					v.modifieP(0, vely);
-					shape.push_back(v);
-
-				}
-			}
-		}
-		*/
-
+		
 };
 
 #endif
