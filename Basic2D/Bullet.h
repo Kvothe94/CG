@@ -65,6 +65,7 @@ class Bullet {
 
 			///TO SEE Invece che il raggio ho messo length e width
 			///       in modo da poter mettere proiettili non quadrati.
+			//ANSWER complicazione che aviterei per i proiettili facciamoli quadrati che va benissimo che ne dici?
 			length = l;
 			width = w;
 			toDestroy = false;

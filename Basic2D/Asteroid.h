@@ -29,6 +29,7 @@ class Asteroid {
 		///       nel disegno che ho messo in Data allora le velocità
 		///       lungo x e y rispettivamente saranno e potranno essere
 		///       negative. Dici che va bene?
+		//ANSWER si lungo y positive e negstive mentre lungo x direi solo negative
 		float speedX;
 		float speedY;
 
@@ -61,6 +62,7 @@ class Asteroid {
 		///		  texture vengono memorizzate in model.h
 		///       nella classe dell'oggetto memorizzi i
 		///       riferimenti alle texture di model.h.
+		// ANSWER penso sia una specifica da chiedere a grattarola domani
 		int texture;
 		int explosionTexture;
 
@@ -97,6 +99,7 @@ class Asteroid {
 			
 			///TO SEE Invece che il raggio ho messo length e width
 			///       in modo da poter mettere asteroidi non quadrati.
+			//ANSWER io direi che basta il raggio per il motivo che ti pecifico nell'audio numero 1
 			length = l;
 			width = w;
 			toDestroy = false;
@@ -267,6 +270,7 @@ class Asteroid {
 		///		  Secondo te la distruzione dell'oggetto va fatta a livello
 		///       del modello o qui interna alla classe? Che non mi è molto
 		///       chiaro come possiamo fare.
+		//ANSWER io con distruzione dell'asteroide semplicemente lo rimuoverei dalla lista di asteroidi del model.h
 		bool outOfBoundaries() {
 
 			//Bisogna aspettare che l'ultimo pezzo visibile di asteroide
@@ -289,6 +293,7 @@ class Asteroid {
 		///	      andresti a duplicare ogni volta i membri di shape.
 		///		  Io direi di spostare anche il centro, se non è un
 		///		  problema concettuale.
+		//ANSWER ci avevo pensato a spostare il centro anzi che i vertici, io spostavo entrambi se non ricordo male vedi audio2
 		void move() {
 
 			if (!this->outOfBoundaries()) {

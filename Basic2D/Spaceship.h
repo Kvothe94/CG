@@ -38,6 +38,8 @@ class Spaceship {
 		///dall'interno della classe oppure dal modello.
 		///In particolare la setterei a true laddove si
 		///verifichi la condizione di outOfBoundaries.
+		//ANSEWR se semplicemente facessico if(outofboundaries()) remove from list; ? Non capisco perche mettere
+		//questa variabile? Stessa cosa anche per proiettili e asteroidi
 		bool toDestroy;
 
 		//Variabile che contiene le nostre texture.
@@ -61,6 +63,7 @@ class Spaceship {
 			float x, y, z;
 			x = MIN_VIS_X + length / 2;
 			y = (MAX_VIS_Y - MIN_VIS_Y) / 2;
+			//TO SEE perche laltezza?
 			z = SS_HEIGHT;
 
 			center = Vertex(x, y, z);
@@ -83,6 +86,7 @@ class Spaceship {
 			///      texture in model.h corrispondono le varie texture
 			///      e quindi scegliere i giusti riferimenti per le
 			///      texture della classe.
+			//ANSWER di nuovo da chiedere a grattarola audio 3
 
 		}
 
@@ -154,6 +158,7 @@ class Spaceship {
 		//se si effettua il movimento richiesto.
 		///TO SEE in questo caso la utilizziamo per impedire il movimento al
 		///di fuori dei limiti.
+		//ANSWER ok concordo anche sulle funzionalità della f sottostante
 		bool outOfBoundaries(bool up) {
 
 			//Supponendo che il proiettile esca da metà della larghezza

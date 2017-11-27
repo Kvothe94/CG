@@ -17,9 +17,9 @@
 #include <vector>
 #include <time.h>
 #include <math.h>
-#include "Asteroide.h"
-#include "Navicella.h"
-#include "Proiettile.h"
+#include "Asteroid.h"
+#include "Spaceship.h"
+#include "Bullet.h"
 #include "Vertex.h"
 #include "Constant.h"
 
@@ -44,9 +44,9 @@ class MyModel {
 	
 		std::vector<Vertex> Background;   // background
 		GLuint	base;				// Base Display List For The Font Set
-		std::vector<Asteroide> Asteroidi;
-		std::vector<Proiettile> Proiettili;
-		Navicella navicella;
+		std::vector<Asteroid> Asteroid;
+		std::vector<Bullet> Bullet;
+		Spaceship spaceship;
 
 	private:
 	//  projection limits in X and Y: x in [-plx, plx], y in [-ply, ply]
@@ -72,14 +72,15 @@ class MyModel {
 		MyModel(): hDC(NULL), hRC (NULL), hWnd (NULL), active (true),
 			fullscreen(true), frames(0), fps(0), cursor(true), captured(false) {
 			//TO DO
+			//TO ASK PROF
 			//queste sono le stesse del prof non le ho toccate poi andranno gestite meglio per questione resize
 			Background.clear();
-			Background.push_back(Vertex(-1,-1,-5,0,0));
-			Background.push_back(Vertex( 1,-1,-5,1,0));
-			Background.push_back(Vertex( 1, 1,-5,1,1));
-			Background.push_back(Vertex(-1, 1,-5,0,1));
+			Background.push_back(Vertex(-1,-1,-5,0,0,0));
+			Background.push_back(Vertex( 1,-1,-5,1,0,0));
+			Background.push_back(Vertex( 1, 1,-5,1,1,0));
+			Background.push_back(Vertex(-1, 1,-5,0,1,0));
 			//creo una navicella
-			navicella = Navicella();
+			spaceship = Spaceship();
 
 			this->Tstart = this->Tstamp = clock();
 			this->Full_elapsed = 0;

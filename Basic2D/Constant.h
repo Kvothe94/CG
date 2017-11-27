@@ -24,12 +24,16 @@
 ///               16/9 degli schermi fullhd.
 ///               Ovviamente vanno modificati di conseguenza tutti i
 ///               valori da qui a seguire.
+//ANSWER qui chiederei a gratta se può essere corretta una scalatura di questo tipo e se invece è meglio
+//fare delle misure fittate per lo schermo 
 
 //Bullet Constant Definition
 
 #define BULLET_SPEED 10				//Velocità del proiettile lungo le x
 #define BULLET_LENGTH 2				//Lunghezza del proiettile (x)
 #define BULLET_WIDTH 1				//Larghezza del proiettile (y)
+
+//TOO SEE perche altezza del proiettile?
 #define BULLET_HEIGHT 2				//Altezza del proiettile (z)
 
 //Asteroid Constant Definition

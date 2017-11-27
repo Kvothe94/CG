@@ -369,7 +369,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
   stream->setRepeat(true);
   stream->setVolume(0.5f); // 50% volume
   stream->play();
-
+  ///TO SEE music qui va gestita con sound manca nella cartella data la roba relativa a il sottofondo
   OutputStreamPtr explosion(OpenSound(device, "../Data/explosion.wav", false));
   OutputStreamPtr bell(OpenSound(device, "../Data/bell.wav", false));
   OutputStreamPtr stupid(OpenSound(device, "../Data/stupid.wav", false));
