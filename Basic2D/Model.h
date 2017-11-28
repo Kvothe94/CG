@@ -48,6 +48,10 @@ class MyModel {
 		std::vector<Bullet> Bullet;
 		Spaceship spaceship;
 		bool isGame = false;
+		//livello di difficolta del gioco
+		float diff ;
+		//punteggio del gioco
+		int score ;
 
 	private:
 	//  projection limits in X and Y: x in [-plx, plx], y in [-ply, ply]
@@ -72,6 +76,8 @@ class MyModel {
 		//costruttore
 		MyModel(): hDC(NULL), hRC (NULL), hWnd (NULL), active (true),
 			fullscreen(true), frames(0), fps(0), cursor(true), captured(false) {
+			this->score = 0;
+			this->diff = 1;
 			//TO DO
 			//TO ASK PROF
 			//queste sono le stesse del prof non le ho toccate poi andranno gestite meglio per questione resize
@@ -81,11 +87,15 @@ class MyModel {
 			Background.push_back(Vertex( 1, 1,-5,1,1,0));
 			Background.push_back(Vertex(-1, 1,-5,0,1,0));
 			//creo una navicella
-			spaceship = Spaceship();
+			this->spaceship = Spaceship();
+			//creo un asteroide TO SEE non so perche mi dia questo errore
+			this->Asteroid.push_back(Asteroid(diff));
 
 			this->Tstart = this->Tstamp = clock();
 			this->Full_elapsed = 0;
 			this->frameTime = 0;
+			
+
 
 		}
 

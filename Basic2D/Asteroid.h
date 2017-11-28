@@ -294,13 +294,13 @@ class Asteroid {
 		///		  Io direi di spostare anche il centro, se non è un
 		///		  problema concettuale.
 		//ANSWER ci avevo pensato a spostare il centro anzi che i vertici, io spostavo entrambi se non ricordo male vedi audio2
-		void move() {
+		void move(double elapsed) {
 
 			if (!this->outOfBoundaries()) {
 
-				center.modifyP(speedX, speedY);
+				center.modifyP(speedX*elapsed, speedY*elapsed);
 				for (int i = 0; i < shape.size; i++)
-					shape[i].modifyP(speedX, speedY);
+					shape[i].modifyP(speedX*elapsed, speedY*elapsed);
 
 			}
 

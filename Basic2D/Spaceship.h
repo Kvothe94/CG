@@ -29,6 +29,7 @@ class Spaceship {
 
 		//Lista di vertici che costituiscono la nostra
 		//forma geometrica sottostante la navicella.
+		//TO SEE forse meglio toglierli?
 		std::vector<Vertex> shape;
 
 		//Variabile che, qualora settata a true, indica
@@ -176,19 +177,14 @@ class Spaceship {
 		}
 
 		//Funzione che muove l'astronave lungo l'asse y.
-		///TO SEE Non sono sicuro che con il modo che utilizzi
-		///       per modificare i vertici sia corretto:
-		///       da quello che ho visto con quelle funizioni
-		///	      andresti a duplicare ogni volta i membri di shape.
-		///		  Io direi di spostare anche il centro, se non è un
-		///		  problema concettuale.
-		void move(bool up) {
+		///TO SEE a cosa serve up? se riusciamo a toglierlo verrebbe meglio
+		void move(bool up,double elapsed) {
 
 			if (!this->outOfBoundaries(up)) {
 
-				center.modifyP(0, baseSpeedY);
+				center.modifyP(0, baseSpeedY*elapsed);
 				for (int i = 0; i < shape.size; i++)
-					shape[i].modifyP(0, baseSpeedY);
+					center.modifyP(0, baseSpeedY*elapsed);
 
 			}
 

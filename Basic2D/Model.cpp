@@ -131,6 +131,7 @@ bool MyModel::Run(void){
 
 	this->Tstamp = t;
 	//  TIMING - end
+	//controllo sul flag
 	if (this->isGame){
 		this->Play(ms_elapsed);
 		this->DrawGLSceneGame();
@@ -139,11 +140,59 @@ bool MyModel::Run(void){
 		this->DrawGLSceneInit();
 	}
 }
+bool MyModel::CheckGame(){
+	//qui bisogna controllare:
+	//1 asteroidi che finiscono contro navicella muoio
+	//2 asteroidi che finiscono oltre la navicella perdo punti
+	//3 proiettili che colpiscono asteroidi vinco punti
+	//4 proiettili che escono dal fondo senza colpire nulla
+	//5 asteroidi colpiti da proiettili (forse parte della 2 mavisti da altro punto di vista)
+
+
+}
+bool MyModel::KeyCheck(){
+	if (Data.keys[VK_SPACE]){
+		//TO SEE anche qui forse problema puntatore?
+		this->Bullet.push_back(Bullet());
+		Data.keys[VK_SPACE] = false;
+	}//TO SEE qui non vado oltre perche bsogna decidere come farla muovere se continua o su richesta
+	if (Data.keys[VK_frecciasu]){
+		this->spaceship.
+			//ricorda di mettere a false i tasti
+	}
+	if (Data.keys[VK_frecciagiu]){
+		this->spaceship.
+			//ricorda di mettere a false i tasti
+
+	}
+	//da inserire eventuali altri comandi 
+	//ricorda di mettere a false i tasti
+
+
+}
+bool MyModel::ComputeMovements(double elapsed){
+	//muovo la navicella
+	this->spaceship.move(true,elapsed);
+	//muovo gli asteroidi
+	for (int i = 0; i < this->Asteroid.size(); i++){
+		this->Asteroid.at(i).move(elapsed);
+	}
+	//muovo i bullet
+	for (int i = 0; i < this->Bullet.size(); i++){
+		this->Bullet.at(i).move(elapsed);
+	}
+
+
+}
 bool MyModel :: Play(double elapsed){
 	this->KeyCheck();
 	this->ComputeMovements(elapsed);
-	this->CheckGame
+	this->CheckGame();
 	
+}
+bool MyModel::DrawGLSceneInit(void)									
+{
+	//////TO DO TO SEE QUI DEVO DISEGNARE LA SCENA GAME
 }
 bool MyModel::DrawGLSceneGame(void){
 	////TO DO TO SEE QUI DEVO DISEGNARE LA SCENA GAME
