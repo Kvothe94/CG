@@ -47,6 +47,7 @@ class MyModel {
 		std::vector<Asteroid> Asteroid;
 		std::vector<Bullet> Bullet;
 		Spaceship spaceship;
+		bool isGame = false;
 
 	private:
 	//  projection limits in X and Y: x in [-plx, plx], y in [-ply, ply]
@@ -98,8 +99,20 @@ class MyModel {
 			return false;
 		
 		}
+		//le due funzioni di draw in base a in quale modalità sono: game o schermata iniziale
+		bool DrawGLSceneGame(void);
+		bool DrawGLSceneInit(void);
+		//funzione nella quale scelgo cosa fare in base al flag isGame che seleziona la modalita
+		bool Run();
+		//funzione gioco al suo interno richiama 
+		bool Play(double elapsed);
+		//controllo imput tastiera ed eventuali azioni seguenti come modifiche di velocita e creazione nuovi bullet
+		bool KeyCheck();
+		//sposto le cose in base alla equa spazio=velocita*tempo cioè s=vel*elapsed
+		bool ComputeMovements(double elapsed);
+		//funzione che fa tutti i check per quanto riguarda scontri esplosioni morti punteggi etc
+		bool CheckGame();
 
-		bool DrawGLScene(void);
 		bool InitGL(void);
 		void ReSizeGLScene(int width, int height);
 		void glPrint(const char *fmt, ...);			// Custom GL "Print" Routine
@@ -110,7 +123,8 @@ class MyModel {
 		void BuildFont(void);
 		void KillFont(void);
 		
-		//  Conversion from pixel distance to float X and Y distance
+		//  Conversion from pixel distance to float X and Y distance questa si adatta alla dim della finestra 
+		//TO SEE gestione diensione finestra tagliata è nel 3d labirinto 
 		inline float PixToCoord_X(int pix){
 			return ( 2.0f * (float) pix * (float) plx ) / (float) Wwidth; 
 		}

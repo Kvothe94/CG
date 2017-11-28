@@ -112,146 +112,184 @@ bool MyModel::LoadGLTextures(void) {
 }
 
 
-
-bool MyModel::DrawGLScene(void){
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
-	glMatrixMode(GL_MODELVIEW);								// Select The Modelview Matrix
-	glLoadIdentity();										// Reset The View
-
+bool MyModel::Run(void){
 	//  TIMING - start
 	clock_t t = clock();
-	
+
 	// elapsed time in seconds from the last draw
-	 double elapsed = double (t - Tstamp) /  (double) CLOCKS_PER_SEC;
-	
-	 // elapsed time in milliseconds from the last draw
-	int ms_elapsed = (int) (t - Tstamp);
-  
+	double elapsed = double(t - Tstamp) / (double)CLOCKS_PER_SEC;
+
+	// elapsed time in milliseconds from the last draw
+	int ms_elapsed = (int)(t - Tstamp);
+	if (ms_elapsed < 10) {
+		 return true;
+	}
+
 	// elapsed time in seconds from the beginning of the program
-	this->Full_elapsed = double (t - Tstart) /  (double) CLOCKS_PER_SEC;
-	this->frameTime += double (t - Tstamp) /  (double) CLOCKS_PER_SEC;
+	this->Full_elapsed = double(t - Tstart) / (double)CLOCKS_PER_SEC;
+	this->frameTime += double(t - Tstamp) / (double)CLOCKS_PER_SEC;
 
 	this->Tstamp = t;
 	//  TIMING - end
-
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
-
-	//  Background
-	glBegin(GL_QUADS);
-	for(int i = 0; i < 4; i++) {
-		glTexCoord2f(Background[i].u, Background[i].v);
-		glVertex3f(Background[i].x, Background[i].y,  Background[i].z);
+	if (this->isGame){
+		this->Play(ms_elapsed);
+		this->DrawGLSceneGame();
 	}
-	glEnd();
-  
-	//  Texture for the fire, change every 1/19 sec.
-	int texF = 1 + ((int( (Full_elapsed*19) )) %27 );
-	glBindTexture(GL_TEXTURE_2D, texture[texF]);
-
-	//  fire geometrical trasformations
-	glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix
-	glLoadIdentity();									// Reset The View
-
-	//  circular path from window center. Radious and angular velocity
-	//  in radians as follows
-	double radious = 0.5;
-	double omega = PI / 27.0;  // PI/8 each second
-	double px, py;
-	px = radious * cos(omega * Full_elapsed);
-	py = radious * sin(omega * Full_elapsed);
-	glTranslatef((float) px, (float) py, 0);
-	glScalef(0.30f,0.5f,1);    // 1- scale the fire
-
-	//  fire
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0);
-
-	glBegin(GL_QUADS);
-	for(int i = 0; i < 4; i++) {
-		glTexCoord2f(fire[i].u, fire[i].v);
-		glVertex3f(fire[i].x, fire[i].y,  fire[i].z);
+	else{
+		this->DrawGLSceneInit();
 	}
-
-	glEnd();
-
-	glDisable(GL_BLEND);
-	glDisable(GL_ALPHA_TEST);
-
-
-	//  Floating cursor - start
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0);
-	glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix
-	glLoadIdentity();									// Reset The View
-
-	//  Disable texture to see the rectangle size
-	//  The cursor "hot spot" is the center of the rectangle
-	// glDisable(GL_TEXTURE_2D);
-	glTranslatef(ClientX2World(cx), ClientY2World(cy), 0);
+}
+bool MyModel :: Play(double elapsed){
+	this->KeyCheck();
+	this->ComputeMovements(elapsed);
+	this->CheckGame
 	
-	// proportional scaling (fixed percentual of window dimension)
-	// if(1) proportional, if(0) fixed
-	if( 1 ) glScalef(0.10f,0.10f,1);
-	//  Fixed scaling, alwais 100 pixels width/height
-	else {
-		float dx = PixToCoord_X(100);
-		float dy = PixToCoord_Y(100);
-		glScalef(dx/2, dy/2,1);
-	}
+}
+bool MyModel::DrawGLSceneGame(void){
+	////TO DO TO SEE QUI DEVO DISEGNARE LA SCENA GAME
+
+	////  TIMING - start
+	//clock_t t = clock();
+	//
+	//// elapsed time in seconds from the last draw
+	// double elapsed = double (t - Tstamp) /  (double) CLOCKS_PER_SEC;
+	//
+	// // elapsed time in milliseconds from the last draw
+	//int ms_elapsed = (int) (t - Tstamp);
+	//if (ms_elapsed < 10) {
+	//	sleep(1);  return true;
+	//}
+ // 
+	//// elapsed time in seconds from the beginning of the program
+	//this->Full_elapsed = double (t - Tstart) /  (double) CLOCKS_PER_SEC;
+	//this->frameTime += double (t - Tstamp) /  (double) CLOCKS_PER_SEC;
+
+	//this->Tstamp = t;
+	////  TIMING - end
+
+	////switch su modalita iniziale o gioco
+	////dentro modalità gioco prima sposto poi controllo e infine disegno a gioc passa elapsed per s=v*t
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
+	//glMatrixMode(GL_MODELVIEW);								// Select The Modelview Matrix
+	//glLoadIdentity();										// Reset The View
+
+	//glEnable(GL_TEXTURE_2D);
+	//glBindTexture(GL_TEXTURE_2D, texture[0]);
+
+	////  Background
+	//glBegin(GL_QUADS);
+	//for(int i = 0; i < 4; i++) {
+	//	glTexCoord2f(Background[i].u, Background[i].v);
+	//	glVertex3f(Background[i].x, Background[i].y,  Background[i].z);
+	//}
+	//glEnd();
+ // 
+	////  Texture for the fire, change every 1/19 sec.
+	//int texF = 1 + ((int( (Full_elapsed*19) )) %27 );
+	//glBindTexture(GL_TEXTURE_2D, texture[texF]);
+
+	////  fire geometrical trasformations
+	//glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix
+	//glLoadIdentity();									// Reset The View
+
+	////  circular path from window center. Radious and angular velocity
+	////  in radians as follows
+	//double radious = 0.5;
+	//double omega = PI / 27.0;  // PI/8 each second
+	//double px, py;
+	//px = radious * cos(omega * Full_elapsed);
+	//py = radious * sin(omega * Full_elapsed);
+	//glTranslatef((float) px, (float) py, 0);
+	//glScalef(0.30f,0.5f,1);    // 1- scale the fire
+
+	////  fire
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_ALPHA_TEST);
+	//glAlphaFunc(GL_GREATER, 0);
+
+	//glBegin(GL_QUADS);
+	//for(int i = 0; i < 4; i++) {
+	//	glTexCoord2f(fire[i].u, fire[i].v);
+	//	glVertex3f(fire[i].x, fire[i].y,  fire[i].z);
+	//}
+
+	//glEnd();
+
+	//glDisable(GL_BLEND);
+	//glDisable(GL_ALPHA_TEST);
 
 
-	glBegin(GL_QUADS);
-	for(int i = 0; i < 4; i++) {
-		glTexCoord2f(curs[i].u, curs[i].v);
-		glVertex3f(curs[i].x, fire[i].y,  curs[i].z);
-	}
-	glEnd();
+	////  Floating cursor - start
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_ALPHA_TEST);
+	//glAlphaFunc(GL_GREATER, 0);
+	//glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix
+	//glLoadIdentity();									// Reset The View
 
-	glDisable(GL_BLEND);
-	glDisable(GL_ALPHA_TEST);
-	//  Floating cursor - end
+	////  Disable texture to see the rectangle size
+	////  The cursor "hot spot" is the center of the rectangle
+	//// glDisable(GL_TEXTURE_2D);
+	//glTranslatef(ClientX2World(cx), ClientY2World(cy), 0);
+	//
+	//// proportional scaling (fixed percentual of window dimension)
+	//// if(1) proportional, if(0) fixed
+	//if( 1 ) glScalef(0.10f,0.10f,1);
+	////  Fixed scaling, alwais 100 pixels width/height
+	//else {
+	//	float dx = PixToCoord_X(100);
+	//	float dy = PixToCoord_Y(100);
+	//	glScalef(dx/2, dy/2,1);
+	//}
 
-	//  Some text
-	glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix
- 	glLoadIdentity();									// Reset The Current Modelview Matrix
-	glDisable(GL_TEXTURE_2D);
 
- 	// Color
-	glColor3f(1.0f,1.0f,1.0f);
+	//glBegin(GL_QUADS);
+	//for(int i = 0; i < 4; i++) {
+	//	glTexCoord2f(curs[i].u, curs[i].v);
+	//	glVertex3f(curs[i].x, fire[i].y,  curs[i].z);
+	//}
+	//glEnd();
 
-	// Position The Text On The Screen
-	glRasterPos3f(- (float) plx + PixToCoord_X(10), (float) ply-PixToCoord_Y(21),
-    -4);
+	//glDisable(GL_BLEND);
+	//glDisable(GL_ALPHA_TEST);
+	////  Floating cursor - end
 
-	// compute fps and write text
-	this->frames++;
-	if( this->frames > 18 ) {
-		this->fps = frames / frameTime;
-		this->frames = 0; this->frameTime = 0;
-	}
-	this->glPrint("Elapsed time: %6.2f sec.  -  Fps %6.2f",
-		Full_elapsed, fps);
+	////  Some text
+	//glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix
+ //	glLoadIdentity();									// Reset The Current Modelview Matrix
+	//glDisable(GL_TEXTURE_2D);
 
-	if(this->Full_elapsed < 6) {
-		glRasterPos3f(- (float) plx + PixToCoord_X(10), (float) -ply+PixToCoord_Y(21),
-		-4);
-		this->glPrint("...F2/F3/F4 for sounds");
-	}
+ //	// Color
+	//glColor3f(1.0f,1.0f,1.0f);
 
-	{
-		glRasterPos3f(- (float) plx + PixToCoord_X(10), (float) -ply+PixToCoord_Y(61),
-		-4);
-		this->glPrint("%1d %1d  %s",cx,cy, captured ? "captured" : "Not captured" );
-	}
+	//// Position The Text On The Screen
+	//glRasterPos3f(- (float) plx + PixToCoord_X(10), (float) ply-PixToCoord_Y(21),
+ //   -4);
 
-	glEnable(GL_TEXTURE_2D);							// Enable Texture Mapping
-	return true;
+	//// compute fps and write text
+	//this->frames++;
+	//if( this->frames > 18 ) {
+	//	this->fps = frames / frameTime;
+	//	this->frames = 0; this->frameTime = 0;
+	//}
+	//this->glPrint("Elapsed time: %6.2f sec.  -  Fps %6.2f",
+	//	Full_elapsed, fps);
+
+	//if(this->Full_elapsed < 6) {
+	//	glRasterPos3f(- (float) plx + PixToCoord_X(10), (float) -ply+PixToCoord_Y(21),
+	//	-4);
+	//	this->glPrint("...F2/F3/F4 for sounds");
+	//}
+
+	//{
+	//	glRasterPos3f(- (float) plx + PixToCoord_X(10), (float) -ply+PixToCoord_Y(61),
+	//	-4);
+	//	this->glPrint("%1d %1d  %s",cx,cy, captured ? "captured" : "Not captured" );
+	//}
+
+	//glEnable(GL_TEXTURE_2D);							// Enable Texture Mapping
+	//return true;
 }
 
 
