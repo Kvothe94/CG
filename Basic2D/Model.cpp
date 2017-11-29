@@ -134,6 +134,7 @@ bool MyModel::Run(void){
 	//controllo sul flag
 	if (this->isGame){
 		this->Play(ms_elapsed);
+		this->DoGame(elapsed);
 		this->DrawGLSceneGame();
 	}
 	else{
@@ -142,28 +143,26 @@ bool MyModel::Run(void){
 }
 bool MyModel::CheckGame(){
 	//qui bisogna controllare:
-	//1 asteroidi che finiscono contro navicella muoio
-	//2 asteroidi che finiscono oltre la navicella perdo punti
-	//3 proiettili che colpiscono asteroidi vinco punti
-	//4 proiettili che escono dal fondo senza colpire nulla
-	//5 asteroidi colpiti da proiettili (forse parte della 2 mavisti da altro punto di vista)
-
+	//1 Proiettili che colpiscono asteroidi nel caso elimono asteroide e proiettile
+	//2 Asteroidi che colpiscono navetta
+	//3 Asteroide che va fuori
+	//4 Proiettile che va fuori
 
 }
 bool MyModel::KeyCheck(){
 	if (Data.keys[VK_SPACE]){
-		//TO SEE anche qui forse problema puntatore?
-		this->Bullet.push_back(Bullet());
-		Data.keys[VK_SPACE] = false;
-	}//TO SEE qui non vado oltre perche bsogna decidere come farla muovere se continua o su richesta
-	if (Data.keys[VK_frecciasu]){
-		this->spaceship.
-			//ricorda di mettere a false i tasti
+		
+		this->bullet.push_back(Bullet(this->spaceship.getCenter().getX() + (this->spaceship.getLength() / 2), this->spaceship.getCenter().getX(),0,BULLET_SPEED,BULLET_LENGTH,BULLET_WIDTH));
+		
 	}
-	if (Data.keys[VK_frecciagiu]){
-		this->spaceship.
+	if (Data.keys[VK_UP]){
+		this->spaceship.setBaseSpeedY(+SS_BASE_SPEED);
+		
+	}
+	if (Data.keys[VK_DOWN]){
+		this->spaceship.setBaseSpeedY(-SS_BASE_SPEED);
 			//ricorda di mettere a false i tasti
-
+		
 	}
 	//da inserire eventuali altri comandi 
 	//ricorda di mettere a false i tasti
@@ -172,14 +171,14 @@ bool MyModel::KeyCheck(){
 }
 bool MyModel::ComputeMovements(double elapsed){
 	//muovo la navicella
-	this->spaceship.move(true,elapsed);
+	this->spaceship.move(elapsed);
 	//muovo gli asteroidi
-	for (int i = 0; i < this->Asteroid.size(); i++){
-		this->Asteroid.at(i).move(elapsed);
+	for (int i = 0; i < this->asteroid.size(); i++){
+		this->asteroid.at(i).move(elapsed);
 	}
 	//muovo i bullet
-	for (int i = 0; i < this->Bullet.size(); i++){
-		this->Bullet.at(i).move(elapsed);
+	for (int i = 0; i < this->bullet.size(); i++){
+		this->bullet.at(i).move(elapsed);
 	}
 
 
@@ -188,7 +187,16 @@ bool MyModel :: Play(double elapsed){
 	this->KeyCheck();
 	this->ComputeMovements(elapsed);
 	this->CheckGame();
+	this->DoGame(elapsed);
 	
+}
+bool MyModel::DoGame(double elapsed){
+	int temp = this->astnew - elapsed;
+	if (temp <= 0){
+		this->asteroid.push_back(Asteroid(this->diff));
+		this->astnew = (rand() / RAND_MAX)*(TIME_SCALE/ diff);
+	}
+
 }
 bool MyModel::DrawGLSceneInit(void)									
 {

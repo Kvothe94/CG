@@ -49,5 +49,10 @@
 #define SS_WIDTH 5
 #define SS_HEIGHT 2
 
+//Latency before firts asteroid
+#define START_GAME 10
+//Scalability constant about asteroid creation time
+#define TIME_SCALE 100
+
 
 #endif

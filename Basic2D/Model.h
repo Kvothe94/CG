@@ -44,14 +44,18 @@ class MyModel {
 	
 		std::vector<Vertex> Background;   // background
 		GLuint	base;				// Base Display List For The Font Set
-		std::vector<Asteroid> Asteroid;
-		std::vector<Bullet> Bullet;
+		std::vector<Asteroid> asteroid;
+		std::vector<Bullet> bullet;
 		Spaceship spaceship;
 		bool isGame = false;
 		//livello di difficolta del gioco
-		float diff ;
+		double diff ;
 		//punteggio del gioco
 		int score ;
+		//tempo dopo il quale creo un nuovo asteroide
+		double astnew;
+		//tempo dopo il quale sparo di nuovo
+		double lastbullet;
 
 	private:
 	//  projection limits in X and Y: x in [-plx, plx], y in [-ply, ply]
@@ -78,6 +82,7 @@ class MyModel {
 			fullscreen(true), frames(0), fps(0), cursor(true), captured(false) {
 			this->score = 0;
 			this->diff = 1;
+			this->astnew = START_GAME;
 			//TO DO
 			//TO ASK PROF
 			//queste sono le stesse del prof non le ho toccate poi andranno gestite meglio per questione resize
@@ -89,7 +94,7 @@ class MyModel {
 			//creo una navicella
 			this->spaceship = Spaceship();
 			//creo un asteroide TO SEE non so perche mi dia questo errore
-			this->Asteroid.push_back(Asteroid(diff));
+			this->asteroid.push_back(Asteroid(diff));
 
 			this->Tstart = this->Tstamp = clock();
 			this->Full_elapsed = 0;
@@ -122,6 +127,8 @@ class MyModel {
 		bool ComputeMovements(double elapsed);
 		//funzione che fa tutti i check per quanto riguarda scontri esplosioni morti punteggi etc
 		bool CheckGame();
+		//funzione che crea asteroidi
+		bool DoGame(double elapsed);
 
 		bool InitGL(void);
 		void ReSizeGLScene(int width, int height);

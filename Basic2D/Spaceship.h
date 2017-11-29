@@ -22,7 +22,10 @@ class Spaceship {
 
 		//Dimensioni della navicella.
 		float length;
+	
 		float width;
+		//direzione up o giu
+	
 
 		//Centro della navicella nel nostro spazio
 		Vertex center;
@@ -160,16 +163,16 @@ class Spaceship {
 		///TO SEE in questo caso la utilizziamo per impedire il movimento al
 		///di fuori dei limiti.
 		//ANSWER ok concordo anche sulle funzionalità della f sottostante
-		bool outOfBoundaries(bool up) {
+		bool outOfBoundaries(double elapsed) {
 
 			//Supponendo che il proiettile esca da metà della larghezza
 			//dell'astronave, affinchè sia possibile distruggere qualsiasi
 			//asteroide ancora nella zona visibile, permettiamo all'astronave
 			//di essere fuori dalla zona visibile al massimo per metà.
 			//up ci indica se il movimento è positivo lungo le y o negativo.
-			if (up && this->center.getY() + baseSpeedY > MAX_VIS_Y)
+			if (this->center.getY() + baseSpeedY*elapsed > MAX_VIS_Y)
 				return true;
-			else if (!up && this->center.getY() - baseSpeedY < MIN_VIS_Y)
+			else if (this->center.getY() - baseSpeedY*elapsed < MIN_VIS_Y)
 				return true;
 			else
 				return false;
@@ -178,15 +181,16 @@ class Spaceship {
 
 		//Funzione che muove l'astronave lungo l'asse y.
 		///TO SEE a cosa serve up? se riusciamo a toglierlo verrebbe meglio
-		void move(bool up,double elapsed) {
-
-			if (!this->outOfBoundaries(up)) {
+		void move(double elapsed) {
+			
+			if (!this->outOfBoundaries(elapsed)) {
 
 				center.modifyP(0, baseSpeedY*elapsed);
 				for (int i = 0; i < shape.size; i++)
 					center.modifyP(0, baseSpeedY*elapsed);
 
 			}
+			this->baseSpeedY = 0;
 
 		}
 
