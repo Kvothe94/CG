@@ -11,6 +11,8 @@
 #include "Model.h"
 #include "Constant.h"
 
+extern class MyModel Data;
+
 class Bullet {
 
 	private:
@@ -38,18 +40,7 @@ class Bullet {
 		///dall'interno della classe oppure dal modello.
 		///In particolare la setterei a true laddove si
 		///verifichi la condizione di outOfBoundaries.
-		bool toDestroy;
-
-		//Variabile che contiene le nostre texture.
-		///TO SEE In teoria potrebbe servirci più
-		///       di una texture in modo da ciclare
-		///       e rendere il proiettile un po' più
-		///       bello.
-		///TO SEE a quanto ho visto le vere e proprie
-		///		  texture vengono memorizzate in model.h
-		///       nella classe dell'oggetto memorizzi i
-		///       riferimenti alle texture di model.h.
-		int texture;					
+		bool toDestroy;					
 
 	public:
 
@@ -72,15 +63,10 @@ class Bullet {
 
 			//Definiamo i vertici del proiettile utilizzando
 			//larghezza e lunghezza
-			shape.push_back(Vertex(x + length / 2, y + width / 2, z));
-			shape.push_back(Vertex(x + length / 2, y - width / 2, z));
-			shape.push_back(Vertex(x - length / 2, y - width / 2, z));
-			shape.push_back(Vertex(x - length / 2, y + width / 2, z));
-
-			///TO DO dobbiamo decidere a che indice dell'array delle
-			///      texture in model.h corrispondono le varie texture
-			///      e quindi scegliere i giusti riferimenti per le
-			///      texture della classe.
+			shape.push_back(Vertex(x + length / 2, y + width / 2, z, 0, 0, 1, 1, 1));
+			shape.push_back(Vertex(x + length / 2, y - width / 2, z, 0, 0, 1, 1, 0));
+			shape.push_back(Vertex(x - length / 2, y - width / 2, z, 0, 0, 1, 0, 0));
+			shape.push_back(Vertex(x - length / 2, y + width / 2, z, 0, 0, 1, 0, 1));
 
 		}
 
@@ -102,19 +88,22 @@ class Bullet {
 			this->center = center;
 
 			shape.clear();
-			shape.push_back(Vertex(center.getX() + length / 2, center.getY() + width / 2, center.getZ()));
-			shape.push_back(Vertex(center.getX() + length / 2, center.getY() - width / 2, center.getZ()));
-			shape.push_back(Vertex(center.getX() - length / 2, center.getY() - width / 2, center.getZ()));
-			shape.push_back(Vertex(center.getX() - length / 2, center.getY() + width / 2, center.getZ()));
+			shape.push_back(Vertex(center.getX() + length / 2, center.getY() + width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
+
+			shape.push_back(Vertex(center.getX() + length / 2, center.getY() - width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
+
+			shape.push_back(Vertex(center.getX() - length / 2, center.getY() - width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
+
+			shape.push_back(Vertex(center.getX() - length / 2, center.getY() + width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
 
 		}
 
 		void setToDestroy(bool toDestroy) {
 			this->toDestroy = toDestroy;
-		}
-
-		void setTexture(int texture) {
-			this->texture = texture;
 		}
 
 		//GET METHODS
@@ -140,10 +129,6 @@ class Bullet {
 
 		bool getToDestroy() {
 			return toDestroy;
-		}
-
-		int getTexture() {
-			return texture;
 		}
 
 		//Funzione per verificare se l'oggetto è fuori dalla zona
@@ -184,6 +169,28 @@ class Bullet {
 					shape[i].modifyP(speedX*elapsed, 0);
 
 			}
+
+		}
+
+		void draw() {
+
+			///TO SEE da vedere se in ogni draw dobbiamo fare la
+			///glEnable(GL_TEXTURE_2D); oppure se basta farla nel model
+			///quando iniziamo a disegnare la scena in generale.
+			glBindTexture(GL_TEXTURE_2D, Data.bulletTexture);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(GL_ALPHA_TEST);
+			glAlphaFunc(GL_GREATER, 0);
+
+			glBegin(GL_QUADS);
+			for (int i = 0; i < 4; i++) {
+				glTexCoord2f(shape[i].getU(), shape[i].getV());
+				glVertex3f(shape[i].getX(), shape[i].getY(), shape[i].getZ());
+			}
+			glEnd();
+			glDisable(GL_BLEND);
+			glDisable(GL_ALPHA_TEST);
 
 		}
 		

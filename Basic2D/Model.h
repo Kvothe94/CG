@@ -1,3 +1,6 @@
+#ifndef MODEL_H
+#define MODEL_H
+
 ///////////////////////////////////////////////////////////////////
 //  A basic skeleton for 2D like game developpers.
 //
@@ -42,11 +45,13 @@ class MyModel {
 		bool	fullscreen;	    // Fullscreen Flag 
 		////////////////////////////
 	
-		std::vector<Vertex> Background;   // background
-		GLuint	base;				// Base Display List For The Font Set
-		std::vector<Asteroid> asteroid;
-		std::vector<Bullet> bullet;
+		GLuint	base;						// Base Display List For The Font Set
+		std::vector<Vertex> Background;     // background				
+		
+		std::vector<Asteroid> asteroids;
+		std::vector<Bullet> bullets;
 		Spaceship spaceship;
+		
 		bool isGame = false;
 		//livello di difficolta del gioco
 		double diff ;
@@ -57,7 +62,9 @@ class MyModel {
 		//tempo dopo il quale sparo di nuovo
 		double lastbullet;
 
-	private:
+		///TO SEE: elimino il private in modo da poter prendere i dati da dentro le
+		///classi degli oggetti al fine di disegnarli.
+	//private:
 	//  projection limits in X and Y: x in [-plx, plx], y in [-ply, ply]
 		double plx, ply;
 		int Wheight, Wwidth;  // window dimensions in pixels
@@ -68,18 +75,29 @@ class MyModel {
 
 		//  model data
 		
-		std::vector<Vertex> fire;         // floating fire
-		std::vector<Vertex> curs;         // floating cursor
 		clock_t Tstamp, Tstart;
-		double Full_elapsed;  // elapsed time in seconds from the beginning of the program
+		double fullElapsed;  // elapsed time in seconds from the beginning of the program
 
-		GLuint	texture[28];			// Storage For 28 Textures!
+		GLuint backgroundTexture;
+		GLuint bulletTexture;
+		
+		GLuint spaceshipTextures[5];
+		GLuint asteroidTextures[4];
+
+		GLuint spaceshipExplosionTextures[17];
+		GLuint asteroidExplosionTextures[17];
+		
+		GLuint menuCreditsTexture[2];
+		GLuint menuOptionsTexture[2];
+		GLuint menuPlayTexture[2];
+		GLuint menuExitTexture[2];
 		
 	public:
 	//  methods
 		//costruttore
 		MyModel(): hDC(NULL), hRC (NULL), hWnd (NULL), active (true),
 			fullscreen(true), frames(0), fps(0), cursor(true), captured(false) {
+			
 			this->score = 0;
 			this->diff = 1;
 			this->astnew = START_GAME;
@@ -87,21 +105,23 @@ class MyModel {
 			//TO ASK PROF
 			//queste sono le stesse del prof non le ho toccate poi andranno gestite meglio per questione resize
 			Background.clear();
-			Background.push_back(Vertex(-1,-1,-5,0,0,0));
-			Background.push_back(Vertex( 1,-1,-5,1,0,0));
-			Background.push_back(Vertex( 1, 1,-5,1,1,0));
-			Background.push_back(Vertex(-1, 1,-5,0,1,0));
+			Background.push_back(Vertex(60,     60, 0,   0, 0, 1,   0, 0));
+			Background.push_back(Vertex(60,   1140, 0,   0, 0, 1,   0, 4));
+			Background.push_back(Vertex(1980, 1140, 0,   0, 0, 1,   4, 4));
+			Background.push_back(Vertex(1980,   60, 0,   0, 0, 1,   4, 0));
+			
 			//creo una navicella
 			this->spaceship = Spaceship();
-			//creo un asteroide TO SEE non so perche mi dia questo errore
-			this->asteroid.push_back(Asteroid(diff));
+			
+			///TO SEE: non lo creerei nel costruttore del modello l'asteroide
+			///        se c'è una funzione che chiamiamo ogni volta per la gestione
+			///        del gioco probabilmente lo creerei lì insieme ai bullet etc.
+			this->asteroids.push_back(Asteroid(diff));
 
 			this->Tstart = this->Tstamp = clock();
-			this->Full_elapsed = 0;
+			this->fullElapsed = 0;
 			this->frameTime = 0;
 			
-
-
 		}
 
 		~MyModel() {
@@ -161,4 +181,4 @@ class MyModel {
 
 };
 
-extern class MyModel Data;
+#endif

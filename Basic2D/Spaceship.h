@@ -35,6 +35,18 @@ class Spaceship {
 		//TO SEE forse meglio toglierli?
 		std::vector<Vertex> shape;
 
+		///TO SEE: guarda queste due variabili, dobbiamo
+		///considerarle se vogliamo fare gli effetti di esplosione.
+		//Variabile che, qualora settata a true, indica
+		//che l'oggetto è stato colpito e pertanto deve
+		//essere disegnato in fase di esplosione.
+		//Se tale variabile è a true l'oggetto deve
+		//smettere di muoversi (l'esplosione non si muove).
+		bool hitten;
+
+		//Variabile che memorizza il tempo a cui il 
+		double hittingTime;
+
 		//Variabile che, qualora settata a true, indica
 		//che l'oggetto non deve essere più disegnato e
 		//va eliminato quanto prima.
@@ -44,6 +56,7 @@ class Spaceship {
 		///verifichi la condizione di outOfBoundaries.
 		//ANSEWR se semplicemente facessico if(outofboundaries()) remove from list; ? Non capisco perche mettere
 		//questa variabile? Stessa cosa anche per proiettili e asteroidi
+		///ANSWER II: ci serve per quando si scontrano 2 oggetti.
 		bool toDestroy;
 
 		//Variabile che contiene le nostre texture.
@@ -81,16 +94,12 @@ class Spaceship {
 
 			//Definiamo i vertici dell'astronave utilizzando
 			//larghezza e lunghezza
-			shape.push_back(Vertex(x + length / 2, y + width / 2, z));
-			shape.push_back(Vertex(x + length / 2, y - width / 2, z));
-			shape.push_back(Vertex(x - length / 2, y - width / 2, z));
-			shape.push_back(Vertex(x - length / 2, y + width / 2, z));
+			shape.push_back(Vertex(x + length / 2, y + width / 2, z, 0, 0, 1, 1, 1));
+			shape.push_back(Vertex(x + length / 2, y - width / 2, z, 0, 0, 1, 1, 0));
+			shape.push_back(Vertex(x - length / 2, y - width / 2, z, 0, 0, 1, 0, 0));
+			shape.push_back(Vertex(x - length / 2, y + width / 2, z, 0, 0, 1, 0, 1));
 
-			///TO DO dobbiamo decidere a che indice dell'array delle
-			///      texture in model.h corrispondono le varie texture
-			///      e quindi scegliere i giusti riferimenti per le
-			///      texture della classe.
-			//ANSWER di nuovo da chiedere a grattarola audio 3
+			texture = 1;
 
 		}
 
@@ -113,11 +122,26 @@ class Spaceship {
 			this->center = center;
 
 			shape.clear();
-			shape.push_back(Vertex(center.getX() + length / 2, center.getY() + width / 2, center.getZ()));
-			shape.push_back(Vertex(center.getX() + length / 2, center.getY() - width / 2, center.getZ()));
-			shape.push_back(Vertex(center.getX() - length / 2, center.getY() - width / 2, center.getZ()));
-			shape.push_back(Vertex(center.getX() - length / 2, center.getY() + width / 2, center.getZ()));
+			shape.push_back(Vertex(center.getX() + length / 2, center.getY() + width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
 
+			shape.push_back(Vertex(center.getX() + length / 2, center.getY() - width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
+
+			shape.push_back(Vertex(center.getX() - length / 2, center.getY() - width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
+
+			shape.push_back(Vertex(center.getX() - length / 2, center.getY() + width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
+
+		}
+
+		void setHitten(bool hitten) {
+			this->hitten = hitten;
+		}
+
+		void setHittingTime(double hittingTime) {
+			this->hittingTime = hittingTime;
 		}
 
 		void setToDestroy(bool toDestroy) {
@@ -148,6 +172,14 @@ class Spaceship {
 
 		std::vector<Vertex> getShape() {
 			return shape;
+		}
+
+		bool getHitten() {
+			return hitten;
+		}
+
+		double getHittingTime() {
+			return hittingTime;
 		}
 
 		bool getToDestroy() {
@@ -191,6 +223,57 @@ class Spaceship {
 
 			}
 			this->baseSpeedY = 0;
+
+		}
+
+		void draw() {
+
+			///TO SEE da vedere se in ogni draw dobbiamo fare la
+			///glEnable(GL_TEXTURE_2D); oppure se basta farla nel model
+			///quando iniziamo a disegnare la scena in generale.
+			if (hitten && !toDestroy) {
+
+				///TO SEE: te lo hai capito questo algoritmo?
+				int index = (int((Data.fullElapsed - hittingTime) * 20)) % 17;
+				glBindTexture(GL_TEXTURE_2D, Data.spaceshipExplosionTextures[index]);
+
+				//Se abbiamo finito di disegnare l'esplosione dobbiamo eliminare l'
+				//oggetto.
+				if (index == 16)
+					toDestroy = true;
+
+			}
+			else {
+
+				//Modifichiamo la texture in base a se la nave si muove in una direzione o in
+				//un'altra.
+				if (baseSpeedY == 0) {
+					//Tentativo: uso 2 texture per dare un impressione di movimento.
+					int index = (int(Data.fullElapsed * 20)) % 2;
+					glBindTexture(GL_TEXTURE_2D, Data.spaceshipTextures[index]);
+				}
+				else if (baseSpeedY > 0) {
+					glBindTexture(GL_TEXTURE_2D, Data.spaceshipTextures[3]);
+				}
+				else {
+					glBindTexture(GL_TEXTURE_2D, Data.spaceshipTextures[2]);
+				}
+
+			}
+
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(GL_ALPHA_TEST);
+			glAlphaFunc(GL_GREATER, 0);
+
+			glBegin(GL_QUADS);
+			for (int i = 0; i < 4; i++) {
+				glTexCoord2f(shape[i].getU(), shape[i].getV());
+				glVertex3f(shape[i].getX(), shape[i].getY(), shape[i].getZ());
+			}
+			glEnd();
+			glDisable(GL_BLEND);
+			glDisable(GL_ALPHA_TEST);
 
 		}
 

@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include "Model.h"
 #include "Constant.h"
+#include "Vertex.h"
 
 
 class Asteroid {
@@ -43,6 +44,18 @@ class Asteroid {
 		//Lista di vertici che costituiscono la nostra
 		//forma geometrica sottostante l'asteroide.
 		std::vector<Vertex> shape;   
+
+		///TO SEE: guarda queste due variabili, dobbiamo
+		///considerarle se vogliamo fare gli effetti di esplosione.
+		//Variabile che, qualora settata a true, indica
+		//che l'oggetto è stato colpito e pertanto deve
+		//essere disegnato in fase di esplosione.
+		//Se tale variabile è a true l'oggetto deve
+		//smettere di muoversi (l'esplosione non si muove).
+		bool hitten;
+
+		//Variabile che memorizza il tempo a cui il 
+		double hittingTime;
 
 		//Variabile che, qualora settata a true, indica
 		//che l'oggetto non deve essere più disegnato e
@@ -106,15 +119,14 @@ class Asteroid {
 
 			//Definiamo i vertici dell'asteroide utilizzando
 			//larghezza e lunghezza
-			shape.push_back(Vertex(x + length / 2, y + width / 2, z));
-			shape.push_back(Vertex(x + length / 2, y - width / 2, z));
-			shape.push_back(Vertex(x - length / 2, y - width / 2, z));
-			shape.push_back(Vertex(x - length / 2, y + width / 2, z));
+			shape.push_back(Vertex(x + length / 2, y + width / 2, z, 0, 0, 1, 1, 1));
+			shape.push_back(Vertex(x + length / 2, y - width / 2, z, 0, 0, 1, 1, 0));
+			shape.push_back(Vertex(x - length / 2, y - width / 2, z, 0, 0, 1, 0, 0));
+			shape.push_back(Vertex(x - length / 2, y + width / 2, z, 0, 0, 1, 0, 1));
 
-			///TO DO dobbiamo decidere a che indice dell'array delle
-			///      texture in model.h corrispondono le varie texture
-			///      e quindi scegliere i giusti riferimenti per le
-			///      texture della classe.
+			//Scegliamo quale delle 4 texture usare randomicamente,
+			//in modo da dare varianza all'aspetto degli asteroidi.
+			texture = rand() % 4;
 
 		}
 
@@ -169,15 +181,14 @@ class Asteroid {
 
 			//Definiamo i vertici dell'asteroide utilizzando
 			//larghezza e lunghezza
-			shape.push_back(Vertex(x + length / 2, y + width / 2, z));
-			shape.push_back(Vertex(x + length / 2, y - width / 2, z));
-			shape.push_back(Vertex(x - length / 2, y - width / 2, z));
-			shape.push_back(Vertex(x - length / 2, y + width / 2, z));
+			shape.push_back(Vertex(x + length / 2, y + width / 2, z, 0, 0, 1, 1, 1));
+			shape.push_back(Vertex(x + length / 2, y - width / 2, z, 0, 0, 1, 1, 0));
+			shape.push_back(Vertex(x - length / 2, y - width / 2, z, 0, 0, 1, 0, 0));
+			shape.push_back(Vertex(x - length / 2, y + width / 2, z, 0, 0, 1, 0, 1));
 
-			///TO DO dobbiamo decidere a che indice dell'array delle
-			///      texture in model.h corrispondono le varie texture
-			///      e quindi scegliere i giusti riferimenti per le
-			///      texture della classe.
+			//Scegliamo quale delle 4 texture usare randomicamente,
+			//in modo da dare varianza all'aspetto degli asteroidi.
+			texture = rand() % 4;
 			
 		}
 
@@ -207,11 +218,26 @@ class Asteroid {
 			this->center = center;
 
 			shape.clear();
-			shape.push_back(Vertex(center.getX() + length / 2, center.getY() + width / 2, center.getZ()));
-			shape.push_back(Vertex(center.getX() + length / 2, center.getY() - width / 2, center.getZ()));
-			shape.push_back(Vertex(center.getX() - length / 2, center.getY() - width / 2, center.getZ()));
-			shape.push_back(Vertex(center.getX() - length / 2, center.getY() + width / 2, center.getZ()));
+			shape.push_back(Vertex(center.getX() + length / 2, center.getY() + width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
 
+			shape.push_back(Vertex(center.getX() + length / 2, center.getY() - width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
+
+			shape.push_back(Vertex(center.getX() - length / 2, center.getY() - width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
+
+			shape.push_back(Vertex(center.getX() - length / 2, center.getY() + width / 2,
+				center.getZ(), 0, 0, 1, 1, 1));
+
+		}
+
+		void setHitten(bool hitten) {
+			this->hitten = hitten;
+		}
+
+		void setHittingTime(double hittingTime) {
+			this->hittingTime = hittingTime;
 		}
 
 		void setToDestroy(bool toDestroy) {
@@ -220,6 +246,10 @@ class Asteroid {
 
 		void setTexture(int texture) {
 			this->texture = texture;
+		}
+
+		void setExplosionTexture(int explosionTexture) {
+			this->explosionTexture = explosionTexture;
 		}
 		
 		//GET METHODS
@@ -251,12 +281,24 @@ class Asteroid {
 			return shape;
 		}
 
+		bool getHitten() {
+			return hitten;
+		}
+
+		double getHittingTime() {
+			return hittingTime;
+		}
+
 		bool getToDestroy() {
 			return toDestroy;
 		}
 
 		int getTexture() {
 			return texture;
+		}
+
+		int setExplosionTexture() {
+			return explosionTexture;
 		}
 
 		//Funzione per verificare se l'oggetto è fuori dalla zona
@@ -303,6 +345,45 @@ class Asteroid {
 					shape[i].modifyP(speedX*elapsed, speedY*elapsed);
 
 			}
+
+		}
+
+		void draw() {
+
+			///TO SEE da vedere se in ogni draw dobbiamo fare la
+			///glEnable(GL_TEXTURE_2D); oppure se basta farla nel model
+			///quando iniziamo a disegnare la scena in generale.
+			if (hitten && !toDestroy) {
+
+				///TO SEE: te lo hai capito questo algoritmo?
+				int index = (int((Data.fullElapsed - hittingTime) * 20)) % 17;
+				glBindTexture(GL_TEXTURE_2D, Data.asteroidExplosionTextures[index]);
+				
+				//Se abbiamo finito di disegnare l'esplosione dobbiamo eliminare l'
+				//oggetto.
+				if (index == 16)
+					toDestroy = true;
+
+
+			} else {
+			
+				glBindTexture(GL_TEXTURE_2D, Data.asteroidTextures[texture]);
+			
+			}
+
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(GL_ALPHA_TEST);
+			glAlphaFunc(GL_GREATER, 0);
+
+			glBegin(GL_QUADS);
+			for (int i = 0; i < 4; i++) {
+				glTexCoord2f(shape[i].getU(), shape[i].getV());
+				glVertex3f(shape[i].getX(), shape[i].getY(), shape[i].getZ());
+			}
+			glEnd();
+			glDisable(GL_BLEND);
+			glDisable(GL_ALPHA_TEST);
 
 		}
 

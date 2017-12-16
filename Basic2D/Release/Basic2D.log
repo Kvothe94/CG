@@ -1,8 +1,322 @@
-﻿Compilazione avviata 27/11/2017 12.09.42.
-     1>Progetto "C:\Users\Utente\Desktop\Computer Graphics\Progetto\CG\Basic2D\Basic2D.vcxproj" sul nodo 2 (destinazioni: Build).
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Cpp.Platform.targets(64,5): error MSB8020: The build tools for v141 (Platform Toolset = 'v141') cannot be found. To build using the v141 build tools, please install v141 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Upgrade Solution...".
-     1>Compilazione progetto "C:\Users\Utente\Desktop\Computer Graphics\Progetto\CG\Basic2D\Basic2D.vcxproj" (destinazioni: Build) NON COMPLETATA.
-
-Compilazione NON RIUSCITA.
-
-Tempo trascorso 00:00:00.74
+﻿  main.cpp
+d:\documenti\code\github\cg\basic2d\Model.h(48): error C2065: 'Asteroid': undeclared identifier
+d:\documenti\code\github\cg\basic2d\Model.h(48): error C2923: 'std::vector': 'Asteroid' is not a valid template type argument for parameter '_Ty'
+d:\documenti\code\github\cg\basic2d\Model.h(48): error C3203: 'allocator': unspecialized class template can't be used as a template argument for template parameter '_Alloc', expected a real type
+d:\documenti\code\github\cg\basic2d\Model.h(49): error C2065: 'Bullet': undeclared identifier
+d:\documenti\code\github\cg\basic2d\Model.h(49): error C2923: 'std::vector': 'Bullet' is not a valid template type argument for parameter '_Ty'
+d:\documenti\code\github\cg\basic2d\Model.h(49): error C3203: 'allocator': unspecialized class template can't be used as a template argument for template parameter '_Alloc', expected a real type
+d:\documenti\code\github\cg\basic2d\Model.h(50): error C3646: 'spaceship': unknown override specifier
+d:\documenti\code\github\cg\basic2d\Model.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\documenti\code\github\cg\basic2d\Model.h(96): error C2512: 'std::vector': no appropriate default constructor available
+  D:\Programmi\Utility\Visual Studio\VC\Tools\MSVC\14.11.25503\include\vector(659): note: see declaration of 'std::vector'
+d:\documenti\code\github\cg\basic2d\Model.h(111): error C2039: 'spaceship': is not a member of 'MyModel'
+  d:\documenti\code\github\cg\basic2d\Model.h(28): note: see declaration of 'MyModel'
+d:\documenti\code\github\cg\basic2d\Model.h(111): error C3861: 'Spaceship': identifier not found
+d:\documenti\code\github\cg\basic2d\Model.h(116): error C3861: 'Asteroid': identifier not found
+d:\documenti\code\github\cg\basic2d\Bullet.h(167): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Bullet.h(168): error C3867: 'std::vector<Vertex,std::allocator<_Ty>>::size': non-standard syntax; use '&' to create a pointer to member
+          with
+          [
+              _Ty=Vertex
+          ]
+d:\documenti\code\github\cg\basic2d\Bullet.h(168): error C2446: '<': no conversion from 'unsigned int (__thiscall std::vector<Vertex,std::allocator<_Ty>>::* )(void) noexcept const' to 'int'
+          with
+          [
+              _Ty=Vertex
+          ]
+  d:\documenti\code\github\cg\basic2d\Bullet.h(168): note: There is no context in which this conversion is possible
+d:\documenti\code\github\cg\basic2d\Bullet.h(169): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Bullet.h(185): error C2065: 'Background': undeclared identifier
+d:\documenti\code\github\cg\basic2d\Bullet.h(185): error C2228: left of '.u' must have class/struct/union
+d:\documenti\code\github\cg\basic2d\Bullet.h(185): error C2228: left of '.v' must have class/struct/union
+d:\documenti\code\github\cg\basic2d\Bullet.h(185): error C2660: 'glTexCoord2f': function does not take 1 arguments
+d:\documenti\code\github\cg\basic2d\Bullet.h(186): error C2065: 'Background': undeclared identifier
+d:\documenti\code\github\cg\basic2d\Bullet.h(186): error C2228: left of '.x' must have class/struct/union
+d:\documenti\code\github\cg\basic2d\Bullet.h(186): error C2228: left of '.y' must have class/struct/union
+d:\documenti\code\github\cg\basic2d\Bullet.h(186): error C2228: left of '.z' must have class/struct/union
+d:\documenti\code\github\cg\basic2d\Bullet.h(186): error C2660: 'glVertex3f': function does not take 1 arguments
+d:\documenti\code\github\cg\basic2d\Model.h(28): error C2011: 'MyModel': 'class' type redefinition
+  d:\documenti\code\github\cg\basic2d\Bullet.h(14): note: see declaration of 'MyModel'
+d:\documenti\code\github\cg\basic2d\Spaceship.h(188): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Spaceship.h(189): error C3867: 'std::vector<Vertex,std::allocator<_Ty>>::size': non-standard syntax; use '&' to create a pointer to member
+          with
+          [
+              _Ty=Vertex
+          ]
+d:\documenti\code\github\cg\basic2d\Spaceship.h(189): error C2446: '<': no conversion from 'unsigned int (__thiscall std::vector<Vertex,std::allocator<_Ty>>::* )(void) noexcept const' to 'int'
+          with
+          [
+              _Ty=Vertex
+          ]
+  d:\documenti\code\github\cg\basic2d\Spaceship.h(189): note: There is no context in which this conversion is possible
+d:\documenti\code\github\cg\basic2d\Spaceship.h(190): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(126): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(127): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(301): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(302): error C3867: 'std::vector<Vertex,std::allocator<_Ty>>::size': non-standard syntax; use '&' to create a pointer to member
+          with
+          [
+              _Ty=Vertex
+          ]
+d:\documenti\code\github\cg\basic2d\Asteroid.h(302): error C2446: '<': no conversion from 'unsigned int (__thiscall std::vector<Vertex,std::allocator<_Ty>>::* )(void) noexcept const' to 'int'
+          with
+          [
+              _Ty=Vertex
+          ]
+  d:\documenti\code\github\cg\basic2d\Asteroid.h(302): note: There is no context in which this conversion is possible
+d:\documenti\code\github\cg\basic2d\Asteroid.h(303): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+main.cpp(52): error C2079: 'Data' uses undefined class 'MyModel'
+main.cpp(52): error C2371: 'Data': redefinition; different basic types
+  d:\documenti\code\github\cg\basic2d\Bullet.h(14): note: see declaration of 'Data'
+main.cpp(60): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(60): error C2228: left of '.fullscreen' must have class/struct/union
+main.cpp(65): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(65): error C2228: left of '.hRC' must have class/struct/union
+main.cpp(69): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(69): error C2228: left of '.hRC' must have class/struct/union
+main.cpp(72): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(72): error C2228: left of '.hRC' must have class/struct/union
+main.cpp(75): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(75): error C2228: left of '.hDC' must have class/struct/union
+main.cpp(75): error C2228: left of '.hWnd' must have class/struct/union
+main.cpp(75): error C2660: 'ReleaseDC': function does not take 1 arguments
+main.cpp(77): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(77): error C2228: left of '.hDC' must have class/struct/union
+main.cpp(80): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(80): error C2228: left of '.hWnd' must have class/struct/union
+main.cpp(82): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(82): error C2228: left of '.hWnd' must have class/struct/union
+main.cpp(85): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(85): error C2228: left of '.hInstance' must have class/struct/union
+main.cpp(85): error C2660: 'UnregisterClassA': function does not take 1 arguments
+main.cpp(88): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(88): error C2228: left of '.hInstance' must have class/struct/union
+main.cpp(112): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(112): error C2228: left of '.fullscreen' must have class/struct/union
+main.cpp(114): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(114): error C2228: left of '.hInstance' must have class/struct/union
+main.cpp(119): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(119): error C2228: left of '.hInstance' must have class/struct/union
+main.cpp(132): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(132): error C2228: left of '.fullscreen' must have class/struct/union
+main.cpp(148): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(148): error C2228: left of '.fullscreen' must have class/struct/union
+main.cpp(159): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(159): error C2228: left of '.fullscreen' must have class/struct/union
+main.cpp(174): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(174): error C2228: left of '.hWnd' must have class/struct/union
+main.cpp(185): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(185): error C2228: left of '.hInstance' must have class/struct/union
+main.cpp(186): error C2660: 'CreateWindowExA': function does not take 11 arguments
+main.cpp(213): warning C4838: conversion from 'int' to 'BYTE' requires a narrowing conversion
+main.cpp(215): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(215): error C2228: left of '.hDC' must have class/struct/union
+main.cpp(215): error C2228: left of '.hWnd' must have class/struct/union
+main.cpp(222): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(222): error C2228: left of '.hDC' must have class/struct/union
+main.cpp(229): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(229): error C2228: left of '.hDC' must have class/struct/union
+main.cpp(236): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(236): error C2228: left of '.hRC' must have class/struct/union
+main.cpp(236): error C2228: left of '.hDC' must have class/struct/union
+main.cpp(243): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(243): error C2228: left of '.hDC' must have class/struct/union
+main.cpp(243): error C2228: left of '.hRC' must have class/struct/union
+main.cpp(243): error C2660: 'wglMakeCurrent': function does not take 1 arguments
+main.cpp(250): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(250): error C2228: left of '.hWnd' must have class/struct/union
+main.cpp(251): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(251): error C2228: left of '.hWnd' must have class/struct/union
+main.cpp(252): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(252): error C2228: left of '.hWnd' must have class/struct/union
+main.cpp(253): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(253): error C2228: left of '.ReSizeGLScene' must have class/struct/union
+main.cpp(255): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(255): error C2228: left of '.InitGL' must have class/struct/union
+main.cpp(278): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(278): error C2228: left of '.active' must have class/struct/union
+main.cpp(279): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(279): error C2228: left of '.active' must have class/struct/union
+main.cpp(287): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(287): error C2228: left of '.cx' must have class/struct/union
+main.cpp(287): error C2228: left of '.cy' must have class/struct/union
+main.cpp(288): error C2027: use of undefined type 'MyModel'
+  main.cpp(52): note: see declaration of 'MyModel'
+main.cpp(288): fatal error C1003: error count exceeds 100; stopping compilation
+  Model.cpp
+d:\documenti\code\github\cg\basic2d\Model.h(48): error C2065: 'Asteroid': undeclared identifier
+d:\documenti\code\github\cg\basic2d\Model.h(48): error C2923: 'std::vector': 'Asteroid' is not a valid template type argument for parameter '_Ty'
+d:\documenti\code\github\cg\basic2d\Model.h(48): error C3203: 'allocator': unspecialized class template can't be used as a template argument for template parameter '_Alloc', expected a real type
+d:\documenti\code\github\cg\basic2d\Model.h(49): error C2065: 'Bullet': undeclared identifier
+d:\documenti\code\github\cg\basic2d\Model.h(49): error C2923: 'std::vector': 'Bullet' is not a valid template type argument for parameter '_Ty'
+d:\documenti\code\github\cg\basic2d\Model.h(49): error C3203: 'allocator': unspecialized class template can't be used as a template argument for template parameter '_Alloc', expected a real type
+d:\documenti\code\github\cg\basic2d\Model.h(50): error C3646: 'spaceship': unknown override specifier
+d:\documenti\code\github\cg\basic2d\Model.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+d:\documenti\code\github\cg\basic2d\Model.h(96): error C2512: 'std::vector': no appropriate default constructor available
+  D:\Programmi\Utility\Visual Studio\VC\Tools\MSVC\14.11.25503\include\vector(659): note: see declaration of 'std::vector'
+d:\documenti\code\github\cg\basic2d\Model.h(111): error C2039: 'spaceship': is not a member of 'MyModel'
+  d:\documenti\code\github\cg\basic2d\Model.h(28): note: see declaration of 'MyModel'
+d:\documenti\code\github\cg\basic2d\Model.h(111): error C3861: 'Spaceship': identifier not found
+d:\documenti\code\github\cg\basic2d\Model.h(116): error C3861: 'Asteroid': identifier not found
+d:\documenti\code\github\cg\basic2d\Bullet.h(167): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Bullet.h(168): error C3867: 'std::vector<Vertex,std::allocator<_Ty>>::size': non-standard syntax; use '&' to create a pointer to member
+          with
+          [
+              _Ty=Vertex
+          ]
+d:\documenti\code\github\cg\basic2d\Bullet.h(168): error C2446: '<': no conversion from 'unsigned int (__thiscall std::vector<Vertex,std::allocator<_Ty>>::* )(void) noexcept const' to 'int'
+          with
+          [
+              _Ty=Vertex
+          ]
+  d:\documenti\code\github\cg\basic2d\Bullet.h(168): note: There is no context in which this conversion is possible
+d:\documenti\code\github\cg\basic2d\Bullet.h(169): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Bullet.h(185): error C2065: 'Background': undeclared identifier
+d:\documenti\code\github\cg\basic2d\Bullet.h(185): error C2228: left of '.u' must have class/struct/union
+d:\documenti\code\github\cg\basic2d\Bullet.h(185): error C2228: left of '.v' must have class/struct/union
+d:\documenti\code\github\cg\basic2d\Bullet.h(185): error C2660: 'glTexCoord2f': function does not take 1 arguments
+d:\documenti\code\github\cg\basic2d\Bullet.h(186): error C2065: 'Background': undeclared identifier
+d:\documenti\code\github\cg\basic2d\Bullet.h(186): error C2228: left of '.x' must have class/struct/union
+d:\documenti\code\github\cg\basic2d\Bullet.h(186): error C2228: left of '.y' must have class/struct/union
+d:\documenti\code\github\cg\basic2d\Bullet.h(186): error C2228: left of '.z' must have class/struct/union
+d:\documenti\code\github\cg\basic2d\Bullet.h(186): error C2660: 'glVertex3f': function does not take 1 arguments
+d:\documenti\code\github\cg\basic2d\Model.h(28): error C2011: 'MyModel': 'class' type redefinition
+  d:\documenti\code\github\cg\basic2d\Bullet.h(14): note: see declaration of 'MyModel'
+d:\documenti\code\github\cg\basic2d\Spaceship.h(188): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Spaceship.h(189): error C3867: 'std::vector<Vertex,std::allocator<_Ty>>::size': non-standard syntax; use '&' to create a pointer to member
+          with
+          [
+              _Ty=Vertex
+          ]
+d:\documenti\code\github\cg\basic2d\Spaceship.h(189): error C2446: '<': no conversion from 'unsigned int (__thiscall std::vector<Vertex,std::allocator<_Ty>>::* )(void) noexcept const' to 'int'
+          with
+          [
+              _Ty=Vertex
+          ]
+  d:\documenti\code\github\cg\basic2d\Spaceship.h(189): note: There is no context in which this conversion is possible
+d:\documenti\code\github\cg\basic2d\Spaceship.h(190): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(126): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(127): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(301): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(302): error C3867: 'std::vector<Vertex,std::allocator<_Ty>>::size': non-standard syntax; use '&' to create a pointer to member
+          with
+          [
+              _Ty=Vertex
+          ]
+d:\documenti\code\github\cg\basic2d\Asteroid.h(302): error C2446: '<': no conversion from 'unsigned int (__thiscall std::vector<Vertex,std::allocator<_Ty>>::* )(void) noexcept const' to 'int'
+          with
+          [
+              _Ty=Vertex
+          ]
+  d:\documenti\code\github\cg\basic2d\Asteroid.h(302): note: There is no context in which this conversion is possible
+d:\documenti\code\github\cg\basic2d\Asteroid.h(303): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Model.cpp(16): error C2027: use of undefined type 'MyModel'
+  d:\documenti\code\github\cg\basic2d\Model.h(28): note: see declaration of 'MyModel'
+Model.cpp(18): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(18): error C2227: left of '->LoadGLTextures' must point to class/struct/union/generic type
+Model.cpp(30): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(30): error C2227: left of '->BuildFont' must point to class/struct/union/generic type
+Model.cpp(41): error C2027: use of undefined type 'MyModel'
+  d:\documenti\code\github\cg\basic2d\Model.h(28): note: see declaration of 'MyModel'
+Model.cpp(62): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(62): error C2227: left of '->plx' must point to class/struct/union/generic type
+Model.cpp(63): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(63): error C2227: left of '->ply' must point to class/struct/union/generic type
+Model.cpp(65): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(65): error C2227: left of '->plx' must point to class/struct/union/generic type
+Model.cpp(66): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(66): error C2227: left of '->ply' must point to class/struct/union/generic type
+Model.cpp(69): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(69): error C2227: left of '->plx' must point to class/struct/union/generic type
+Model.cpp(69): error C2227: left of '->ply' must point to class/struct/union/generic type
+Model.cpp(69): error C2660: 'glOrtho': function does not take 3 arguments
+Model.cpp(72): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(72): error C2227: left of '->Wheight' must point to class/struct/union/generic type
+Model.cpp(73): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(73): error C2227: left of '->Wwidth' must point to class/struct/union/generic type
+Model.cpp(83): error C2027: use of undefined type 'MyModel'
+  d:\documenti\code\github\cg\basic2d\Model.h(28): note: see declaration of 'MyModel'
+Model.cpp(85): error C2065: 'backgroundTexture': undeclared identifier
+Model.cpp(88): error C2065: 'backgroundTexture': undeclared identifier
+Model.cpp(91): error C2065: 'bulletTexture': undeclared identifier
+Model.cpp(94): error C2065: 'bulletTexture': undeclared identifier
+Model.cpp(102): error C2065: 'spaceshipTextures': undeclared identifier
+Model.cpp(104): error C2065: 'spaceshipTextures': undeclared identifier
+Model.cpp(112): error C2065: 'asteroidTextures': undeclared identifier
+Model.cpp(114): error C2065: 'asteroidTextures': undeclared identifier
+Model.cpp(122): error C2065: 'spaceshipExplosionTextures': undeclared identifier
+Model.cpp(124): error C2065: 'spaceshipExplosionTextures': undeclared identifier
+Model.cpp(128): error C2065: 'asteroidExplosionTextures': undeclared identifier
+Model.cpp(130): error C2065: 'asteroidExplosionTextures': undeclared identifier
+Model.cpp(135): error C2065: 'menuCreditsTexture': undeclared identifier
+Model.cpp(137): error C2065: 'menuCreditsTexture': undeclared identifier
+Model.cpp(140): error C2065: 'menuCreditsTexture': undeclared identifier
+Model.cpp(142): error C2065: 'menuCreditsTexture': undeclared identifier
+Model.cpp(145): error C2065: 'menuOptionsTexture': undeclared identifier
+Model.cpp(147): error C2065: 'menuOptionsTexture': undeclared identifier
+Model.cpp(150): error C2065: 'menuOptionsTexture': undeclared identifier
+Model.cpp(152): error C2065: 'menuOptionsTexture': undeclared identifier
+Model.cpp(155): error C2065: 'menuPlayTexture': undeclared identifier
+Model.cpp(157): error C2065: 'menuPlayTexture': undeclared identifier
+Model.cpp(160): error C2065: 'menuPlayTexture': undeclared identifier
+Model.cpp(162): error C2065: 'menuPlayTexture': undeclared identifier
+Model.cpp(165): error C2065: 'menuExitTexture': undeclared identifier
+Model.cpp(167): error C2065: 'menuExitTexture': undeclared identifier
+Model.cpp(170): error C2065: 'menuExitTexture': undeclared identifier
+Model.cpp(172): error C2065: 'menuExitTexture': undeclared identifier
+Model.cpp(177): error C2065: 'texture': undeclared identifier
+Model.cpp(177): error C2660: 'glBindTexture': function does not take 1 arguments
+Model.cpp(185): error C2027: use of undefined type 'MyModel'
+  d:\documenti\code\github\cg\basic2d\Model.h(28): note: see declaration of 'MyModel'
+Model.cpp(190): error C2065: 'Tstamp': undeclared identifier
+Model.cpp(193): error C2065: 'Tstamp': undeclared identifier
+Model.cpp(199): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(199): error C2227: left of '->Full_elapsed' must point to class/struct/union/generic type
+Model.cpp(199): error C2065: 'Tstart': undeclared identifier
+Model.cpp(200): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(200): error C2227: left of '->frameTime' must point to class/struct/union/generic type
+Model.cpp(200): error C2065: 'Tstamp': undeclared identifier
+Model.cpp(202): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(202): error C2227: left of '->Tstamp' must point to class/struct/union/generic type
+Model.cpp(205): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(205): error C2227: left of '->isGame' must point to class/struct/union/generic type
+Model.cpp(206): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(206): error C2227: left of '->Play' must point to class/struct/union/generic type
+Model.cpp(207): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(207): error C2227: left of '->DoGame' must point to class/struct/union/generic type
+Model.cpp(208): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(208): error C2227: left of '->DrawGLSceneGame' must point to class/struct/union/generic type
+Model.cpp(211): error C2355: 'this': can only be referenced inside non-static member functions or non-static data member initializers
+Model.cpp(211): error C2227: left of '->DrawGLSceneInit' must point to class/struct/union/generic type
+Model.cpp(211): fatal error C1003: error count exceeds 100; stopping compilation
