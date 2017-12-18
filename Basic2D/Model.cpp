@@ -205,12 +205,31 @@ bool MyModel::Run(void){
 		this->DrawGLSceneInit();
 	}
 }
+bool MyModel::Hit(Vertex a, float al, float aw, Vertex b, float bl, float bw){
+
+
+}
 
 bool MyModel::CheckGame(){
 	//qui bisogna controllare:
 	//1 Proiettili che colpiscono asteroidi nel caso elimono asteroide e proiettile
+	for (int i = 0; i < this->asteroids.size(); i++){
+		
+		for (int k = 0; k < this->bullets.size(); k++){
+			if (Hit(this->asteroids[i].getCenter(), this->asteroids[i].getLength(), this->asteroids[i].getWidth(), this->bullets[k].getCenter(), this->bullets[k].getLength(), this->bullets[k].getWidth())){
+				//qui vanno messe le azioni da fare nel caso di colpito asteroide proiettile
+			}
+		}
+	}
 	//2 Asteroidi che colpiscono navetta
+	for (int j = 0; j < this->asteroids.size(); j++){
+		if (Hit(this->spaceship.getCenter(), this->spaceship.getLength(), this->spaceship.getWidth(), this->asteroids[j].getCenter(), this->asteroids[j].getLength(), this->asteroids[j].getWidth()
+			)){
+			//Cosa da fare nel caso di colpito navicella con proiettile
+		}
+	}
 	//3 Asteroide che va fuori
+
 	//4 Proiettile che va fuori
 
 }

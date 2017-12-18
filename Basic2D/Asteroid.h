@@ -55,6 +55,9 @@ class Asteroid {
 		bool hitten;
 
 		//Variabile che memorizza il tempo a cui il 
+		//Aanswer per cosa la vuoi usare io forse la terrei per far si che 
+		//l'esplosione sia visibile per qualche ciclo tipo 1 o 2 e poi eliminerei il tutto?? 
+		//che ne dici?
 		double hittingTime;
 
 		//Variabile che, qualora settata a true, indica
@@ -64,6 +67,7 @@ class Asteroid {
 		///dall'interno della classe oppure dal modello.
 		///In particolare la setterei a true laddove si
 		///verifichi la condizione di outOfBoundaries.
+		//Answer io come concordato con gratta non la userei perche distruggiamo togliendo direttamente dal array
 		bool toDestroy;
 
 		//Variabile che contiene le nostre texture.
@@ -356,6 +360,7 @@ class Asteroid {
 			if (hitten && !toDestroy) {
 
 				///TO SEE: te lo hai capito questo algoritmo?
+				//Answer mi sembra sia quello per ciclare in modo ciclico su 17 immagini con l'index
 				int index = (int((Data.fullElapsed - hittingTime) * 20)) % 17;
 				glBindTexture(GL_TEXTURE_2D, Data.asteroidExplosionTextures[index]);
 				

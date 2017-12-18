@@ -42,21 +42,13 @@ class Spaceship {
 		//essere disegnato in fase di esplosione.
 		//Se tale variabile è a true l'oggetto deve
 		//smettere di muoversi (l'esplosione non si muove).
+		//Answer ottima idea
 		bool hitten;
 
 		//Variabile che memorizza il tempo a cui il 
 		double hittingTime;
 
-		//Variabile che, qualora settata a true, indica
-		//che l'oggetto non deve essere più disegnato e
-		//va eliminato quanto prima.
-		///TO SEE non so se lasciare che venga settata
-		///dall'interno della classe oppure dal modello.
-		///In particolare la setterei a true laddove si
-		///verifichi la condizione di outOfBoundaries.
-		//ANSEWR se semplicemente facessico if(outofboundaries()) remove from list; ? Non capisco perche mettere
-		//questa variabile? Stessa cosa anche per proiettili e asteroidi
-		///ANSWER II: ci serve per quando si scontrano 2 oggetti.
+		
 		bool toDestroy;
 
 		//Variabile che contiene le nostre texture.

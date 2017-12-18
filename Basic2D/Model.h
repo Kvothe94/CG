@@ -116,6 +116,7 @@ class MyModel {
 			///TO SEE: non lo creerei nel costruttore del modello l'asteroide
 			///        se c'è una funzione che chiamiamo ogni volta per la gestione
 			///        del gioco probabilmente lo creerei lì insieme ai bullet etc.
+			// Answer forse hai ragione potrebbe essere una cosa sensata
 			this->asteroids.push_back(Asteroid(diff));
 
 			this->Tstart = this->Tstamp = clock();
@@ -149,7 +150,7 @@ class MyModel {
 		bool CheckGame();
 		//funzione che crea asteroidi
 		bool DoGame(double elapsed);
-
+		bool Hit(Vertex a, float al, float aw, Vertex b, float bl, float bw);
 		bool InitGL(void);
 		void ReSizeGLScene(int width, int height);
 		void glPrint(const char *fmt, ...);			// Custom GL "Print" Routine
