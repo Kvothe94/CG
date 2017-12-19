@@ -160,7 +160,7 @@ class Bullet {
 		///	      andresti a duplicare ogni volta i membri di shape.
 		///		  Io direi di spostare anche il centro, se non è un
 		///		  problema concettuale.
-		void move(double elapsed) {
+		bool move(double elapsed) {
 
 			if (!this->outOfBoundaries()) {
 
@@ -169,6 +169,7 @@ class Bullet {
 					shape[i].modifyP(speedX*elapsed, 0);
 
 			}
+			return !this->outOfBoundaries();
 
 		}
 

@@ -142,6 +142,8 @@ class MyModel {
 		bool Run();
 		//funzione gioco al suo interno richiama 
 		bool Play(double elapsed);
+		//calcola la distanza tra due vertici utile per la hit
+		float Distance(Vertex a, Vertex b);
 		//controllo imput tastiera ed eventuali azioni seguenti come modifiche di velocita e creazione nuovi bullet
 		bool KeyCheck();
 		//sposto le cose in base alla equa spazio=velocita*tempo cioè s=vel*elapsed

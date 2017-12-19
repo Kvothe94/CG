@@ -205,8 +205,22 @@ bool MyModel::Run(void){
 		this->DrawGLSceneInit();
 	}
 }
-bool MyModel::Hit(Vertex a, float al, float aw, Vertex b, float bl, float bw){
+float MyModel::Distance(Vertex a, Vertex b){
 
+	float dist = sqrt(pow(a.getX() - b.getX(), 2) + pow(a.getY() - b.getY(), 2));
+	return dist;
+}
+bool MyModel::Hit(Vertex a, float al, float aw, Vertex b, float bl, float bw){
+	//considero un raggio medio per fare la hit mi sembra la cosa più sensata 
+	float ra = (al + aw) / 2;
+	float rb = (bl + bw) / 2;
+	float dist = Distance(a, b);
+	if (ra + rb <= dist){
+		return true;
+	}
+	else{
+		return false;
+	}
 
 }
 
@@ -218,6 +232,9 @@ bool MyModel::CheckGame(){
 		for (int k = 0; k < this->bullets.size(); k++){
 			if (Hit(this->asteroids[i].getCenter(), this->asteroids[i].getLength(), this->asteroids[i].getWidth(), this->bullets[k].getCenter(), this->bullets[k].getLength(), this->bullets[k].getWidth())){
 				//qui vanno messe le azioni da fare nel caso di colpito asteroide proiettile
+				this->asteroids[i].setHitten(true);
+				this->bullets.erase(bullets.begin() + k);
+
 			}
 		}
 	}
@@ -225,14 +242,29 @@ bool MyModel::CheckGame(){
 	for (int j = 0; j < this->asteroids.size(); j++){
 		if (Hit(this->spaceship.getCenter(), this->spaceship.getLength(), this->spaceship.getWidth(), this->asteroids[j].getCenter(), this->asteroids[j].getLength(), this->asteroids[j].getWidth()
 			)){
-			//Cosa da fare nel caso di colpito navicella con proiettile
+			//Cosa da fare nel caso di colpito navicella con asteroide
+			this->spaceship.setHitten(true);
+			this->asteroids[j].setHitten(true);
 		}
 	}
+	//controllo gli outofboundaries
 	//3 Asteroide che va fuori
+	for (int j = 0; j < this->asteroids.size(); j++){
+		if (this->asteroids[j].getToDestroy()){
+			this->asteroids.erase(asteroids.begin() + j);
+		}
+	}
 
 	//4 Proiettile che va fuori
+	for (int j = 0; j < this->bullets.size(); j++){
+		if (this->bullets[j].getToDestroy()){
+			this->bullets.erase(bullets.begin() + j);
+		}
+	}
 
 }
+
+
 bool MyModel::KeyCheck(){
 	if (Data.keys[VK_SPACE]){
 		
@@ -258,11 +290,17 @@ bool MyModel::ComputeMovements(double elapsed){
 	this->spaceship.move(elapsed);
 	//muovo gli asteroidi
 	for (int i = 0; i < this->asteroids.size(); i++){
-		this->asteroids.at(i).move(elapsed);
+		if (!this->asteroids.at(i).move(elapsed)){
+			//setto la variabile to destroy poiche move ha ritornato false cioè sono outfoboundaries
+			this->asteroids.at(i).setToDestroy(true);
+		}
 	}
 	//muovo i bullet
 	for (int i = 0; i < this->bullets.size(); i++){
-		this->bullets.at(i).move(elapsed);
+		if (!this->bullets.at(i).move(elapsed)){
+			//setto la variabile to destroy poiche move ha ritornato false cioè sono outfoboundaries
+			this->bullets.at(i).setToDestroy(true);
+		}
 	}
 
 

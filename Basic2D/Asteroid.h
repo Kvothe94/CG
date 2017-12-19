@@ -45,14 +45,7 @@ class Asteroid {
 		//forma geometrica sottostante l'asteroide.
 		std::vector<Vertex> shape;   
 
-		///TO SEE: guarda queste due variabili, dobbiamo
-		///considerarle se vogliamo fare gli effetti di esplosione.
-		//Variabile che, qualora settata a true, indica
-		//che l'oggetto è stato colpito e pertanto deve
-		//essere disegnato in fase di esplosione.
-		//Se tale variabile è a true l'oggetto deve
-		//smettere di muoversi (l'esplosione non si muove).
-		bool hitten;
+		
 
 		//Variabile che memorizza il tempo a cui il 
 		//Aanswer per cosa la vuoi usare io forse la terrei per far si che 
@@ -69,6 +62,14 @@ class Asteroid {
 		///verifichi la condizione di outOfBoundaries.
 		//Answer io come concordato con gratta non la userei perche distruggiamo togliendo direttamente dal array
 		bool toDestroy;
+		///TO SEE: guarda queste due variabili, dobbiamo
+		///considerarle se vogliamo fare gli effetti di esplosione.
+		//Variabile che, qualora settata a true, indica
+		//che l'oggetto è stato colpito e pertanto deve
+		//essere disegnato in fase di esplosione.
+		//Se tale variabile è a true l'oggetto deve
+		//smettere di muoversi (l'esplosione non si muove).
+		bool hitten;
 
 		//Variabile che contiene le nostre texture.
 		///TO SEE In teoria potrebbe servirci più
@@ -84,7 +85,7 @@ class Asteroid {
 		int explosionTexture;
 
 	public:
-
+		
 		/*METHODS*/
 
 		Asteroid(float x, float y, float z, float sX, float sY, float diff, float l, float w) {
@@ -340,7 +341,7 @@ class Asteroid {
 		///		  Io direi di spostare anche il centro, se non è un
 		///		  problema concettuale.
 		//ANSWER ci avevo pensato a spostare il centro anzi che i vertici, io spostavo entrambi se non ricordo male vedi audio2
-		void move(double elapsed) {
+		bool move(double elapsed) {
 
 			if (!this->outOfBoundaries()) {
 
@@ -349,6 +350,8 @@ class Asteroid {
 					shape[i].modifyP(speedX*elapsed, speedY*elapsed);
 
 			}
+			return !this->outOfBoundaries();
+
 
 		}
 
