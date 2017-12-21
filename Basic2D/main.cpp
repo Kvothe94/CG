@@ -352,7 +352,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
   Data.fullscreen=false;  // removed the boring request...
 
 	// Create Our OpenGL Window
-	if (!CreateGLWindow("Basic 2D game skeleton",1920,1080,16,Data.fullscreen))
+	if (!CreateGLWindow("Basic 2D game skeleton",640,480,16,Data.fullscreen))
 	{
 		return 0;									// Quit If Window Was Not Created
 	}
@@ -362,7 +362,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
   if (!device) {
     return 0;         // failure
   }
-  OutputStreamPtr stream(OpenSound(device, "../Data/Sound/Cyber-Dream-Loop.mp3", true));
+  OutputStreamPtr stream(OpenSound(device, "../Data/ophelia.mp3", true));
   if (!stream) {
     return 0;         // failure
   }
