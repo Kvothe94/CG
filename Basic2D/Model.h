@@ -1,5 +1,4 @@
-#ifndef MODEL_H
-#define MODEL_H
+#pragma once
 
 ///////////////////////////////////////////////////////////////////
 //  A basic skeleton for 2D like game developpers.
@@ -182,6 +181,118 @@ class MyModel {
 			return ( float(ply) - (2.0f * float(ply) * float(y) / float(Wheight)));
 		}
 
-};
 
-#endif
+		void draw(Asteroid anAsteroid) {
+
+			///TO SEE da vedere se in ogni draw dobbiamo fare la
+			///glEnable(GL_TEXTURE_2D); oppure se basta farla nel model
+			///quando iniziamo a disegnare la scena in generale.
+			if (anAsteroid.getHitten() && !anAsteroid.getToDestroy()) {
+
+				///TO SEE: te lo hai capito questo algoritmo?
+				//Answer mi sembra sia quello per ciclare in modo ciclico su 17 immagini con l'index
+				int index = (int((this->fullElapsed - anAsteroid.getHittingTime()) * 20)) % 17;
+				glBindTexture(GL_TEXTURE_2D, this->asteroidExplosionTextures[index]);
+
+				//Se abbiamo finito di disegnare l'esplosione dobbiamo eliminare l'
+				//oggetto.
+				if (index == 16)
+					anAsteroid.setToDestroy(true);
+
+
+			}
+			else {
+
+				glBindTexture(GL_TEXTURE_2D, this->asteroidTextures[anAsteroid.getTexture()]);
+
+			}
+
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(GL_ALPHA_TEST);
+			glAlphaFunc(GL_GREATER, 0);
+
+			glBegin(GL_QUADS);
+			for (int i = 0; i < 4; i++) {
+				glTexCoord2f(anAsteroid.getShape()[i].getU(), anAsteroid.getShape()[i].getV());
+				glVertex3f(anAsteroid.getShape()[i].getX(), anAsteroid.getShape()[i].getY(), anAsteroid.getShape()[i].getZ());
+			}
+			glEnd();
+			glDisable(GL_BLEND);
+			glDisable(GL_ALPHA_TEST);
+
+		}
+
+		void draw(Bullet aBullet) {
+
+			///TO SEE da vedere se in ogni draw dobbiamo fare la
+			///glEnable(GL_TEXTURE_2D); oppure se basta farla nel model
+			///quando iniziamo a disegnare la scena in generale.
+			glBindTexture(GL_TEXTURE_2D, this->bulletTexture);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(GL_ALPHA_TEST);
+			glAlphaFunc(GL_GREATER, 0);
+
+			glBegin(GL_QUADS);
+			for (int i = 0; i < 4; i++) {
+				glTexCoord2f(aBullet.getShape()[i].getU(), aBullet.getShape()[i].getV());
+				glVertex3f(aBullet.getShape()[i].getX(), aBullet.getShape()[i].getY(), aBullet.getShape()[i].getZ());
+			}
+			glEnd();
+			glDisable(GL_BLEND);
+			glDisable(GL_ALPHA_TEST);
+
+		}
+
+		void draw(Spaceship aSpaceship) {
+
+			///TO SEE da vedere se in ogni draw dobbiamo fare la
+			///glEnable(GL_TEXTURE_2D); oppure se basta farla nel model
+			///quando iniziamo a disegnare la scena in generale.
+			if (aSpaceship.getHitten() && !aSpaceship.getToDestroy()) {
+
+				///TO SEE: te lo hai capito questo algoritmo?
+				int index = (int((this->fullElapsed - aSpaceship.getHittingTime()) * 20)) % 17;
+				glBindTexture(GL_TEXTURE_2D, this->spaceshipExplosionTextures[index]);
+
+				//Se abbiamo finito di disegnare l'esplosione dobbiamo eliminare l'
+				//oggetto.
+				if (index == 16)
+					aSpaceship.setToDestroy(true);
+
+			} else {
+
+				//Modifichiamo la texture in base a se la nave si muove in una direzione o in
+				//un'altra.
+				if (aSpaceship.getBaseSpeedY() == 0) {
+					//Tentativo: uso 2 texture per dare un impressione di movimento.
+					int index = (int(this->fullElapsed * 20)) % 2;
+					glBindTexture(GL_TEXTURE_2D, this->spaceshipTextures[index]);
+				}
+				else if (aSpaceship.getBaseSpeedY() > 0) {
+					glBindTexture(GL_TEXTURE_2D, this->spaceshipTextures[3]);
+				}
+				else {
+					glBindTexture(GL_TEXTURE_2D, this->spaceshipTextures[2]);
+				}
+
+			}
+
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(GL_ALPHA_TEST);
+			glAlphaFunc(GL_GREATER, 0);
+
+			glBegin(GL_QUADS);
+			for (int i = 0; i < 4; i++) {
+				glTexCoord2f(aSpaceship.getShape()[i].getU(), aSpaceship.getShape()[i].getV());
+				glVertex3f(aSpaceship.getShape()[i].getX(), aSpaceship.getShape()[i].getY(), aSpaceship.getShape()[i].getZ());
+			}
+			glEnd();
+			glDisable(GL_BLEND);
+			glDisable(GL_ALPHA_TEST);
+
+		}
+
+};

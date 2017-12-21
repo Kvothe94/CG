@@ -1,5 +1,4 @@
-#ifndef SPACESHIP_H
-#define SPACESHIP_H
+#pragma once
 
 #include <vector>
 #include <time.h>
@@ -10,6 +9,8 @@
 #include <stdlib.h>
 #include "Model.h"
 #include "Constant.h"
+
+extern class MyModel Data;
 
 class Spaceship {
 
@@ -210,7 +211,7 @@ class Spaceship {
 			if (!this->outOfBoundaries(elapsed)) {
 
 				center.modifyP(0, baseSpeedY*elapsed);
-				for (int i = 0; i < shape.size; i++)
+				for (int i = 0; i < shape.size(); i++)
 					center.modifyP(0, baseSpeedY*elapsed);
 
 			}
@@ -218,57 +219,4 @@ class Spaceship {
 
 		}
 
-		void draw() {
-
-			///TO SEE da vedere se in ogni draw dobbiamo fare la
-			///glEnable(GL_TEXTURE_2D); oppure se basta farla nel model
-			///quando iniziamo a disegnare la scena in generale.
-			if (hitten && !toDestroy) {
-
-				///TO SEE: te lo hai capito questo algoritmo?
-				int index = (int((Data.fullElapsed - hittingTime) * 20)) % 17;
-				glBindTexture(GL_TEXTURE_2D, Data.spaceshipExplosionTextures[index]);
-
-				//Se abbiamo finito di disegnare l'esplosione dobbiamo eliminare l'
-				//oggetto.
-				if (index == 16)
-					toDestroy = true;
-
-			}
-			else {
-
-				//Modifichiamo la texture in base a se la nave si muove in una direzione o in
-				//un'altra.
-				if (baseSpeedY == 0) {
-					//Tentativo: uso 2 texture per dare un impressione di movimento.
-					int index = (int(Data.fullElapsed * 20)) % 2;
-					glBindTexture(GL_TEXTURE_2D, Data.spaceshipTextures[index]);
-				}
-				else if (baseSpeedY > 0) {
-					glBindTexture(GL_TEXTURE_2D, Data.spaceshipTextures[3]);
-				}
-				else {
-					glBindTexture(GL_TEXTURE_2D, Data.spaceshipTextures[2]);
-				}
-
-			}
-
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glEnable(GL_ALPHA_TEST);
-			glAlphaFunc(GL_GREATER, 0);
-
-			glBegin(GL_QUADS);
-			for (int i = 0; i < 4; i++) {
-				glTexCoord2f(shape[i].getU(), shape[i].getV());
-				glVertex3f(shape[i].getX(), shape[i].getY(), shape[i].getZ());
-			}
-			glEnd();
-			glDisable(GL_BLEND);
-			glDisable(GL_ALPHA_TEST);
-
-		}
-
 };
-
-#endif

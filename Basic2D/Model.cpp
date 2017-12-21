@@ -204,7 +204,11 @@ bool MyModel::Run(void){
 	else{
 		this->DrawGLSceneInit();
 	}
+
+	return true;
+
 }
+
 float MyModel::Distance(Vertex a, Vertex b){
 
 	float dist = sqrt(pow(a.getX() - b.getX(), 2) + pow(a.getY() - b.getY(), 2));
@@ -262,6 +266,8 @@ bool MyModel::CheckGame(){
 		}
 	}
 
+	return true;
+
 }
 
 
@@ -282,7 +288,7 @@ bool MyModel::KeyCheck(){
 	}
 	//da inserire eventuali altri comandi 
 	//ricorda di mettere a false i tasti
-
+	return true;
 
 }
 bool MyModel::ComputeMovements(double elapsed){
@@ -303,21 +309,25 @@ bool MyModel::ComputeMovements(double elapsed){
 		}
 	}
 
-
+	return true;
 }
+
 bool MyModel :: Play(double elapsed){
 	this->KeyCheck();
 	this->ComputeMovements(elapsed);
 	this->CheckGame();
 	this->DoGame(elapsed);
-	
+	return true;
+
 }
+
 bool MyModel::DoGame(double elapsed){
 	int temp = this->astnew - elapsed;
 	if (temp <= 0){
 		this->asteroids.push_back(Asteroid(this->diff));
 		this->astnew = (rand() / RAND_MAX)*(TIME_SCALE/ diff);
 	}
+	return true;
 
 }
 bool MyModel::DrawGLSceneInit(void)									
@@ -358,8 +368,10 @@ bool MyModel::DrawGLSceneInit(void)
 	glDisable(GL_ALPHA_TEST);
 	//  Floating cursor - end*/
 
+	return true;
 
 }
+
 bool MyModel::DrawGLSceneGame(void){
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
@@ -395,14 +407,14 @@ bool MyModel::DrawGLSceneGame(void){
 
 	//Ora dobbiamo disegnare tutti i nostri oggetti:
 	for each (Bullet myBull in bullets){
-		myBull.draw();
+		draw(myBull);
 	}
 
 	for each (Asteroid myAst in asteroids) {
-		myAst.draw();
+		draw(myAst);
 	}
 
-	spaceship.draw();
+	draw(spaceship);
 
 
 	/*//  Some text
@@ -440,6 +452,8 @@ bool MyModel::DrawGLSceneGame(void){
 
 	glEnable(GL_TEXTURE_2D);							// Enable Texture Mapping
 	return true;*/
+
+	return true;
 }
 
 

@@ -1,5 +1,5 @@
-#ifndef BULLET_H
-#define BULLET_H
+#pragma once
+
 
 #include <vector>
 #include <time.h>
@@ -10,8 +10,6 @@
 #include <stdlib.h>
 #include "Model.h"
 #include "Constant.h"
-
-extern class MyModel Data;
 
 class Bullet {
 
@@ -165,36 +163,12 @@ class Bullet {
 			if (!this->outOfBoundaries()) {
 
 				center.modifyP(speedX*elapsed, 0);
-				for (int i = 0; i < shape.size; i++) 
+				for (int i = 0; i < shape.size(); i++) 
 					shape[i].modifyP(speedX*elapsed, 0);
 
 			}
 			return !this->outOfBoundaries();
 
 		}
-
-		void draw() {
-
-			///TO SEE da vedere se in ogni draw dobbiamo fare la
-			///glEnable(GL_TEXTURE_2D); oppure se basta farla nel model
-			///quando iniziamo a disegnare la scena in generale.
-			glBindTexture(GL_TEXTURE_2D, Data.bulletTexture);
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glEnable(GL_ALPHA_TEST);
-			glAlphaFunc(GL_GREATER, 0);
-
-			glBegin(GL_QUADS);
-			for (int i = 0; i < 4; i++) {
-				glTexCoord2f(shape[i].getU(), shape[i].getV());
-				glVertex3f(shape[i].getX(), shape[i].getY(), shape[i].getZ());
-			}
-			glEnd();
-			glDisable(GL_BLEND);
-			glDisable(GL_ALPHA_TEST);
-
-		}
 		
 };
-
-#endif

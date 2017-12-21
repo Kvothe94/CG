@@ -1,7 +1,4 @@
-#pragma warning(disable: 4996)
-
-#ifndef CONSTANT_H
-#define CONSTANT_H
+#pragma once
 
 ///TO SEE I valori delle costanti al momento sono sensati
 ///       ma non definitivi: io direi di fare tuning una
@@ -53,6 +50,3 @@
 #define START_GAME 10
 //Scalability constant about asteroid creation time
 #define TIME_SCALE 100
-
-
-#endif

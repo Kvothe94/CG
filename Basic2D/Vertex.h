@@ -1,5 +1,4 @@
-#ifndef VERTEX_H
-#define VERTEX_H
+#pragma once
 
 class Vertex {
 
@@ -198,5 +197,3 @@ class Vertex {
 		}
 
 };
-
-#endif

@@ -370,9 +370,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
   stream->setVolume(0.5f); // 50% volume
   stream->play();
   ///TO SEE music qui va gestita con sound manca nella cartella data la roba relativa a il sottofondo
-  OutputStreamPtr explosion(OpenSound(device, "../Data/explosion.wav", false));
-  OutputStreamPtr bell(OpenSound(device, "../Data/bell.wav", false));
-  OutputStreamPtr stupid(OpenSound(device, "../Data/stupid.wav", false));
+
   //  AUDIO - end
 
 	while(!done)									// Loop That Runs While done=FALSE
@@ -414,7 +412,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 					return 0;						// Quit If Window Was Not Created
 				}
 			}*/
-    if (Data.keys[VK_F2])						// Is F2 Being Pressed?
+    /*if (Data.keys[VK_F2])						// Is F2 Being Pressed?
 			{
 				Data.keys[VK_F2]=FALSE;					// If So Make Key FALSE
         if( explosion->isPlaying() ) explosion->reset();
@@ -432,7 +430,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 				Data.keys[VK_F4]=FALSE;					// If So Make Key FALSE
         if( stupid->isPlaying() ) stupid->reset();
         else stupid->play();
-			}
+			}*/
 
 
 
