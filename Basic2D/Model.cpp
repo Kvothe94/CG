@@ -29,16 +29,15 @@ bool MyModel::InitGL(void){
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	this->BuildFont();
 
-	// eye    (0,0,0)
-	// center (0,0,-1)
-	// up     (0,1,0)
-	gluLookAt(0.0, 0.0, 0.0,   0.0, 0.0, -1.0,   0.0, 1.0, 0.0);
+	gluLookAt(MAX_VIS_X / 2, MAX_VIS_Y / 2, EYE_Z,		 MAX_VIS_X / 2, MAX_VIS_Y / 2, 0,		0.0, 1.0, 0.0);
 
 	return true;										// Initialization Went OK
 }
 
 
 void MyModel::ReSizeGLScene(int width, int height){
+
+	///TO SEE: dobbiamo vedere se è il caso di implementare la resize.
 
 	if (height == 0) 
 		height = 1;							// Prevent A Divide By Zero By
@@ -333,40 +332,36 @@ bool MyModel::DoGame(double elapsed){
 bool MyModel::DrawGLSceneInit(void)									
 {
 	
-	/*//  Floating cursor - start
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0);
-	glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix
-	glLoadIdentity();									// Reset The View
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
+	glMatrixMode(GL_MODELVIEW);								// Select The Modelview Matrix
+	glLoadIdentity();										// Reset The View
 
-														//  Disable texture to see the rectangle size
-														//  The cursor "hot spot" is the center of the rectangle
-														// glDisable(GL_TEXTURE_2D);
-	glTranslatef(ClientX2World(cx), ClientY2World(cy), 0);
+															//  TIMING - start
+	clock_t t = clock();
 
-	// proportional scaling (fixed percentual of window dimension)
-	// if(1) proportional, if(0) fixed
-	if (1) glScalef(0.10f, 0.10f, 1);
-	//  Fixed scaling, alwais 100 pixels width/height
-	else {
-		float dx = PixToCoord_X(100);
-		float dy = PixToCoord_Y(100);
-		glScalef(dx / 2, dy / 2, 1);
-	}
+	// elapsed time in seconds from the last draw
+	double elapsed = double(t - Tstamp) / (double)CLOCKS_PER_SEC;
 
+	// elapsed time in milliseconds from the last draw
+	int ms_elapsed = (int)(t - Tstamp);
 
+	// elapsed time in seconds from the beginning of the program
+	this->fullElapsed = double(t - Tstart) / (double)CLOCKS_PER_SEC;
+	this->frameTime += double(t - Tstamp) / (double)CLOCKS_PER_SEC;
+
+	this->Tstamp = t;
+	//  TIMING - end
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, backgroundTexture);
+
+	//  Background
 	glBegin(GL_QUADS);
 	for (int i = 0; i < 4; i++) {
-		glTexCoord2f(curs[i].u, curs[i].v);
-		glVertex3f(curs[i].x, fire[i].y, curs[i].z);
+		glTexCoord2f(Background[i].getU(), Background[i].getV());
+		glVertex3f(Background[i].getX(), Background[i].getY(), Background[i].getZ());
 	}
 	glEnd();
-
-	glDisable(GL_BLEND);
-	glDisable(GL_ALPHA_TEST);
-	//  Floating cursor - end*/
 
 	return true;
 
