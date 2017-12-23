@@ -104,10 +104,10 @@ class MyModel {
 			//TO ASK PROF
 			//queste sono le stesse del prof non le ho toccate poi andranno gestite meglio per questione resize
 			Background.clear();
-			Background.push_back(Vertex(60,     60, 0,   0, 0, 1,   0, 0));
-			Background.push_back(Vertex(60,   1140, 0,   0, 0, 1,   0, 4));
-			Background.push_back(Vertex(1980, 1140, 0,   0, 0, 1,   4, 4));
-			Background.push_back(Vertex(1980,   60, 0,   0, 0, 1,   4, 0));
+			Background.push_back(Vertex(60,     60, -5,   0, 0, 1,   0, 0));
+			Background.push_back(Vertex(60,   1140, -5,   0, 0, 1,   0, 1));
+			Background.push_back(Vertex(1980, 1140, -5,   0, 0, 1,   1, 1));
+			Background.push_back(Vertex(1980,   60, -5,   0, 0, 1,   1, 0));
 			
 			//creo una navicella
 			this->spaceship = Spaceship();

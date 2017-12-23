@@ -362,7 +362,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
   if (!device) {
     return 0;         // failure
   }
-  OutputStreamPtr stream(OpenSound(device, "../Data/ophelia.mp3", true));
+  OutputStreamPtr stream(OpenSound(device, "../Data/Sound/music.mp3", true));
   if (!stream) {
     return 0;         // failure
   }

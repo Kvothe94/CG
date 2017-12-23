@@ -16,7 +16,7 @@
 #define MIN_VIS_Y 60				//Minimo punto visibile lungo le y
 #define MIN_Y 0						//Minimo punto spaziale lungo le y
 
-#define EYE_Z 10
+#define EYE_Z 0
 
 //Bullet Constant Definition
 
