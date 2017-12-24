@@ -10,36 +10,22 @@ d:\documenti\code\github\cg\basic2d\Spaceship.h(215): warning C4244: 'argument':
 d:\documenti\code\github\cg\basic2d\Bullet.h(165): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 d:\documenti\code\github\cg\basic2d\Bullet.h(166): warning C4018: '<': signed/unsigned mismatch
 d:\documenti\code\github\cg\basic2d\Bullet.h(167): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\documenti\code\github\cg\basic2d\Model.h(125): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-Model.cpp(236): warning C4018: '<': signed/unsigned mismatch
-Model.cpp(238): warning C4018: '<': signed/unsigned mismatch
-Model.cpp(248): warning C4018: '<': signed/unsigned mismatch
-Model.cpp(258): warning C4018: '<': signed/unsigned mismatch
-Model.cpp(265): warning C4018: '<': signed/unsigned mismatch
-Model.cpp(300): warning C4018: '<': signed/unsigned mismatch
-Model.cpp(307): warning C4018: '<': signed/unsigned mismatch
-Model.cpp(327): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-Model.cpp(329): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  main.cpp
-d:\documenti\code\github\cg\basic2d\Asteroid.h(141): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\documenti\code\github\cg\basic2d\Asteroid.h(142): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\documenti\code\github\cg\basic2d\Asteroid.h(346): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\documenti\code\github\cg\basic2d\Asteroid.h(347): warning C4018: '<': signed/unsigned mismatch
-d:\documenti\code\github\cg\basic2d\Asteroid.h(348): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\documenti\code\github\cg\basic2d\Spaceship.h(213): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\documenti\code\github\cg\basic2d\Spaceship.h(214): warning C4018: '<': signed/unsigned mismatch
-d:\documenti\code\github\cg\basic2d\Spaceship.h(215): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\documenti\code\github\cg\basic2d\Bullet.h(165): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\documenti\code\github\cg\basic2d\Bullet.h(166): warning C4018: '<': signed/unsigned mismatch
-d:\documenti\code\github\cg\basic2d\Bullet.h(167): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\documenti\code\github\cg\basic2d\Model.h(125): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-main.cpp(213): warning C4838: conversion from 'int' to 'BYTE' requires a narrowing conversion
+d:\documenti\code\github\cg\basic2d\Model.h(126): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Model.cpp(231): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(233): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(243): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(253): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(260): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(295): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(302): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(322): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+Model.cpp(324): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 SOIL.lib(SOIL.obj) : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
 LINK : warning LNK4098: defaultlib 'MSVCRTD' conflicts with use of other libs; use /NODEFAULTLIB:library
   Generating code
-  6 of 337 functions ( 1.8%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  65 of 337 functions (19.3%) were compiled, the rest were copied from previous compilation.
+    38 functions were new in current compilation
+    61 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'D:\Documenti\Code\GitHub\CG\Release\vc100.pdb'; linking object as if no debug info
 SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'D:\Documenti\Code\GitHub\CG\Release\vc100.pdb'; linking object as if no debug info

@@ -29,12 +29,7 @@ bool MyModel::InitGL(void){
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	this->BuildFont();
 
-	// eye    (0,0,0)
-	// center (0,0,-1)
-	// up     (0,1,0)
-	//gluLookAt(MAX_X / 2, MAX_Y / 2, EYE_Z,		MAX_X / 2, MAX_Y / 2, -5.0,		0.0, 1.0, 0.0);
-
-	gluLookAt(0, 0, EYE_Z, 0, 0, -5.0, 0.0, 1.0, 0.0);
+	gluLookAt(EYE_X, EYE_Y, EYE_Z, CENTER_X, CENTER_Y, CENTER_Z, UP_X, UP_Y, UP_Z);
 
 	return true;										// Initialization Went OK
 }
@@ -403,6 +398,7 @@ bool MyModel::DrawGLSceneGame(void){
 	}
 	glEnd();
 
+	
 	//Ora dobbiamo disegnare tutti i nostri oggetti:
 	for each (Bullet myBull in bullets){
 		draw(myBull);
@@ -413,7 +409,7 @@ bool MyModel::DrawGLSceneGame(void){
 	}
 
 	draw(spaceship);
-
+	
 
 	/*//  Some text
 	glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix

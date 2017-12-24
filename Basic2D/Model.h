@@ -51,7 +51,7 @@ class MyModel {
 		std::vector<Bullet> bullets;
 		Spaceship spaceship;
 		
-		bool isGame = false;
+		bool isGame = true;
 		//livello di difficolta del gioco
 		double diff ;
 		//punteggio del gioco
@@ -110,10 +110,11 @@ class MyModel {
 			Background.push_back(Vertex(1980,   60, -5,   0, 0, 1,   1, 0));*/
 
 			Background.clear();
-			Background.push_back(Vertex(-1, -1, -5, 0, 0, 1, 0, 0));
-			Background.push_back(Vertex(-1, 1, -5, 0, 0, 1, 0, 1));
-			Background.push_back(Vertex(1, 1, -5, 0, 0, 1, 1, 1));
-			Background.push_back(Vertex(1, -1, -5, 0, 0, 1, 1, 0));
+
+			Background.push_back(Vertex(MIN_BACK_X / MIN_VIS_X, MIN_BACK_Y / MIN_VIS_Y, BACK_Z, 0, 0, 1, 0, 0));
+			Background.push_back(Vertex(MIN_BACK_X / MIN_VIS_X, MAX_BACK_Y / MAX_VIS_Y, BACK_Z, 0, 0, 1, 0, 1));
+			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_X, MAX_BACK_Y / MAX_VIS_Y, BACK_Z, 0, 0, 1, 1, 1));
+			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_X, MIN_BACK_Y / MIN_VIS_Y, BACK_Z, 0, 0, 1, 1, 0));
 			
 			//creo una navicella
 			this->spaceship = Spaceship();
