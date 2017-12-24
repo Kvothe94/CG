@@ -222,7 +222,7 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(anAsteroid.getShape()[i].getU(), anAsteroid.getShape()[i].getV());
-				glVertex3f(anAsteroid.getShape()[i].getX(), anAsteroid.getShape()[i].getY(), anAsteroid.getShape()[i].getZ());
+				glVertex3f(anAsteroid.getShape()[i].getX() / MAX_VIS_X, anAsteroid.getShape()[i].getY() / MAX_VIS_Y, anAsteroid.getShape()[i].getZ());
 			}
 			glEnd();
 			glDisable(GL_BLEND);
@@ -244,7 +244,7 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(aBullet.getShape()[i].getU(), aBullet.getShape()[i].getV());
-				glVertex3f(aBullet.getShape()[i].getX(), aBullet.getShape()[i].getY(), aBullet.getShape()[i].getZ());
+				glVertex3f(aBullet.getShape()[i].getX() / MAX_VIS_X, aBullet.getShape()[i].getY() / MAX_VIS_Y, aBullet.getShape()[i].getZ());
 			}
 			glEnd();
 			glDisable(GL_BLEND);
@@ -294,7 +294,7 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(aSpaceship.getShape()[i].getU(), aSpaceship.getShape()[i].getV());
-				glVertex3f(aSpaceship.getShape()[i].getX(), aSpaceship.getShape()[i].getY(), aSpaceship.getShape()[i].getZ());
+				glVertex3f(aSpaceship.getShape()[i].getX() / MAX_VIS_X, aSpaceship.getShape()[i].getY() / MAX_VIS_Y, aSpaceship.getShape()[i].getZ());
 			}
 			glEnd();
 			glDisable(GL_BLEND);

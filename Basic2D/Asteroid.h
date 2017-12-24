@@ -119,6 +119,7 @@ class Asteroid {
 			length = l;
 			width = w;
 			toDestroy = false;
+			hitten = false;
 
 			//Definiamo i vertici dell'asteroide utilizzando
 			//larghezza e lunghezza
@@ -181,6 +182,7 @@ class Asteroid {
 			speedY = sign * difficulty * (AST_BASE_SPEED_Y + (rand() % int(AST_SPAN_SPEED_Y * difficulty)));
 
 			toDestroy = false;
+			hitten = false;
 
 			//Definiamo i vertici dell'asteroide utilizzando
 			//larghezza e lunghezza
