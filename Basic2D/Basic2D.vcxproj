@@ -70,6 +70,7 @@
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="audiere.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="SOIL.h" />

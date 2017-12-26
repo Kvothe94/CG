@@ -24,7 +24,7 @@
 #include "Bullet.h"
 #include "Vertex.h"
 #include "Constant.h"
-
+#include "Button.h"
 
 
 class MyModel {
@@ -49,9 +49,10 @@ class MyModel {
 		
 		std::vector<Asteroid> asteroids;
 		std::vector<Bullet> bullets;
+		std::vector<Button> buttons;
 		Spaceship spaceship;
 		
-		bool isGame = true;
+		bool isGame = false;
 		//livello di difficolta del gioco
 		double diff ;
 		//punteggio del gioco
@@ -86,10 +87,7 @@ class MyModel {
 		GLuint spaceshipExplosionTextures[17];
 		GLuint asteroidExplosionTextures[17];
 		
-		GLuint menuCreditsTexture[2];
-		GLuint menuOptionsTexture[2];
-		GLuint menuPlayTexture[2];
-		GLuint menuExitTexture[2];
+		GLuint menuTexture[3][2];
 		
 	public:
 	//  methods
@@ -115,6 +113,11 @@ class MyModel {
 			Background.push_back(Vertex(MIN_BACK_X / MIN_VIS_X, MAX_BACK_Y / MAX_VIS_Y, BACK_Z, 0, 0, 1, 0, 1));
 			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_X, MAX_BACK_Y / MAX_VIS_Y, BACK_Z, 0, 0, 1, 1, 1));
 			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_X, MIN_BACK_Y / MIN_VIS_Y, BACK_Z, 0, 0, 1, 1, 0));
+
+			buttons.clear();
+			for (int i = 0; i < 3; i++) {
+				buttons.push_back(Button(i));
+			}
 			
 			//creo una navicella
 			this->spaceship = Spaceship();
@@ -295,6 +298,28 @@ class MyModel {
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(aSpaceship.getShape()[i].getU(), aSpaceship.getShape()[i].getV());
 				glVertex3f(aSpaceship.getShape()[i].getX() / MAX_VIS_X, aSpaceship.getShape()[i].getY() / MAX_VIS_Y, aSpaceship.getShape()[i].getZ());
+			}
+			glEnd();
+			glDisable(GL_BLEND);
+			glDisable(GL_ALPHA_TEST);
+
+		}
+
+		void draw(Button aButton) {
+
+			///TO SEE da vedere se in ogni draw dobbiamo fare la
+			///glEnable(GL_TEXTURE_2D); oppure se basta farla nel model
+			///quando iniziamo a disegnare la scena in generale.
+			glBindTexture(GL_TEXTURE_2D, this->menuTexture[aButton.getType()][aButton.getPressed()]);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(GL_ALPHA_TEST);
+			glAlphaFunc(GL_GREATER, 0);
+
+			glBegin(GL_QUADS);
+			for (int i = 0; i < 4; i++) {
+				glTexCoord2f(aButton.getShape()[i].getU(), aButton.getShape()[i].getV());
+				glVertex3f(aButton.getShape()[i].getX() / MAX_VIS_X, aButton.getShape()[i].getY() / MAX_VIS_Y, aButton.getShape()[i].getZ());
 			}
 			glEnd();
 			glDisable(GL_BLEND);

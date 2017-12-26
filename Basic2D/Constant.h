@@ -34,12 +34,20 @@
 
 #define BACK_Z -5
 
+//Menù Constant Definition
+#define BUTTON_LENGTH 16*25
+#define BUTTON_WIDTH 9*20
+#define BUTTON_HEIGHT -4
+#define BUTTON_DISTANCE ((MAX_VIS_X - MIN_VIS_X) - BUTTON_LENGTH * 3) / 4
+#define BUTTON_PLAY 0
+#define BUTTON_OPTIONS 1
+#define BUTTON_EXIT 2
 
 //Bullet Constant Definition
 
 #define BULLET_SPEED 16			    //Velocità del proiettile lungo le x
 #define BULLET_LENGTH 16*10				//Lunghezza del proiettile (x)
-#define BULLET_WIDTH 9					//Larghezza del proiettile (y)
+#define BULLET_WIDTH 9*5					//Larghezza del proiettile (y)
 #define BULLET_HEIGHT -4							//Altezza del proiettile (z)
 
 //Asteroid Constant Definition

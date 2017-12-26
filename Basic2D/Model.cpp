@@ -129,44 +129,34 @@ bool MyModel::LoadGLTextures(void) {
 
 	}
 
-	menuCreditsTexture[0] = SOIL_load_OGL_texture("../Data/Menu_Screen/credits.png",
+	menuTexture[1][0] = SOIL_load_OGL_texture("../Data/Menu_Screen/options.png",
 		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-	if (menuCreditsTexture[0] == 0)
+	if (menuTexture[1][0] == 0)
 		return false;
 
-	menuCreditsTexture[1] = SOIL_load_OGL_texture("../Data/Menu_Screen/credits_pressed.png",
+	menuTexture[1][1] = SOIL_load_OGL_texture("../Data/Menu_Screen/options_pressed.png",
 		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-	if (menuCreditsTexture[1] == 0)
+	if (menuTexture[1][1] == 0)
 		return false;
 
-	menuOptionsTexture[0] = SOIL_load_OGL_texture("../Data/Menu_Screen/options.png",
+	menuTexture[0][0] = SOIL_load_OGL_texture("../Data/Menu_Screen/play.png",
 		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-	if (menuOptionsTexture[0] == 0)
+	if (menuTexture[0][0] == 0)
 		return false;
 
-	menuOptionsTexture[1] = SOIL_load_OGL_texture("../Data/Menu_Screen/options_pressed.png",
+	menuTexture[0][1] = SOIL_load_OGL_texture("../Data/Menu_Screen/play_pressed.png",
 		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-	if (menuOptionsTexture[1] == 0)
+	if (menuTexture[0][1] == 0)
 		return false;
 
-	menuPlayTexture[0] = SOIL_load_OGL_texture("../Data/Menu_Screen/play.png",
+	menuTexture[2][0] = SOIL_load_OGL_texture("../Data/Menu_Screen/exit.png",
 		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-	if (menuPlayTexture[0] == 0)
+	if (menuTexture[2][0] == 0)
 		return false;
 
-	menuPlayTexture[1] = SOIL_load_OGL_texture("../Data/Menu_Screen/play_pressed.png",
+	menuTexture[2][1] = SOIL_load_OGL_texture("../Data/Menu_Screen/exit_pressed.png",
 		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-	if (menuPlayTexture[1] == 0)
-		return false;
-
-	menuExitTexture[0] = SOIL_load_OGL_texture("../Data/Menu_Screen/exit.png",
-		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-	if (menuExitTexture[0] == 0)
-		return false;
-
-	menuExitTexture[1] = SOIL_load_OGL_texture("../Data/Menu_Screen/exit_pressed.png",
-		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-	if (menuExitTexture[1] == 0)
+	if (menuTexture[2][1] == 0)
 		return false;
 	
 	return true;										// Return Success
@@ -350,16 +340,21 @@ bool MyModel::DrawGLSceneInit(void)
 	this->Tstamp = t;
 	//  TIMING - end
 
+	//  Background
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, backgroundTexture);
 
-	//  Background
 	glBegin(GL_QUADS);
 	for (int i = 0; i < 4; i++) {
 		glTexCoord2f(Background[i].getU(), Background[i].getV());
 		glVertex3f(Background[i].getX(), Background[i].getY(), Background[i].getZ());
 	}
 	glEnd();
+
+	//Buttons
+	for each (Button aButton in buttons){
+		draw(aButton);
+	}
 
 	return true;
 
