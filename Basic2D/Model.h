@@ -52,7 +52,7 @@ class MyModel {
 		std::vector<Button> buttons;
 		Spaceship spaceship;
 		
-		bool isGame = false;
+		bool isGame = true;
 		//livello di difficolta del gioco
 		double diff ;
 		//punteggio del gioco
