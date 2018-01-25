@@ -42,6 +42,7 @@ class MyModel {
 		bool captured;        // true if the mouse is captured
 		int cx, cy;           // client position of the cursor
 		bool	fullscreen;	    // Fullscreen Flag 
+		
 		////////////////////////////
 	
 		GLuint	base;						// Base Display List For The Font Set
@@ -57,6 +58,7 @@ class MyModel {
 		double diff ;
 		//punteggio del gioco
 		int score ;
+		float tdist;
 		//tempo dopo il quale creo un nuovo asteroide
 		double astnew;
 		//tempo dopo il quale sparo di nuovo
@@ -106,14 +108,11 @@ class MyModel {
 
 			Background.clear();
 			
-			/*Background.push_back(Vertex(MIN_BACK_X / MIN_VIS_X, MIN_BACK_Y / MIN_VIS_Y, BACK_Z, 0, 0, 1, 0, 0));
-			Background.push_back(Vertex(MIN_BACK_X / MIN_VIS_X, MAX_BACK_Y / MAX_VIS_Y, BACK_Z, 0, 0, 1, 0, 1));
-			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_X, MAX_BACK_Y / MAX_VIS_Y, BACK_Z, 0, 0, 1, 1, 1));
-			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_X, MIN_BACK_Y / MIN_VIS_Y, BACK_Z, 0, 0, 1, 1, 0));*/
-			Background.push_back(Vertex( MIN_VIS_X,  MIN_VIS_Y, BACK_Z, 0, 0, 1, 0, 0));
-			Background.push_back(Vertex( MIN_VIS_X,  MAX_VIS_Y, BACK_Z, 0, 0, 1, 0, 1));
-			Background.push_back(Vertex( MAX_VIS_X,  MAX_VIS_Y, BACK_Z, 0, 0, 1, 1, 1));
-			Background.push_back(Vertex( MAX_VIS_X, MIN_VIS_Y, BACK_Z, 0, 0, 1, 1, 0));
+			Background.push_back(Vertex(MIN_BACK_X / MIN_VIS_XG, MIN_BACK_Y / MIN_VIS_YG, BACK_Z, 0, 0, 1, 0, 0));
+			Background.push_back(Vertex(MIN_BACK_X / MIN_VIS_XG, MAX_BACK_Y / MAX_VIS_YG, BACK_Z, 0, 0, 1, 0, 1));
+			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_XG, MAX_BACK_Y / MAX_VIS_YG, BACK_Z, 0, 0, 1, 1, 1));
+			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_XG, MIN_BACK_Y / MIN_VIS_YG, BACK_Z, 0, 0, 1, 1, 0));
+			
 
 			buttons.clear();
 			for (int i = 0; i < 3; i++) {
@@ -172,6 +171,8 @@ class MyModel {
 		bool LoadGLTextures(void);
 		void BuildFont(void);
 		void KillFont(void);
+		Vertex Adapter(Vertex);
+
 		
 		//  Conversion from pixel distance to float X and Y distance questa si adatta alla dim della finestra 
 		//TO SEE gestione diensione finestra tagliata è nel 3d labirinto 
@@ -226,7 +227,7 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(anAsteroid.getShape()[i].getU(), anAsteroid.getShape()[i].getV());
-				glVertex3f(anAsteroid.getShape()[i].getX() / MAX_VIS_X, anAsteroid.getShape()[i].getY() / MAX_VIS_Y, anAsteroid.getShape()[i].getZ());
+				glVertex3f((this->Adapter(anAsteroid.getShape()[i])).getX() / MAX_VIS_XG, (this->Adapter(anAsteroid.getShape()[i])).getY() / MAX_VIS_YG, anAsteroid.getShape()[i].getZ());
 			}
 			glEnd();
 			glDisable(GL_BLEND);
@@ -248,7 +249,7 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(aBullet.getShape()[i].getU(), aBullet.getShape()[i].getV());
-				glVertex3f(aBullet.getShape()[i].getX() / MAX_VIS_X, aBullet.getShape()[i].getY() / MAX_VIS_Y, aBullet.getShape()[i].getZ());
+				glVertex3f((this->Adapter(aBullet.getShape()[i])).getX() / MAX_VIS_XG, (this->Adapter(aBullet.getShape()[i])).getY() / MAX_VIS_YG, aBullet.getShape()[i].getZ());
 			}
 			glEnd();
 			glDisable(GL_BLEND);
@@ -298,7 +299,7 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(aSpaceship.getShape()[i].getU(), aSpaceship.getShape()[i].getV());
-				glVertex3f( aSpaceship.getShape()[i].getY() / MAX_VIS_Y, aSpaceship.getShape()[i].getX() / MAX_VIS_X, aSpaceship.getShape()[i].getZ());
+				glVertex3f((this->Adapter(aSpaceship.getShape()[i])).getY() / MAX_VIS_YG, (this->Adapter(aSpaceship.getShape()[i])).getX() / MAX_VIS_XG, aSpaceship.getShape()[i].getZ());
 				
 			}
 			glEnd();
@@ -321,7 +322,7 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(aButton.getShape()[i].getU(), aButton.getShape()[i].getV());
-				glVertex3f(aButton.getShape()[i].getX() / MAX_VIS_X, aButton.getShape()[i].getY() / MAX_VIS_Y, aButton.getShape()[i].getZ());
+				glVertex3f((this->Adapter(aButton.getShape()[i])).getX() / MAX_VIS_XG, (this->Adapter(aButton.getShape()[i])).getY() / MAX_VIS_YG, aButton.getShape()[i].getZ());
 			}
 			glEnd();
 			glDisable(GL_BLEND);

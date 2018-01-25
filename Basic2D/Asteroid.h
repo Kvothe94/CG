@@ -49,7 +49,7 @@ class Asteroid {
 		//Aanswer per cosa la vuoi usare io forse la terrei per far si che 
 		//l'esplosione sia visibile per qualche ciclo tipo 1 o 2 e poi eliminerei il tutto?? 
 		//che ne dici?
-		double hittingTime;
+		int hittingTime;
 
 		//Variabile che, qualora settata a true, indica
 		//che l'oggetto non deve essere più disegnato e

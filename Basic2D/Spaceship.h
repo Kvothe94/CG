@@ -47,7 +47,7 @@ class Spaceship {
 		bool hitten;
 
 		//Variabile che memorizza il tempo a cui il 
-		double hittingTime;
+		int hittingTime;
 
 		
 		bool toDestroy;
@@ -69,23 +69,22 @@ class Spaceship {
 		/*METHODS*/
 
 		Spaceship() {
-
+			length = SS_LENGTH;
+			width = SS_WIDTH;
 			float x, y, z;
-			/*x = MIN_VIS_X + length / 2;
-			y = (MAX_VIS_Y - MIN_VIS_Y) / 2;
-*/	
+			x = (MAX_VIS_Y - MIN_VIS_Y) / 2;
+			y = MIN_VIS_Y + length ;
+			
 			//TO SEE perche laltezza?
-			x = 0;
-			y = 0;
+			
 			z = SS_HEIGHT;
 
 			center = Vertex(x, y, z);
-			baseSpeedY = SS_BASE_SPEED;
+			baseSpeedY = 0;
 
 			///TO SEE Invece che il raggio ho messo length e width
 			///       in modo da poter mettere astronavi non quadrate.
-			length = SS_LENGTH;
-			width = SS_WIDTH;
+			
 			toDestroy = false;
 
 			//Definiamo i vertici dell'astronave utilizzando

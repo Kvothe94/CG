@@ -6,12 +6,17 @@
 
 //Space Limit Constant Definition
 
-#define MAX_VIS_X 1920				//Massima punto visibile lungo le x
+#define MAX_VIS_XG 960				//Massima punto visibile lungo le x
+#define MAX_VIS_YG 540				//Massimo punto visibile lungo le y
+
+#define MIN_VIS_XG -960			//Minimo punto visibile lungo le x
+#define MIN_VIS_YG -540			//Minimo punto visibile lungo le y
+//Costanti realta logica
+#define MAX_VIS_X 1920			//Massima punto visibile lungo le x
 #define MAX_VIS_Y 1080				//Massimo punto visibile lungo le y
 
-#define MIN_VIS_X 0				//Minimo punto visibile lungo le x
-#define MIN_VIS_Y 0			//Minimo punto visibile lungo le y
-
+#define MIN_VIS_X 0			//Minimo punto visibile lungo le x
+#define MIN_VIS_Y 0	
 //Camera Constant Definition
 #define EYE_X 0
 #define EYE_Y 0
@@ -73,3 +78,6 @@
 #define START_GAME 10
 //Scalability constant about asteroid creation time
 #define TIME_SCALE 10
+
+// tempo dopo il quale passo da hit a destroy
+#define HT 10000

@@ -203,10 +203,11 @@ float MyModel::Distance(Vertex a, Vertex b){
 }
 bool MyModel::Hit(Vertex a, float al, float aw, Vertex b, float bl, float bw){
 	//considero un raggio medio per fare la hit mi sembra la cosa più sensata 
-	float ra = (al + aw) / 2;
-	float rb = (bl + bw) / 2;
+	float ra = (al + aw) / 4;
+	float rb = (bl + bw) / 4;
 	float dist = Distance(a, b);
-	if (ra + rb <= dist){
+	
+	if (ra + rb >= dist){
 		return true;
 	}
 	else{
@@ -236,9 +237,12 @@ bool MyModel::CheckGame(){
 			//Cosa da fare nel caso di colpito navicella con asteroide
 			this->spaceship.setHitten(true);
 			this->asteroids[j].setHitten(true);
+
+		
 		}
 	}
 	//controllo gli outofboundaries
+	
 	//3 Asteroide che va fuori
 	for (int j = 0; j < this->asteroids.size(); j++){
 		if (this->asteroids[j].getToDestroy()){
@@ -252,6 +256,22 @@ bool MyModel::CheckGame(){
 			this->bullets.erase(bullets.begin() + j);
 		}
 	}
+	// TO see qui avevo provato a fare il to destroy ma penso ci sia qualcosa nella grafica che non funge perche ciocca
+	////controllo le destroy
+	//for (int j = 0; j < this->asteroids.size(); j++){
+	//	if (this->asteroids[j].getHitten()){
+	//		this->asteroids[j].hittingTime = this->asteroids[j].hittingTime - 1;
+	//		if (this->asteroids[j].hittingTime <= 0){
+	//			this->asteroids[j].setToDestroy(true);
+	//		}
+	//	}
+	//}
+	//if (this->spaceship.getHitten()){
+	//	this->spaceship.hittingTime = this->spaceship.hittingTime - 1;
+	//	if (this->spaceship.hittingTime <= 0){
+	//		this->spaceship.setToDestroy(true);
+	//	}
+	//}
 
 	return true;
 
@@ -304,7 +324,7 @@ bool MyModel::ComputeMovements(double elapsed){
 bool MyModel :: Play(double elapsed){
 	this->KeyCheck();
 	this->ComputeMovements(elapsed);
-	//this->CheckGame();
+	this->CheckGame();
 	this->DoGame(elapsed);
 	return true;
 
@@ -317,6 +337,12 @@ bool MyModel::DoGame(double elapsed){
 		this->astnew = (rand()%1000)*(TIME_SCALE/ diff);
 	}
 	return true;
+
+}
+Vertex MyModel::Adapter(Vertex v){
+	v.setX(v.getX() - 960);
+	v.setY(v.getY() - 540);
+	return v;
 
 }
 bool MyModel::DrawGLSceneInit(void)									
@@ -407,7 +433,7 @@ bool MyModel::DrawGLSceneGame(void){
 
 	draw(spaceship);
 	
-
+	
 	/*//  Some text
 	glMatrixMode(GL_MODELVIEW);				// Select The Modelview Matrix
 	glLoadIdentity();									// Reset The Current Modelview Matrix
