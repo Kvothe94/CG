@@ -171,6 +171,7 @@ bool MyModel::Run(void){
 	double elapsed = double(t - Tstamp) / (double)CLOCKS_PER_SEC;
 
 	// elapsed time in milliseconds from the last draw
+
 	int ms_elapsed = (int)(t - Tstamp);
 	if (ms_elapsed < 10) {
 		 return true;
@@ -185,7 +186,6 @@ bool MyModel::Run(void){
 	//controllo sul flag
 	if (this->isGame){
 		this->Play(ms_elapsed);
-		this->DoGame(elapsed);
 		this->DrawGLSceneGame();
 	}
 	else{
@@ -262,16 +262,17 @@ bool MyModel::KeyCheck(){
 	if (Data.keys[VK_SPACE]){
 		
 		this->bullets.push_back(Bullet(this->spaceship.getCenter().getX() + (this->spaceship.getLength() / 2), this->spaceship.getCenter().getX(),0,BULLET_SPEED,BULLET_LENGTH,BULLET_WIDTH));
+		Data.keys[VK_SPACE] = false;
+
 		
 	}
 	if (Data.keys[VK_UP]){
 		this->spaceship.setBaseSpeedY(+SS_BASE_SPEED);
-		
+		Data.keys[VK_UP] = false;
 	}
 	if (Data.keys[VK_DOWN]){
 		this->spaceship.setBaseSpeedY(-SS_BASE_SPEED);
-			//ricorda di mettere a false i tasti
-		
+		Data.keys[VK_DOWN] = false;
 	}
 	//da inserire eventuali altri comandi 
 	//ricorda di mettere a false i tasti
@@ -280,6 +281,7 @@ bool MyModel::KeyCheck(){
 }
 bool MyModel::ComputeMovements(double elapsed){
 	//muovo la navicella
+	elapsed = elapsed / 100;
 	this->spaceship.move(elapsed);
 	//muovo gli asteroidi
 	for (int i = 0; i < this->asteroids.size(); i++){
@@ -302,17 +304,17 @@ bool MyModel::ComputeMovements(double elapsed){
 bool MyModel :: Play(double elapsed){
 	this->KeyCheck();
 	this->ComputeMovements(elapsed);
-	this->CheckGame();
+	//this->CheckGame();
 	this->DoGame(elapsed);
 	return true;
 
 }
 
 bool MyModel::DoGame(double elapsed){
-	int temp = this->astnew - elapsed;
-	if (temp <= 0){
+	this->astnew= this->astnew - elapsed;
+	if (this->astnew <= 0){
 		this->asteroids.push_back(Asteroid(this->diff));
-		this->astnew = (rand() / RAND_MAX)*(TIME_SCALE/ diff);
+		this->astnew = (rand()%1000)*(TIME_SCALE/ diff);
 	}
 	return true;
 
@@ -365,22 +367,22 @@ bool MyModel::DrawGLSceneGame(void){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
 	glMatrixMode(GL_MODELVIEW);								// Select The Modelview Matrix
 	glLoadIdentity();										// Reset The View
+	//TO SEE questo lo ho commentato non so xke lo avessi lasciato guido non serve a niente
+	////  TIMING - start
+	//clock_t t = clock();
 
-	//  TIMING - start
-	clock_t t = clock();
+	//// elapsed time in seconds from the last draw
+	//double elapsed = double(t - Tstamp) / (double)CLOCKS_PER_SEC;
 
-	// elapsed time in seconds from the last draw
-	double elapsed = double(t - Tstamp) / (double)CLOCKS_PER_SEC;
+	//// elapsed time in milliseconds from the last draw
+	//int ms_elapsed = (int)(t - Tstamp);
 
-	// elapsed time in milliseconds from the last draw
-	int ms_elapsed = (int)(t - Tstamp);
+	//// elapsed time in seconds from the beginning of the program
+	//this->fullElapsed = double(t - Tstart) / (double)CLOCKS_PER_SEC;
+	//this->frameTime += double(t - Tstamp) / (double)CLOCKS_PER_SEC;
 
-	// elapsed time in seconds from the beginning of the program
-	this->fullElapsed = double(t - Tstart) / (double)CLOCKS_PER_SEC;
-	this->frameTime += double(t - Tstamp) / (double)CLOCKS_PER_SEC;
-
-	this->Tstamp = t;
-	//  TIMING - end
+	//this->Tstamp = t;
+	////  TIMING - end
 
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, backgroundTexture);

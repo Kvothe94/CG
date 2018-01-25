@@ -102,17 +102,18 @@ class MyModel {
 			//TO ASK PROF
 			//queste sono le stesse del prof non le ho toccate poi andranno gestite meglio per questione resize
 			/*Background.clear();
-			Background.push_back(Vertex(60,     60, -5,   0, 0, 1,   0, 0));
-			Background.push_back(Vertex(60,   1140, -5,   0, 0, 1,   0, 1));
-			Background.push_back(Vertex(1980, 1140, -5,   0, 0, 1,   1, 1));
-			Background.push_back(Vertex(1980,   60, -5,   0, 0, 1,   1, 0));*/
+			*/
 
 			Background.clear();
-
-			Background.push_back(Vertex(MIN_BACK_X / MIN_VIS_X, MIN_BACK_Y / MIN_VIS_Y, BACK_Z, 0, 0, 1, 0, 0));
+			
+			/*Background.push_back(Vertex(MIN_BACK_X / MIN_VIS_X, MIN_BACK_Y / MIN_VIS_Y, BACK_Z, 0, 0, 1, 0, 0));
 			Background.push_back(Vertex(MIN_BACK_X / MIN_VIS_X, MAX_BACK_Y / MAX_VIS_Y, BACK_Z, 0, 0, 1, 0, 1));
 			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_X, MAX_BACK_Y / MAX_VIS_Y, BACK_Z, 0, 0, 1, 1, 1));
-			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_X, MIN_BACK_Y / MIN_VIS_Y, BACK_Z, 0, 0, 1, 1, 0));
+			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_X, MIN_BACK_Y / MIN_VIS_Y, BACK_Z, 0, 0, 1, 1, 0));*/
+			Background.push_back(Vertex( MIN_VIS_X,  MIN_VIS_Y, BACK_Z, 0, 0, 1, 0, 0));
+			Background.push_back(Vertex( MIN_VIS_X,  MAX_VIS_Y, BACK_Z, 0, 0, 1, 0, 1));
+			Background.push_back(Vertex( MAX_VIS_X,  MAX_VIS_Y, BACK_Z, 0, 0, 1, 1, 1));
+			Background.push_back(Vertex( MAX_VIS_X, MIN_VIS_Y, BACK_Z, 0, 0, 1, 1, 0));
 
 			buttons.clear();
 			for (int i = 0; i < 3; i++) {
@@ -126,7 +127,7 @@ class MyModel {
 			///        se c'è una funzione che chiamiamo ogni volta per la gestione
 			///        del gioco probabilmente lo creerei lì insieme ai bullet etc.
 			// Answer forse hai ragione potrebbe essere una cosa sensata
-			this->asteroids.push_back(Asteroid(diff));
+			//this->asteroids.push_back(Asteroid(diff));
 
 			this->Tstart = this->Tstamp = clock();
 			this->fullElapsed = 0;
@@ -139,11 +140,11 @@ class MyModel {
 		}
 
 		inline bool IsInClient(int x, int y) {
-		
-			if( x >= 0 && x < Wwidth && y >= 0 && y < Wheight ) return true;
+
+			if (x >= 0 && x < Wwidth && y >= 0 && y < Wheight) return true;
 			return false;
-		
 		}
+		
 		//le due funzioni di draw in base a in quale modalità sono: game o schermata iniziale
 		bool DrawGLSceneGame(void);
 		bool DrawGLSceneInit(void);
@@ -166,7 +167,7 @@ class MyModel {
 		void ReSizeGLScene(int width, int height);
 		void glPrint(const char *fmt, ...);			// Custom GL "Print" Routine
 
-	private:
+		private:
 		
 		bool LoadGLTextures(void);
 		void BuildFont(void);
@@ -297,7 +298,8 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(aSpaceship.getShape()[i].getU(), aSpaceship.getShape()[i].getV());
-				glVertex3f(aSpaceship.getShape()[i].getX() / MAX_VIS_X, aSpaceship.getShape()[i].getY() / MAX_VIS_Y, aSpaceship.getShape()[i].getZ());
+				glVertex3f( aSpaceship.getShape()[i].getY() / MAX_VIS_Y, aSpaceship.getShape()[i].getX() / MAX_VIS_X, aSpaceship.getShape()[i].getZ());
+				
 			}
 			glEnd();
 			glDisable(GL_BLEND);

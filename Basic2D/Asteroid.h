@@ -147,7 +147,7 @@ class Asteroid {
 			//Non randomizzo la posizione della coordinata x del centro in quanto
 			//vogliamo che l'asteroide venga generato in fondo alla mappa fuori
 			//dalla zona di visibilità.
-			x = MAX_VIS_X + length / 2;
+			x = MAX_VIS_X - length / 2;
 			
 			//Il calcolo della coordinata y è randomizzato in modo tale che l'asteroide
 			//venga generato completamente all'interno della zona di visibilità della Y.

@@ -71,9 +71,12 @@ class Spaceship {
 		Spaceship() {
 
 			float x, y, z;
-			x = MIN_VIS_X + length / 2;
+			/*x = MIN_VIS_X + length / 2;
 			y = (MAX_VIS_Y - MIN_VIS_Y) / 2;
+*/	
 			//TO SEE perche laltezza?
+			x = 0;
+			y = 0;
 			z = SS_HEIGHT;
 
 			center = Vertex(x, y, z);
