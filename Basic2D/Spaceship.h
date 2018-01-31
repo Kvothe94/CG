@@ -87,8 +87,7 @@ class Spaceship {
 			
 			toDestroy = false;
 
-			//Definiamo i vertici dell'astronave utilizzando
-			//larghezza e lunghezza
+			
 			shape.push_back(Vertex(x + length / 2, y + width / 2, z, 0, 0, 1, 1, 1));
 			shape.push_back(Vertex(x + length / 2, y - width / 2, z, 0, 0, 1, 1, 0));
 			shape.push_back(Vertex(x - length / 2, y - width / 2, z, 0, 0, 1, 0, 0));

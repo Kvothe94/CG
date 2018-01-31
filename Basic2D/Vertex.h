@@ -4,10 +4,10 @@ class Vertex {
 
 	private:
 
-		float x, y, z;			//Cartesian Coordinates.
-		float nX, nY, nZ;		//Vertex normal.
-		float u, v;				//Texture Coordinates.
-		float r, g, b;			//Color.
+		float x, y, z;			//Cartesian Coordinates
+		float nX, nY, nZ;		//Vertex normal
+		float u, v;				//Texture Coordinates
+		float r, g, b;			//Color
 
 	public:
 

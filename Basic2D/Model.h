@@ -30,7 +30,7 @@
 class MyModel {
 
 	public:
-	//  general data for window and input controls
+	
 		HDC			hDC;		        // Private GDI Device Context
 		HGLRC		hRC;		        // Permanent Rendering Context
 		HWND		hWnd;		        // Holds Our Window Handle

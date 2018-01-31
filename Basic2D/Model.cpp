@@ -203,6 +203,8 @@ float MyModel::Distance(Vertex a, Vertex b){
 }
 bool MyModel::Hit(Vertex a, float al, float aw, Vertex b, float bl, float bw){
 	//considero un raggio medio per fare la hit mi sembra la cosa più sensata 
+	//divido per 4 per avere una cosa più sensata dal punto di vista grafico cioè
+	//sottopeso un po i colpi cosi non rischio di avere sateroidi che esplodono senza tocare
 	float ra = (al + aw) / 4;
 	float rb = (bl + bw) / 4;
 	float dist = Distance(a, b);
