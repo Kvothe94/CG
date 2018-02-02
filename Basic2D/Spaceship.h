@@ -211,9 +211,10 @@ class Spaceship {
 			
 			if (!this->outOfBoundaries(elapsed)) {
 
-				center.modifyP(0, baseSpeedY*elapsed);
+				center.modifyP(baseSpeedY*elapsed, 0);
 				for (int i = 0; i < shape.size(); i++)
-					center.modifyP(0, baseSpeedY*elapsed);
+					shape[i].modifyP(baseSpeedY*elapsed, 0);
+				
 
 			}
 			this->baseSpeedY = 0;

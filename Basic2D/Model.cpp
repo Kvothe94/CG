@@ -227,7 +227,9 @@ bool MyModel::CheckGame(){
 			if (Hit(this->asteroids[i].getCenter(), this->asteroids[i].getLength(), this->asteroids[i].getWidth(), this->bullets[k].getCenter(), this->bullets[k].getLength(), this->bullets[k].getWidth())){
 				//qui vanno messe le azioni da fare nel caso di colpito asteroide proiettile
 				this->asteroids[i].setHitten(true);
+				this->asteroids[i].setHittingTime(this->fullElapsed);
 				this->bullets.erase(bullets.begin() + k);
+				this->asteroids[i].setToDestroy(true);
 
 			}
 		}
@@ -237,8 +239,13 @@ bool MyModel::CheckGame(){
 		if (Hit(this->spaceship.getCenter(), this->spaceship.getLength(), this->spaceship.getWidth(), this->asteroids[j].getCenter(), this->asteroids[j].getLength(), this->asteroids[j].getWidth()
 			)){
 			//Cosa da fare nel caso di colpito navicella con asteroide
+			this->spaceship.setToDestroy(true);
+			this->asteroids[j].setToDestroy(true);
+
 			this->spaceship.setHitten(true);
+			this->spaceship.setHittingTime(this->fullElapsed);
 			this->asteroids[j].setHitten(true);
+			this->asteroids[j].setHittingTime(this->fullElapsed);
 
 		
 		}
@@ -258,22 +265,9 @@ bool MyModel::CheckGame(){
 			this->bullets.erase(bullets.begin() + j);
 		}
 	}
-	// TO see qui avevo provato a fare il to destroy ma penso ci sia qualcosa nella grafica che non funge perche ciocca
-	////controllo le destroy
-	//for (int j = 0; j < this->asteroids.size(); j++){
-	//	if (this->asteroids[j].getHitten()){
-	//		this->asteroids[j].hittingTime = this->asteroids[j].hittingTime - 1;
-	//		if (this->asteroids[j].hittingTime <= 0){
-	//			this->asteroids[j].setToDestroy(true);
-	//		}
-	//	}
-	//}
-	//if (this->spaceship.getHitten()){
-	//	this->spaceship.hittingTime = this->spaceship.hittingTime - 1;
-	//	if (this->spaceship.hittingTime <= 0){
-	//		this->spaceship.setToDestroy(true);
-	//	}
-	//}
+	
+	if (this->spaceship.getToDestroy())
+		this->isGame = false;
 
 	return true;
 
@@ -283,18 +277,19 @@ bool MyModel::CheckGame(){
 bool MyModel::KeyCheck(){
 	if (Data.keys[VK_SPACE]){
 		
-		this->bullets.push_back(Bullet(this->spaceship.getCenter().getX() + (this->spaceship.getLength() / 2), this->spaceship.getCenter().getX(),0,BULLET_SPEED,BULLET_LENGTH,BULLET_WIDTH));
+		Bullet auxBullet = Bullet(this->spaceship.getCenter().getX(), this->spaceship.getCenter().getX() + (this->spaceship.getLength() / 2), BULLET_HEIGHT, BULLET_SPEED, BULLET_LENGTH, BULLET_WIDTH);
+		this->bullets.push_back(auxBullet);
 		Data.keys[VK_SPACE] = false;
 
 		
 	}
 	if (Data.keys[VK_UP]){
 		this->spaceship.setBaseSpeedY(+SS_BASE_SPEED);
-		Data.keys[VK_UP] = false;
+		//Data.keys[VK_UP] = false;
 	}
 	if (Data.keys[VK_DOWN]){
 		this->spaceship.setBaseSpeedY(-SS_BASE_SPEED);
-		Data.keys[VK_DOWN] = false;
+		//Data.keys[VK_DOWN] = false;
 	}
 	//da inserire eventuali altri comandi 
 	//ricorda di mettere a false i tasti
