@@ -11,6 +11,7 @@
 
 #define MIN_VIS_XG -960			//Minimo punto visibile lungo le x
 #define MIN_VIS_YG -540			//Minimo punto visibile lungo le y
+
 //Costanti realta logica
 #define MAX_VIS_X 1920			//Massima punto visibile lungo le x
 #define MAX_VIS_Y 1080				//Massimo punto visibile lungo le y
@@ -51,8 +52,8 @@
 //Bullet Constant Definition
 
 #define BULLET_SPEED 16			    //Velocità del proiettile lungo le x
-#define BULLET_LENGTH 16				//Lunghezza del proiettile (x)
-#define BULLET_WIDTH 9					//Larghezza del proiettile (y)
+#define BULLET_LENGTH 16 * 5				//Lunghezza del proiettile (x)
+#define BULLET_WIDTH 9 * 5					//Larghezza del proiettile (y)
 #define BULLET_HEIGHT -4							//Altezza del proiettile (z)
 
 //Asteroid Constant Definition

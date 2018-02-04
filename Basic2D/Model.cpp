@@ -277,11 +277,10 @@ bool MyModel::CheckGame(){
 bool MyModel::KeyCheck(){
 	if (Data.keys[VK_SPACE]){
 		
-		Bullet auxBullet = Bullet(this->spaceship.getCenter().getX(), this->spaceship.getCenter().getX() + (this->spaceship.getLength() / 2), BULLET_HEIGHT, BULLET_SPEED, BULLET_LENGTH, BULLET_WIDTH);
+		Bullet auxBullet = Bullet(this->spaceship.getCenter().getX(), this->spaceship.getCenter().getY(), BULLET_HEIGHT, BULLET_SPEED, BULLET_LENGTH, BULLET_WIDTH);
 		this->bullets.push_back(auxBullet);
 		Data.keys[VK_SPACE] = false;
 
-		
 	}
 	if (Data.keys[VK_UP]){
 		this->spaceship.setBaseSpeedY(+SS_BASE_SPEED);
@@ -337,9 +336,11 @@ bool MyModel::DoGame(double elapsed){
 
 }
 Vertex MyModel::Adapter(Vertex v){
-	v.setX(v.getX() - 960);
-	v.setY(v.getY() - 540);
-	return v;
+	Vertex aux;
+	aux.setX(v.getX() - 960);
+	aux.setY(v.getY() - 540);
+	aux.setZ(v.getZ());
+	return aux;
 
 }
 bool MyModel::DrawGLSceneInit(void)									

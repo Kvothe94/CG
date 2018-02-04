@@ -227,7 +227,7 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(anAsteroid.getShape()[i].getU(), anAsteroid.getShape()[i].getV());
-				glVertex3f((this->Adapter(anAsteroid.getShape()[i])).getX() / MAX_VIS_XG, (this->Adapter(anAsteroid.getShape()[i])).getY() / MAX_VIS_YG, anAsteroid.getShape()[i].getZ());
+				glVertex3f(this->Adapter(anAsteroid.getShape()[i]).getX() / MAX_VIS_XG, this->Adapter(anAsteroid.getShape()[i]).getY() / MAX_VIS_YG, anAsteroid.getShape()[i].getZ());
 			}
 			glEnd();
 			glDisable(GL_BLEND);
@@ -249,7 +249,7 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(aBullet.getShape()[i].getU(), aBullet.getShape()[i].getV());
-				glVertex3f((this->Adapter(aBullet.getShape()[i])).getX() / MAX_VIS_XG, (this->Adapter(aBullet.getShape()[i])).getY() / MAX_VIS_YG, aBullet.getShape()[i].getZ());
+				glVertex3f((this->Adapter(aBullet.getShape()[i]).getX() + this->spaceship.getLength() / 2) / MAX_VIS_XG, this->Adapter(aBullet.getShape()[i]).getY() / MAX_VIS_YG, aBullet.getShape()[i].getZ());
 			}
 			glEnd();
 			glDisable(GL_BLEND);
@@ -299,7 +299,7 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(aSpaceship.getShape()[i].getU(), aSpaceship.getShape()[i].getV());
-				glVertex3f((this->Adapter(aSpaceship.getShape()[i])).getY() / MAX_VIS_YG, (this->Adapter(aSpaceship.getShape()[i])).getX() / MAX_VIS_XG, aSpaceship.getShape()[i].getZ());
+				glVertex3f(this->Adapter(aSpaceship.getShape()[i]).getX() / MAX_VIS_XG, this->Adapter(aSpaceship.getShape()[i]).getY() / MAX_VIS_YG, aSpaceship.getShape()[i].getZ());
 				
 			}
 			glEnd();
@@ -322,7 +322,7 @@ class MyModel {
 			glBegin(GL_QUADS);
 			for (int i = 0; i < 4; i++) {
 				glTexCoord2f(aButton.getShape()[i].getU(), aButton.getShape()[i].getV());
-				glVertex3f((this->Adapter(aButton.getShape()[i])).getX() / MAX_VIS_XG, (this->Adapter(aButton.getShape()[i])).getY() / MAX_VIS_YG, aButton.getShape()[i].getZ());
+				glVertex3f(aButton.getShape()[i].getX() / MAX_VIS_XG, aButton.getShape()[i].getY() / MAX_VIS_YG, aButton.getShape()[i].getZ());
 			}
 			glEnd();
 			glDisable(GL_BLEND);

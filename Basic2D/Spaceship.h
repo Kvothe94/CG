@@ -72,8 +72,11 @@ class Spaceship {
 			length = SS_LENGTH;
 			width = SS_WIDTH;
 			float x, y, z;
-			x = (MAX_VIS_Y - MIN_VIS_Y) / 2;
-			y = MIN_VIS_Y + length ;
+
+			/*x = (MAX_VIS_X - MIN_VIS_X) / 2;
+			y = (MAX_VIS_Y - MIN_VIS_Y) / 2;*/
+			x = MIN_VIS_X + length * 1.5;
+			y = (MAX_VIS_Y - MIN_VIS_Y) / 2;
 			
 			//TO SEE perche laltezza?
 			
@@ -211,9 +214,9 @@ class Spaceship {
 			
 			if (!this->outOfBoundaries(elapsed)) {
 
-				center.modifyP(baseSpeedY*elapsed, 0);
+				center.modifyP(0, baseSpeedY*elapsed);
 				for (int i = 0; i < shape.size(); i++)
-					shape[i].modifyP(baseSpeedY*elapsed, 0);
+					shape[i].modifyP(0, baseSpeedY*elapsed);
 				
 
 			}
