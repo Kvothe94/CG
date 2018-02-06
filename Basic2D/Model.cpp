@@ -190,6 +190,7 @@ bool MyModel::Run(void){
 	}
 	else{
 		this->DrawGLSceneInit();
+		this->KeyCheck();
 	}
 
 	return true;
@@ -229,7 +230,7 @@ bool MyModel::CheckGame(){
 				this->asteroids[i].setHitten(true);
 				this->asteroids[i].setHittingTime(this->fullElapsed);
 				this->bullets.erase(bullets.begin() + k);
-				this->asteroids[i].setToDestroy(true);
+				//this->asteroids[i].setToDestroy(true);
 
 			}
 		}
@@ -239,8 +240,8 @@ bool MyModel::CheckGame(){
 		if (Hit(this->spaceship.getCenter(), this->spaceship.getLength(), this->spaceship.getWidth(), this->asteroids[j].getCenter(), this->asteroids[j].getLength(), this->asteroids[j].getWidth()
 			)){
 			//Cosa da fare nel caso di colpito navicella con asteroide
-			this->spaceship.setToDestroy(true);
-			this->asteroids[j].setToDestroy(true);
+			//this->spaceship.setToDestroy(true);
+			//this->asteroids[j].setToDestroy(true);
 
 			this->spaceship.setHitten(true);
 			this->spaceship.setHittingTime(this->fullElapsed);
@@ -290,6 +291,17 @@ bool MyModel::KeyCheck(){
 		this->spaceship.setBaseSpeedY(-SS_BASE_SPEED);
 		//Data.keys[VK_DOWN] = false;
 	}
+	if (Data.keys[VK_RETURN]) {
+		if (this->isGame == false)
+			this->isGame = true;
+		Data.keys[VK_RETURN] = false;
+	}
+	if (Data.keys[VK_TAB]) {
+		if (this->isGame)
+			this->isGame = false;
+		Data.keys[VK_TAB] = false;
+	}
+
 	//da inserire eventuali altri comandi 
 	//ricorda di mettere a false i tasti
 	return true;
