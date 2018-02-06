@@ -25,6 +25,8 @@
 #include "Vertex.h"
 #include "Constant.h"
 #include "Button.h"
+#include "audiere.h"
+using namespace audiere;
 
 
 class MyModel {
@@ -148,13 +150,13 @@ class MyModel {
 		bool DrawGLSceneGame(void);
 		bool DrawGLSceneInit(void);
 		//funzione nella quale scelgo cosa fare in base al flag isGame che seleziona la modalita
-		bool Run();
+		bool Run(OutputStreamPtr shoot);
 		//funzione gioco al suo interno richiama 
-		bool Play(double elapsed);
+		bool Play(double elapsed, OutputStreamPtr shoot);
 		//calcola la distanza tra due vertici utile per la hit
 		float Distance(Vertex a, Vertex b);
 		//controllo imput tastiera ed eventuali azioni seguenti come modifiche di velocita e creazione nuovi bullet
-		bool KeyCheck();
+		bool KeyCheck(OutputStreamPtr shoot);
 		//sposto le cose in base alla equa spazio=velocita*tempo cioè s=vel*elapsed
 		bool ComputeMovements(double elapsed);
 		//funzione che fa tutti i check per quanto riguarda scontri esplosioni morti punteggi etc

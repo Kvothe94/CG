@@ -362,13 +362,16 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
   if (!device) {
     return 0;         // failure
   }
-  OutputStreamPtr stream(OpenSound(device, "../Data/Sound/music.mp3", true));
+  
+  OutputStreamPtr stream(OpenSound(device, "../Data/Sound/alien_spaceship_atmosphere.mp3", true));
   if (!stream) {
     return 0;         // failure
   }
   stream->setRepeat(true);
   stream->setVolume(0.5f); // 50% volume
   stream->play();
+  OutputStreamPtr shoot(OpenSound(device, "../Data/shoot.wav", false));
+ 
   ///TO SEE music qui va gestita con sound manca nella cartella data la roba relativa a il sottofondo
 
   //  AUDIO - end
@@ -390,7 +393,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 		else										// If There Are No Messages
 		{
 			// Draw The Scene.  Watch For ESC Key And Quit Messages From DrawGLScene()
-			if ((Data.active && !Data.Run()) || Data.keys[VK_ESCAPE])	// Active?  Was There A Quit Received?
+			if ((Data.active && !Data.Run(shoot)) || Data.keys[VK_ESCAPE])	// Active?  Was There A Quit Received?
 			{
 				done=TRUE;							// ESC or DrawGLScene Signalled A Quit
 			}
@@ -398,7 +401,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 			{
 				SwapBuffers(Data.hDC);					// Swap Buffers (Double Buffering)
 			}
-
+			
       //  Removed the F1 key: no fullscreen!
       /*
 			if (Data.keys[VK_F1])						// Is F1 Being Pressed?

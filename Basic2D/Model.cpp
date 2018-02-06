@@ -11,6 +11,8 @@
 
 #include "Model.h"
 #include "SOIL.h"
+#include "audiere.h"
+using namespace audiere;
 
 // All Setup For OpenGL Goes Here
 bool MyModel::InitGL(void){
@@ -163,7 +165,7 @@ bool MyModel::LoadGLTextures(void) {
 }
 
 
-bool MyModel::Run(void){
+bool MyModel::Run(OutputStreamPtr shoot){
 	//  TIMING - start
 	clock_t t = clock();
 
@@ -185,12 +187,12 @@ bool MyModel::Run(void){
 	//  TIMING - end
 	//controllo sul flag
 	if (this->isGame){
-		this->Play(ms_elapsed);
+		this->Play(ms_elapsed,shoot);
 		this->DrawGLSceneGame();
 	}
 	else{
 		this->DrawGLSceneInit();
-		this->KeyCheck();
+		this->KeyCheck(shoot);
 	}
 
 	return true;
@@ -275,11 +277,19 @@ bool MyModel::CheckGame(){
 }
 
 
-bool MyModel::KeyCheck(){
+bool MyModel::KeyCheck(OutputStreamPtr shoot){
 	if (Data.keys[VK_SPACE]){
-		
+
 		Bullet auxBullet = Bullet(this->spaceship.getCenter().getX(), this->spaceship.getCenter().getY(), BULLET_HEIGHT, BULLET_SPEED, BULLET_LENGTH, BULLET_WIDTH);
 		this->bullets.push_back(auxBullet);
+		
+		//TOO see guido non capisco xke ho fatto come il prof pero qui mi non funziona perche shoot risulta essere un puntatore vuoto a null
+
+		/*if (shoot->isPlaying()){
+			shoot->reset();
+		}
+		else shoot->play();
+	*/
 		Data.keys[VK_SPACE] = false;
 
 	}
@@ -296,11 +306,36 @@ bool MyModel::KeyCheck(){
 			this->isGame = true;
 		Data.keys[VK_RETURN] = false;
 	}
+
+
 	if (Data.keys[VK_TAB]) {
 		if (this->isGame)
 			this->isGame = false;
 		Data.keys[VK_TAB] = false;
 	}
+
+	if (Data.keys[VK_F1]){
+		if (!this->isGame){
+			this->diff = 1;
+		}
+		Data.keys[VK_F1] = false;
+	}
+
+	if (Data.keys[VK_F2]){
+		if (!this->isGame){
+			this->diff = 2;
+		}
+		Data.keys[VK_F2] = false;
+	}
+
+	if (Data.keys[VK_F3]){
+		if (!this->isGame){
+			this->diff = 3;
+		}
+		Data.keys[VK_F3] = false;
+	}
+	
+	
 
 	//da inserire eventuali altri comandi 
 	//ricorda di mettere a false i tasti
@@ -329,8 +364,8 @@ bool MyModel::ComputeMovements(double elapsed){
 	return true;
 }
 
-bool MyModel :: Play(double elapsed){
-	this->KeyCheck();
+bool MyModel::Play(double elapsed, OutputStreamPtr shoot){
+	this->KeyCheck(shoot);
 	this->ComputeMovements(elapsed);
 	this->CheckGame();
 	this->DoGame(elapsed);
