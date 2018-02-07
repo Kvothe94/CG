@@ -314,25 +314,25 @@ bool MyModel::KeyCheck(OutputStreamPtr shoot){
 		Data.keys[VK_TAB] = false;
 	}
 
-	if (Data.keys[VK_F1]){
+	if (Data.keys[0x31]){
 		if (!this->isGame){
 			this->diff = 1;
 		}
-		Data.keys[VK_F1] = false;
+		Data.keys[0x31] = false;
 	}
 
-	if (Data.keys[VK_F2]){
+	if (Data.keys[0x32]){
 		if (!this->isGame){
 			this->diff = 2;
 		}
-		Data.keys[VK_F2] = false;
+		Data.keys[0x32] = false;
 	}
 
-	if (Data.keys[VK_F3]){
+	if (Data.keys[0x33]){
 		if (!this->isGame){
 			this->diff = 3;
 		}
-		Data.keys[VK_F3] = false;
+		Data.keys[0x33] = false;
 	}
 	
 	
