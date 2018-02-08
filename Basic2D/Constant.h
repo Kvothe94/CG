@@ -51,9 +51,9 @@
 
 //Bullet Constant Definition
 
-#define BULLET_SPEED 16			    //Velocità del proiettile lungo le x
-#define BULLET_LENGTH 16 * 5				//Lunghezza del proiettile (x)
-#define BULLET_WIDTH 9 * 5					//Larghezza del proiettile (y)
+#define BULLET_SPEED 50			    //Velocità del proiettile lungo le x
+#define BULLET_LENGTH 16 * 10				//Lunghezza del proiettile (x)
+#define BULLET_WIDTH 9 * 10					//Larghezza del proiettile (y)
 #define BULLET_HEIGHT -4							//Altezza del proiettile (z)
 
 //Asteroid Constant Definition
@@ -62,17 +62,17 @@
 #define AST_SPAN_SPEED_X 5
 #define AST_BASE_SPEED_Y 0
 #define AST_SPAN_SPEED_Y 2
-#define AST_MAX_LENGTH 50*2
-#define AST_MAX_WIDTH 30*2
-#define AST_MIN_LENGTH 50
-#define AST_MIN_WIDTH 30
+#define AST_MAX_LENGTH 50*5
+#define AST_MAX_WIDTH 30*5
+#define AST_MIN_LENGTH 50*2
+#define AST_MIN_WIDTH 30*2
 #define AST_HEIGHT -4
 
 //Spaceship Constant Definition
 
-#define SS_BASE_SPEED 10
-#define SS_LENGTH 16*10
-#define SS_WIDTH 9*10
+#define SS_BASE_SPEED 20
+#define SS_LENGTH 16*15
+#define SS_WIDTH 9*15
 #define SS_HEIGHT -4
 
 //Latency before firts asteroid
@@ -81,4 +81,4 @@
 #define TIME_SCALE 10
 
 // tempo dopo il quale passo da hit a destroy
-#define HT 10000
+#define HT 1

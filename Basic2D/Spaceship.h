@@ -149,6 +149,10 @@ class Spaceship {
 			this->texture = texture;
 		}
 
+		void setExplosionTexture(int explosionTexture) {
+			this->explosionTexture = explosionTexture;
+		}
+
 		//GET METHODS
 
 		float getBaseSpeedY() {
@@ -185,6 +189,10 @@ class Spaceship {
 
 		int getTexture() {
 			return texture;
+		}
+
+		int getExplosionTexture() {
+			return explosionTexture;
 		}
 
 		//Funzione per verificare se la navicella esce dalla zona di visibilità

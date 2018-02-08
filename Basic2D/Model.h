@@ -83,6 +83,7 @@ class MyModel {
 		double fullElapsed;  // elapsed time in seconds from the beginning of the program
 
 		GLuint backgroundTexture;
+		GLuint backgroundTextureMenu;
 		GLuint bulletTexture;
 		
 		GLuint spaceshipTextures[5];
@@ -150,17 +151,17 @@ class MyModel {
 		bool DrawGLSceneGame(void);
 		bool DrawGLSceneInit(void);
 		//funzione nella quale scelgo cosa fare in base al flag isGame che seleziona la modalita
-		bool Run(OutputStreamPtr shoot);
+		bool Run(OutputStreamPtr shoot, OutputStreamPtr explode);
 		//funzione gioco al suo interno richiama 
-		bool Play(double elapsed, OutputStreamPtr shoot);
+		bool Play(double elapsed, OutputStreamPtr shoot, OutputStreamPtr explode);
 		//calcola la distanza tra due vertici utile per la hit
 		float Distance(Vertex a, Vertex b);
 		//controllo imput tastiera ed eventuali azioni seguenti come modifiche di velocita e creazione nuovi bullet
-		bool KeyCheck(OutputStreamPtr shoot);
+		bool KeyCheck(OutputStreamPtr shoot, OutputStreamPtr explode);
 		//sposto le cose in base alla equa spazio=velocita*tempo cioè s=vel*elapsed
 		bool ComputeMovements(double elapsed);
 		//funzione che fa tutti i check per quanto riguarda scontri esplosioni morti punteggi etc
-		bool CheckGame();
+		bool CheckGame(OutputStreamPtr explode);
 		//funzione che crea asteroidi
 		bool DoGame(double elapsed);
 		bool Hit(Vertex a, float al, float aw, Vertex b, float bl, float bw);
@@ -203,13 +204,20 @@ class MyModel {
 			///quando iniziamo a disegnare la scena in generale.
 			if (anAsteroid.getHitten() && !anAsteroid.getToDestroy()) {
 
-				///TO SEE: te lo hai capito questo algoritmo?
-				//Answer mi sembra sia quello per ciclare in modo ciclico su 17 immagini con l'index
+				/*if (anAsteroid.getExplosionTexture() == 16) {
+					anAsteroid.setToDestroy(true);
+					glBindTexture(GL_TEXTURE_2D, this->asteroidExplosionTextures[anAsteroid.getExplosionTexture()]);
+				}
+				else {
+					glBindTexture(GL_TEXTURE_2D, this->asteroidExplosionTextures[anAsteroid.getExplosionTexture()]);
+					anAsteroid.setExplosionTexture(anAsteroid.getExplosionTexture() + 1);
+				}*/
+
+
+				
 				int index = (int((this->fullElapsed - anAsteroid.getHittingTime()) * 20)) % 17;
 				glBindTexture(GL_TEXTURE_2D, this->asteroidExplosionTextures[index]);
 
-				//Se abbiamo finito di disegnare l'esplosione dobbiamo eliminare l'
-				//oggetto.
 				if (index == 16)
 					anAsteroid.setToDestroy(true);
 
@@ -266,12 +274,18 @@ class MyModel {
 			///quando iniziamo a disegnare la scena in generale.
 			if (aSpaceship.getHitten() && !aSpaceship.getToDestroy()) {
 
-				///TO SEE: te lo hai capito questo algoritmo?
+				/*if (aSpaceship.getExplosionTexture() == 16) {
+					aSpaceship.setToDestroy(true);
+					glBindTexture(GL_TEXTURE_2D, this->spaceshipExplosionTextures[aSpaceship.getExplosionTexture()]);
+				}
+				else {
+					glBindTexture(GL_TEXTURE_2D, this->spaceshipExplosionTextures[aSpaceship.getExplosionTexture()]);
+					aSpaceship.setExplosionTexture(aSpaceship.getExplosionTexture() + 1);
+				}*/
+
 				int index = (int((this->fullElapsed - aSpaceship.getHittingTime()) * 20)) % 17;
 				glBindTexture(GL_TEXTURE_2D, this->spaceshipExplosionTextures[index]);
 
-				//Se abbiamo finito di disegnare l'esplosione dobbiamo eliminare l'
-				//oggetto.
 				if (index == 16)
 					aSpaceship.setToDestroy(true);
 

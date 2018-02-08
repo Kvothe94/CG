@@ -352,7 +352,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
   Data.fullscreen=false;  // removed the boring request...
 
 	// Create Our OpenGL Window
-	if (!CreateGLWindow("Basic 2D game skeleton",640,480,16,Data.fullscreen))
+	if (!CreateGLWindow("Basic 2D game skeleton",640, 640,16,Data.fullscreen))
 	{
 		return 0;									// Quit If Window Was Not Created
 	}
@@ -363,14 +363,23 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
     return 0;         // failure
   }
   
-  OutputStreamPtr stream(OpenSound(device, "../Data/Sound/alien_spaceship_atmosphere.mp3", true));
+  OutputStreamPtr stream(OpenSound(device, "../Data/Sound/soundtrack-cut.wav", true));
   if (!stream) {
     return 0;         // failure
   }
   stream->setRepeat(true);
-  stream->setVolume(0.5f); // 50% volume
+  stream->setVolume(1.0f); // 50% volume
   stream->play();
-  OutputStreamPtr shoot(OpenSound(device, "../Data/shoot.wav", false));
+
+  OutputStreamPtr shoot(OpenSound(device, "../Data/Sound/Lasers/Flash-laser-03.wav", false));
+  if (!shoot) {
+	  return 0;
+  }
+
+  OutputStreamPtr explode(OpenSound(device, "../Data/Sound/explosion.wav", false));
+  if (!explode) {
+	  return 0;
+  }
  
   ///TO SEE music qui va gestita con sound manca nella cartella data la roba relativa a il sottofondo
 
@@ -393,7 +402,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 		else										// If There Are No Messages
 		{
 			// Draw The Scene.  Watch For ESC Key And Quit Messages From DrawGLScene()
-			if ((Data.active && !Data.Run(shoot)) || Data.keys[VK_ESCAPE])	// Active?  Was There A Quit Received?
+			if ((Data.active && !Data.Run(shoot, explode)) || Data.keys[VK_ESCAPE])	// Active?  Was There A Quit Received?
 			{
 				done=TRUE;							// ESC or DrawGLScene Signalled A Quit
 			}
@@ -401,6 +410,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 			{
 				SwapBuffers(Data.hDC);					// Swap Buffers (Double Buffering)
 			}
+
 			
       //  Removed the F1 key: no fullscreen!
       /*

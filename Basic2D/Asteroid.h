@@ -131,6 +131,7 @@ class Asteroid {
 			//Scegliamo quale delle 4 texture usare randomicamente,
 			//in modo da dare varianza all'aspetto degli asteroidi.
 			texture = rand() % 4;
+			explosionTexture = 0;
 
 		}
 
@@ -194,6 +195,7 @@ class Asteroid {
 			//Scegliamo quale delle 4 texture usare randomicamente,
 			//in modo da dare varianza all'aspetto degli asteroidi.
 			texture = rand() % 4;
+			explosionTexture = 0;
 			
 		}
 
@@ -302,7 +304,7 @@ class Asteroid {
 			return texture;
 		}
 
-		int setExplosionTexture() {
+		int getExplosionTexture() {
 			return explosionTexture;
 		}
 

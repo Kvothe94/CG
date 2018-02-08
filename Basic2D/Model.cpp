@@ -87,6 +87,12 @@ bool MyModel::LoadGLTextures(void) {
 	if (backgroundTexture == 0)
 		return false;
 
+	backgroundTextureMenu = SOIL_load_OGL_texture("../Data/Backgrounds/background-modified.jpg",
+		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+
+	if (backgroundTextureMenu == 0)
+		return false;
+
 	bulletTexture = SOIL_load_OGL_texture("../Data/Spaceship/bullet.png",
 		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 
@@ -165,7 +171,7 @@ bool MyModel::LoadGLTextures(void) {
 }
 
 
-bool MyModel::Run(OutputStreamPtr shoot){
+bool MyModel::Run(OutputStreamPtr shoot, OutputStreamPtr explode){
 	//  TIMING - start
 	clock_t t = clock();
 
@@ -187,12 +193,12 @@ bool MyModel::Run(OutputStreamPtr shoot){
 	//  TIMING - end
 	//controllo sul flag
 	if (this->isGame){
-		this->Play(ms_elapsed,shoot);
+		this->Play(ms_elapsed,shoot, explode);
 		this->DrawGLSceneGame();
 	}
 	else{
 		this->DrawGLSceneInit();
-		this->KeyCheck(shoot);
+		this->KeyCheck(shoot, explode);
 	}
 
 	return true;
@@ -201,7 +207,7 @@ bool MyModel::Run(OutputStreamPtr shoot){
 
 float MyModel::Distance(Vertex a, Vertex b){
 
-	float dist = sqrt(pow(a.getX() - b.getX(), 2) + pow(a.getY() - b.getY(), 2));
+	float dist = sqrt(pow(abs(a.getX()) - abs(b.getX()), 2) + pow(abs(a.getY()) - abs(b.getY()), 2));
 	return dist;
 }
 bool MyModel::Hit(Vertex a, float al, float aw, Vertex b, float bl, float bw){
@@ -221,45 +227,72 @@ bool MyModel::Hit(Vertex a, float al, float aw, Vertex b, float bl, float bw){
 
 }
 
-bool MyModel::CheckGame(){
+bool MyModel::CheckGame(OutputStreamPtr explode){
 	//qui bisogna controllare:
 	//1 Proiettili che colpiscono asteroidi nel caso elimono asteroide e proiettile
 	for (int i = 0; i < this->asteroids.size(); i++){
 		
 		for (int k = 0; k < this->bullets.size(); k++){
-			if (Hit(this->asteroids[i].getCenter(), this->asteroids[i].getLength(), this->asteroids[i].getWidth(), this->bullets[k].getCenter(), this->bullets[k].getLength(), this->bullets[k].getWidth())){
-				//qui vanno messe le azioni da fare nel caso di colpito asteroide proiettile
-				this->asteroids[i].setHitten(true);
-				this->asteroids[i].setHittingTime(this->fullElapsed);
-				this->bullets.erase(bullets.begin() + k);
-				//this->asteroids[i].setToDestroy(true);
+			
+			if (!this->asteroids[i].getHitten()) {
+				if (Hit(this->asteroids[i].getCenter(), this->asteroids[i].getLength(), this->asteroids[i].getWidth(), this->bullets[k].getCenter(), this->bullets[k].getLength(), this->bullets[k].getWidth())) {
+					//qui vanno messe le azioni da fare nel caso di colpito asteroide proiettile
+					this->asteroids[i].setHitten(true);
+					this->asteroids[i].setHittingTime(this->fullElapsed);
+					this->bullets.erase(bullets.begin() + k);
+					//this->asteroids[i].setToDestroy(true);
+					if (explode->isPlaying()) {
+						explode->reset();
+					}
+					else explode->play();
 
+				}
 			}
+			
 		}
 	}
 	//2 Asteroidi che colpiscono navetta
 	for (int j = 0; j < this->asteroids.size(); j++){
-		if (Hit(this->spaceship.getCenter(), this->spaceship.getLength(), this->spaceship.getWidth(), this->asteroids[j].getCenter(), this->asteroids[j].getLength(), this->asteroids[j].getWidth()
-			)){
-			//Cosa da fare nel caso di colpito navicella con asteroide
-			//this->spaceship.setToDestroy(true);
-			//this->asteroids[j].setToDestroy(true);
-
-			this->spaceship.setHitten(true);
-			this->spaceship.setHittingTime(this->fullElapsed);
-			this->asteroids[j].setHitten(true);
-			this->asteroids[j].setHittingTime(this->fullElapsed);
-
 		
+		if (!(this->asteroids[j].getHitten() || this->spaceship.getHitten())) {
+			
+			if (Hit(this->spaceship.getCenter(), this->spaceship.getLength(), this->spaceship.getWidth(), this->asteroids[j].getCenter(), this->asteroids[j].getLength(), this->asteroids[j].getWidth()
+			)) {
+				//Cosa da fare nel caso di colpito navicella con asteroide
+				//this->spaceship.setToDestroy(true);
+				//this->asteroids[j].setToDestroy(true);
+
+				this->spaceship.setHitten(true);
+				this->spaceship.setHittingTime(this->fullElapsed);
+				this->asteroids[j].setHitten(true);
+				this->asteroids[j].setHittingTime(this->fullElapsed);
+				if (explode->isPlaying()) {
+					explode->reset();
+				}
+				else explode->play();
+
+
+			}
+
 		}
+
 	}
 	//controllo gli outofboundaries
 	
 	//3 Asteroide che va fuori
 	for (int j = 0; j < this->asteroids.size(); j++){
+		
+		if (this->asteroids[j].getHitten()) {
+			if (this->fullElapsed - this->asteroids[j].getHittingTime() >= HT) {
+				this->asteroids[j].setToDestroy(true);
+			}
+		}
+		
+
 		if (this->asteroids[j].getToDestroy()){
 			this->asteroids.erase(asteroids.begin() + j);
 		}
+
 	}
 
 	//4 Proiettile che va fuori
@@ -268,6 +301,13 @@ bool MyModel::CheckGame(){
 			this->bullets.erase(bullets.begin() + j);
 		}
 	}
+
+	if (this->spaceship.getHitten()) {
+		if (this->fullElapsed - this->spaceship.getHittingTime() >= HT) {
+			this->spaceship.setToDestroy(true);
+		}
+	}
+	
 	
 	if (this->spaceship.getToDestroy())
 		this->isGame = false;
@@ -277,7 +317,7 @@ bool MyModel::CheckGame(){
 }
 
 
-bool MyModel::KeyCheck(OutputStreamPtr shoot){
+bool MyModel::KeyCheck(OutputStreamPtr shoot, OutputStreamPtr explode){
 	if (Data.keys[VK_SPACE]){
 
 		Bullet auxBullet = Bullet(this->spaceship.getCenter().getX(), this->spaceship.getCenter().getY(), BULLET_HEIGHT, BULLET_SPEED, BULLET_LENGTH, BULLET_WIDTH);
@@ -285,11 +325,11 @@ bool MyModel::KeyCheck(OutputStreamPtr shoot){
 		
 		//TOO see guido non capisco xke ho fatto come il prof pero qui mi non funziona perche shoot risulta essere un puntatore vuoto a null
 
-		/*if (shoot->isPlaying()){
+		if (shoot->isPlaying()){
 			shoot->reset();
 		}
 		else shoot->play();
-	*/
+
 		Data.keys[VK_SPACE] = false;
 
 	}
@@ -364,10 +404,10 @@ bool MyModel::ComputeMovements(double elapsed){
 	return true;
 }
 
-bool MyModel::Play(double elapsed, OutputStreamPtr shoot){
-	this->KeyCheck(shoot);
+bool MyModel::Play(double elapsed, OutputStreamPtr shoot, OutputStreamPtr explode){
+	this->KeyCheck(shoot, explode);
 	this->ComputeMovements(elapsed);
-	this->CheckGame();
+	this->CheckGame(explode);
 	this->DoGame(elapsed);
 	return true;
 
@@ -415,7 +455,7 @@ bool MyModel::DrawGLSceneInit(void)
 
 	//  Background
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, backgroundTexture);
+	glBindTexture(GL_TEXTURE_2D, backgroundTextureMenu);
 
 	glBegin(GL_QUADS);
 	for (int i = 0; i < 4; i++) {
@@ -476,7 +516,7 @@ bool MyModel::DrawGLSceneGame(void){
 		draw(myAst);
 	}
 
-	draw(spaceship);
+	draw(this->spaceship);
 	
 	
 	/*//  Some text
