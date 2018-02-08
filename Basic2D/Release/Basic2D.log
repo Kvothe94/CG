@@ -1,4 +1,27 @@
-﻿  main.cpp
+﻿  Model.cpp
+d:\documenti\code\github\cg\basic2d\Asteroid.h(143): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(144): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(247): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(350): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Asteroid.h(351): warning C4018: '<': signed/unsigned mismatch
+d:\documenti\code\github\cg\basic2d\Asteroid.h(352): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Spaceship.h(78): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Spaceship.h(141): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\documenti\code\github\cg\basic2d\Spaceship.h(225): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Spaceship.h(226): warning C4018: '<': signed/unsigned mismatch
+d:\documenti\code\github\cg\basic2d\Spaceship.h(227): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Bullet.h(165): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\documenti\code\github\cg\basic2d\Bullet.h(166): warning C4018: '<': signed/unsigned mismatch
+d:\documenti\code\github\cg\basic2d\Bullet.h(167): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Model.cpp(233): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(235): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(255): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(283): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(299): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(390): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(397): warning C4018: '<': signed/unsigned mismatch
+Model.cpp(419): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  main.cpp
 d:\documenti\code\github\cg\basic2d\Asteroid.h(143): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 d:\documenti\code\github\cg\basic2d\Asteroid.h(144): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 d:\documenti\code\github\cg\basic2d\Asteroid.h(247): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
@@ -17,9 +40,9 @@ main.cpp(213): warning C4838: conversion from 'int' to 'BYTE' requires a narrowi
 SOIL.lib(SOIL.obj) : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
 LINK : warning LNK4098: defaultlib 'MSVCRTD' conflicts with use of other libs; use /NODEFAULTLIB:library
   Generating code
-  2 of 421 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+  1 of 421 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'D:\Documenti\Code\GitHub\CG\Release\vc100.pdb'; linking object as if no debug info
 SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'D:\Documenti\Code\GitHub\CG\Release\vc100.pdb'; linking object as if no debug info

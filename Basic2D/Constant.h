@@ -81,4 +81,4 @@
 #define TIME_SCALE 10
 
 // tempo dopo il quale passo da hit a destroy
-#define HT 1
+#define HT 1.5

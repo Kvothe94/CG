@@ -75,7 +75,7 @@ class Spaceship {
 
 			/*x = (MAX_VIS_X - MIN_VIS_X) / 2;
 			y = (MAX_VIS_Y - MIN_VIS_Y) / 2;*/
-			x = MIN_VIS_X + length * 1.5;
+			x = MIN_VIS_X + length * 0.8;
 			y = (MAX_VIS_Y - MIN_VIS_Y) / 2;
 			
 			//TO SEE perche laltezza?
