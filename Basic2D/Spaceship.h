@@ -209,7 +209,7 @@ class Spaceship {
 			//up ci indica se il movimento è positivo lungo le y o negativo.
 			if (this->center.getY() + baseSpeedY*elapsed > MAX_VIS_Y)
 				return true;
-			else if (this->center.getY() - baseSpeedY*elapsed < MIN_VIS_Y)
+			else if (this->center.getY() + baseSpeedY*elapsed < MIN_VIS_Y)
 				return true;
 			else
 				return false;

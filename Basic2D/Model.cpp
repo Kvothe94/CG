@@ -199,6 +199,7 @@ bool MyModel::Run(OutputStreamPtr shoot, OutputStreamPtr explode){
 	else{
 		this->DrawGLSceneInit();
 		this->KeyCheck(shoot, explode);
+		this->CheckGame(explode);
 	}
 
 	return true;
@@ -309,8 +310,14 @@ bool MyModel::CheckGame(OutputStreamPtr explode){
 	}
 	
 	
-	if (this->spaceship.getToDestroy())
+	if (this->spaceship.getToDestroy()) {
 		this->isGame = false;
+		if (this->spaceship.getToDestroy()) {
+			this->spaceship = Spaceship();
+			this->asteroids.clear();
+			this->bullets.clear();
+		}
+	}
 
 	return true;
 
