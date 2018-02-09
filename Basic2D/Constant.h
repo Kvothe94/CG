@@ -82,3 +82,14 @@
 
 // tempo dopo il quale passo da hit a destroy
 #define HT 1.5
+
+// Costanti barre:
+#define BAR_Z -3
+#define R_BAR_X MAX_BACK_X - 280
+#define R_BAR_Y MAX_BACK_Y - 100
+#define G_BAR_X MAX_BACK_X - 280
+#define G_BAR_Y MAX_BACK_Y - 50
+#define R_BAR_LENGTH 450
+#define R_BAR_WIDTH 40
+#define G_BAR_LENGTH 150
+#define G_BAR_WIDTH 50

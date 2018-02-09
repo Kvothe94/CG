@@ -49,7 +49,9 @@ class MyModel {
 	
 		GLuint	base;						// Base Display List For The Font Set
 		std::vector<Vertex> Background;     // background				
-		
+		std::vector<Vertex> redBar;
+		std::vector<Vertex> lifeBar;
+
 		std::vector<Asteroid> asteroids;
 		std::vector<Bullet> bullets;
 		std::vector<Button> buttons;
@@ -84,6 +86,7 @@ class MyModel {
 
 		GLuint backgroundTexture;
 		GLuint backgroundTextureMenu;
+		GLuint backgroundTextureWin;
 		GLuint bulletTexture;
 		
 		GLuint spaceshipTextures[5];
@@ -93,6 +96,12 @@ class MyModel {
 		GLuint asteroidExplosionTextures[17];
 		
 		GLuint menuTexture[3][2];
+
+		GLuint redBarTexture[16];
+		GLuint greenBarTexture[4];
+
+		int life;
+		int points;
 		
 	public:
 	//  methods
@@ -116,6 +125,18 @@ class MyModel {
 			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_XG, MAX_BACK_Y / MAX_VIS_YG, BACK_Z, 0, 0, 1, 1, 1));
 			Background.push_back(Vertex(MAX_BACK_X / MAX_VIS_XG, MIN_BACK_Y / MIN_VIS_YG, BACK_Z, 0, 0, 1, 1, 0));
 			
+			//Creazione barre:
+			redBar.clear();
+			redBar.push_back(Vertex(R_BAR_X + R_BAR_LENGTH / 2, R_BAR_Y + R_BAR_WIDTH / 2, BAR_Z, 0, 0, 1, 1, 1));
+			redBar.push_back(Vertex(R_BAR_X + R_BAR_LENGTH / 2, R_BAR_Y - R_BAR_WIDTH / 2, BAR_Z, 0, 0, 1, 1, 0));
+			redBar.push_back(Vertex(R_BAR_X - R_BAR_LENGTH / 2, R_BAR_Y - R_BAR_WIDTH / 2, BAR_Z, 0, 0, 1, 0, 0));
+			redBar.push_back(Vertex(R_BAR_X - R_BAR_LENGTH / 2, R_BAR_Y + R_BAR_WIDTH / 2, BAR_Z, 0, 0, 1, 0, 1));
+
+			lifeBar.clear();
+			lifeBar.push_back(Vertex(G_BAR_X + G_BAR_LENGTH / 2, G_BAR_Y + G_BAR_WIDTH / 2, BAR_Z, 0, 0, 1, 1, 1));
+			lifeBar.push_back(Vertex(G_BAR_X + G_BAR_LENGTH / 2, G_BAR_Y - G_BAR_WIDTH / 2, BAR_Z, 0, 0, 1, 1, 0));
+			lifeBar.push_back(Vertex(G_BAR_X - G_BAR_LENGTH / 2, G_BAR_Y - G_BAR_WIDTH / 2, BAR_Z, 0, 0, 1, 0, 0));
+			lifeBar.push_back(Vertex(G_BAR_X - G_BAR_LENGTH / 2, G_BAR_Y + G_BAR_WIDTH / 2, BAR_Z, 0, 0, 1, 0, 1));
 
 			buttons.clear();
 			for (int i = 0; i < 3; i++) {
@@ -134,6 +155,8 @@ class MyModel {
 			this->Tstart = this->Tstamp = clock();
 			this->fullElapsed = 0;
 			this->frameTime = 0;
+			this->life = 3;
+			this->points = 0;
 			
 		}
 
@@ -150,6 +173,7 @@ class MyModel {
 		//le due funzioni di draw in base a in quale modalità sono: game o schermata iniziale
 		bool DrawGLSceneGame(void);
 		bool DrawGLSceneInit(void);
+		bool DrawGLSceneWin(void);
 		//funzione nella quale scelgo cosa fare in base al flag isGame che seleziona la modalita
 		bool Run(OutputStreamPtr shoot, OutputStreamPtr explode);
 		//funzione gioco al suo interno richiama 

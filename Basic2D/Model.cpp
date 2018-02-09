@@ -93,6 +93,12 @@ bool MyModel::LoadGLTextures(void) {
 	if (backgroundTextureMenu == 0)
 		return false;
 
+	backgroundTextureWin = SOIL_load_OGL_texture("../Data/Backgrounds/background-win.jpg",
+		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+
+	if (backgroundTextureWin == 0)
+		return false;
+
 	bulletTexture = SOIL_load_OGL_texture("../Data/Spaceship/bullet.png",
 		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 
@@ -166,6 +172,26 @@ bool MyModel::LoadGLTextures(void) {
 		SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 	if (menuTexture[2][1] == 0)
 		return false;
+
+	for (int i = 0; i < 16; i++) {
+
+		sprintf(auxString, "../Data/Bars/rbar%d.png", i);
+		redBarTexture[i] = SOIL_load_OGL_texture(
+			auxString, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+		if (redBarTexture[i] == 0)
+			return false;
+
+	}
+
+	for (int i = 0; i < 4; i++) {
+
+		sprintf(auxString, "../Data/Bars/lifebar%d.png", i);
+		greenBarTexture[i] = SOIL_load_OGL_texture(
+			auxString, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+		if (greenBarTexture[i] == 0)
+			return false;
+
+	}
 	
 	return true;										// Return Success
 }
@@ -192,9 +218,13 @@ bool MyModel::Run(OutputStreamPtr shoot, OutputStreamPtr explode){
 	this->Tstamp = t;
 	//  TIMING - end
 	//controllo sul flag
-	if (this->isGame){
+	if (this->isGame && this->points < 15){
 		this->Play(ms_elapsed,shoot, explode);
 		this->DrawGLSceneGame();
+	}
+	else if (this->isGame && this->points >= 15) {
+		this->DrawGLSceneWin();
+		this->KeyCheck(shoot, explode);
 	}
 	else{
 		this->DrawGLSceneInit();
@@ -215,8 +245,8 @@ bool MyModel::Hit(Vertex a, float al, float aw, Vertex b, float bl, float bw){
 	//considero un raggio medio per fare la hit mi sembra la cosa più sensata 
 	//divido per 4 per avere una cosa più sensata dal punto di vista grafico cioè
 	//sottopeso un po i colpi cosi non rischio di avere sateroidi che esplodono senza tocare
-	float ra = (al + aw) / 13;
-	float rb = (bl + bw) / 13;
+	float ra = (al + aw) / 9;
+	float rb = (bl + bw) / 9;
 	float dist = Distance(a, b);
 	
 	if (ra + rb >= dist){
@@ -242,6 +272,9 @@ bool MyModel::CheckGame(OutputStreamPtr explode){
 					this->asteroids[i].setHittingTime(this->fullElapsed);
 					this->bullets.erase(bullets.begin() + k);
 					//this->asteroids[i].setToDestroy(true);
+					if (this->points < 15) {
+						this->points += 1;
+					}
 					if (explode->isPlaying()) {
 						explode->reset();
 					}
@@ -262,9 +295,14 @@ bool MyModel::CheckGame(OutputStreamPtr explode){
 				//Cosa da fare nel caso di colpito navicella con asteroide
 				//this->spaceship.setToDestroy(true);
 				//this->asteroids[j].setToDestroy(true);
-
-				this->spaceship.setHitten(true);
-				this->spaceship.setHittingTime(this->fullElapsed);
+				if (this->life <= 1) {
+					this->spaceship.setHitten(true);
+					this->spaceship.setHittingTime(this->fullElapsed);
+				}
+				else {
+					this->life -= 1;
+				}
+				
 				this->asteroids[j].setHitten(true);
 				this->asteroids[j].setHittingTime(this->fullElapsed);
 				if (explode->isPlaying()) {
@@ -313,9 +351,11 @@ bool MyModel::CheckGame(OutputStreamPtr explode){
 	if (this->spaceship.getToDestroy()) {
 		this->isGame = false;
 		if (this->spaceship.getToDestroy()) {
-			this->spaceship = Spaceship();
 			this->asteroids.clear();
 			this->bullets.clear();
+			this->life = 3;
+			this->points = 0;
+			this->spaceship = Spaceship();
 		}
 	}
 
@@ -480,6 +520,28 @@ bool MyModel::DrawGLSceneInit(void)
 
 }
 
+bool MyModel::DrawGLSceneWin(void)
+{
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
+	glMatrixMode(GL_MODELVIEW);								// Select The Modelview Matrix
+	glLoadIdentity();										// Reset The View
+
+	//  Background
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, backgroundTextureWin);
+
+	glBegin(GL_QUADS);
+	for (int i = 0; i < 4; i++) {
+		glTexCoord2f(Background[i].getU(), Background[i].getV());
+		glVertex3f(Background[i].getX(), Background[i].getY(), Background[i].getZ());
+	}
+	glEnd();
+
+	return true;
+
+}
+
 bool MyModel::DrawGLSceneGame(void){
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
@@ -512,6 +574,36 @@ bool MyModel::DrawGLSceneGame(void){
 		glVertex3f(Background[i].getX(), Background[i].getY(), Background[i].getZ());
 	}
 	glEnd();
+
+	//  RedBar
+	glBindTexture(GL_TEXTURE_2D, redBarTexture[this->points]);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0);
+	glBegin(GL_QUADS);
+	for (int i = 0; i < 4; i++) {
+		glTexCoord2f(redBar[i].getU(), redBar[i].getV());
+		glVertex3f(redBar[i].getX() / MAX_VIS_XG, redBar[i].getY() / MAX_VIS_YG, redBar[i].getZ());
+	}
+	glEnd();
+	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
+
+	//  LifeBar
+	glBindTexture(GL_TEXTURE_2D, greenBarTexture[this->life]);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0);
+	glBegin(GL_QUADS);
+	for (int i = 0; i < 4; i++) {
+		glTexCoord2f(lifeBar[i].getU(), lifeBar[i].getV());
+		glVertex3f(lifeBar[i].getX() / MAX_VIS_XG, lifeBar[i].getY() / MAX_VIS_YG, lifeBar[i].getZ());
+	}
+	glEnd();
+	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
 
 	
 	//Ora dobbiamo disegnare tutti i nostri oggetti:
